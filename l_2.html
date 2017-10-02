@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"></head><body>
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#550739599208643325">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3505078055675766700">Overview</a><ul><li><a href="l_1.html#290513263209247000">Conventions</a><ul><li><a href="l_1.html#3522195847565896154">Docstrings and docstample</a></li></ul></li><li><a href="l_1.html#2928676432724033225">Key concepts</a><ul><li><a href="l_1.html#2076554713171861000">Signaling errors</a></li><li><a href="l_1.html#3813453328750243431">Trait classes</a></li><li><a href="l_1.html#1375914176377055900">POSITION-MODIFICATION metaprotocol</a></li><li><a href="l_1.html#1498477031844651950">Modification Status</a></li><li><a href="l_1.html#3659395796973069400">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3650003170565663277">API Reference</a><ul><li><a href="l_2.html#2141597613137456827">Common API</a><ul><li><a href="l_2.html#554818002446217250">Generic Functions</a></li><li><a href="l_2.html#3789338485372599577">Classes</a></li><li><a href="l_2.html#4124744797648332331">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#2864334963195553254">Dictionary structures</a><ul><li><a href="l_3.html#2395499641999857900">API</a></li><li><a href="l_3.html#167020872664973925">HAMT</a></li></ul></li></ul></li></ul></div><div class="content"><div id="3650003170565663277"><h2>API Reference
+</h2><p>This section contains reference of all functions, classes and macros provided by this library to the user.</p><div id="2141597613137456827"><h3>Common API
+</h3><p>Following is the most abstract API of cl-data-structures library.</p><div id="554818002446217250"><h4>Generic Functions
+</h4><div id="783820833486455700"><h5>Query Functions
+</h5><p>Following generic functions check state of the container and are not allowed to change it.</p>Symbols in package CL-DATA-STRUCTURES:
+<div class="generic-info"><div class="doc-name">
+AT
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Obtain element stored at LOCATION in the CONTAINER.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+In case of associative containers, second value informs if LOCATION was found in the CONTAINER (first value is NIL if element was not found).
+ In case of non-associtive containers (e.g. vectors), the function returns value under LOCATION if LOCATION is valid, otherwise condition of type ARGUMENT-OUT-OF-BOUNDS will be raised.</div>
+</div><div class="generic-info"><div class="doc-name">
+SIZE
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+How many elements CONTAINER holds currently?</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+number of elements in the container.</div>
+</div><div class="generic-info"><div class="doc-name">
+MUTABLEP
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><b>Returns:</b>
+<div class="doc-paragraph">
+T if CONTAINER exposes mutable API and NIL if not.</div>
+</div><div class="generic-info"><div class="doc-name">
+TRANSACTIONALP
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><b>Returns:</b>
+<div class="doc-paragraph">
+T if CONTAINER is transactional and NIL if it is not.</div>
+</div><div class="generic-info"><div class="doc-name">
+FUNCTIONALP
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><b>Returns:</b>
+<div class="doc-paragraph">
+T if CONTAINER exposes functional API and NIL if not.</div>
+</div></div><div id="2268349898894815450"><h5>Functional modification API
+</h5>Symbols in package CL-DATA-STRUCTURES:
+<div class="generic-info"><div class="doc-name">
+INSERT
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION NEW-VALUE)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Functional API: non-destructively insert NEW-VALUE into CONTAINER at LOCATION. Will replace element value at LOCATION if it was already occupied.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>Instance of the same type as CONTAINER, with NEW-VALUE at LOCATION</li>
+<li>Modification status object.</li>
+</ol></div>
+</div><div class="generic-info"><div class="doc-name">
+ADD
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION NEW-VALUE)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Functional API: attempts to non-destructively add NEW-VALUE into CONTAINER at LOCATION. Will not replace value at LOCATION if it was already occupied.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>Instance of the same type as CONTAINER. If add took place it shall contain NEW-VALUE at LOCATION.</li>
+<li>Modification status object.</li>
+</ol></div>
+</div><div class="generic-info"><div class="doc-name">
+UPDATE
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION NEW-VALUE)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Functional API: if there is value at LOCATION in the CONTAINER, return new instance with NEW-VALUE at LOCATION.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>New container, with updated value at LOCATION if UPDATE took place</li>
+<li>Modification status object</li>
+</ol></div>
+</div><div class="generic-info"><div class="doc-name">
+ERASE
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Functional API: non-destructively remove element at LOCATION from the CONTAINER.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>Instance of the same type as CONTAINER, without value at LOCATION</li>
+<li>Modification status object.</li>
+</ol></div>
+</div></div><div id="1052308438155670475"><h5>Mutable modification API
+</h5>Symbols in package CL-DATA-STRUCTURES:
+<div class="generic-info"><div class="doc-name">
+(SETF AT)
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(NEW-VALUE CONTAINER LOCATION)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Destructively insert/replace element in the CONTAINER at LOCATION with NEW-VALUE.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>&#039;NEW-VALUE</li>
+<li>modification-status object as second value.</li>
+</ol></div>
+</div><div class="generic-info"><div class="doc-name">
+ADD!
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION NEW-VALUE)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Destructively add NEW-VALUE into CONTAINER at LOCATION. Will not replace value at LOCATION if it was already occupied.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>CONTAINER</li>
+<li>Modification status object</li>
+</ol></div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+If item was not found in the CONTAINER, destructivly transform CONTAINER.</div>
+</div><div class="generic-info"><div class="doc-name">
+UPDATE!
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION NEW-VALUE)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Mutable API: If LOCATION is taken in the CONTAINER, destructivly update it with NEW-VALUE</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>CONTAINER</li>
+<li>Modification status object</li>
+</ol></div>
+</div><div class="generic-info"><div class="doc-name">
+ERASE!
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER LOCATION)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Mutable API: destructively remove element at LOCATION from the CONTAINER.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>CONTAINER</li>
+<li>Modification status object</li>
+</ol></div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+If erase took place, destructivly transform CONTAINER.</div>
+</div></div><div id="2654110067419589679"><h5>Variants API
+</h5>Symbols in package CL-DATA-STRUCTURES:
+<div class="generic-info"><div class="doc-name">
+BECOME-FUNCTIONAL
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Transforms CONTAINER into functional variant.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+instance implementing functional API. Content of returned instance is identical to the content of input CONTAINER.</div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+<b>Notes:</b>
+<div class="doc-paragraph">
+<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>Not all containers implement this function.</li></ul></div>
+</div><div class="generic-info"><div class="doc-name">
+BECOME-MUTABLE
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Transforms CONTAINER into mutable variant.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+instance implementing mutable API. Content of returned instance is identical to the content of input CONTAINER.</div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+<b>Notes:</b>
+<div class="doc-paragraph">
+<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>Not all containers implement this function.</li></ul></div>
+</div><div class="generic-info"><div class="doc-name">
+BECOME-TRANSACTIONAL
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Transforms CONTAINER into transactional variant.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+instance implementing mutable API. Content of returned instance is identical to the content of input CONTAINER.</div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+<b>Notes:</b>
+<div class="doc-paragraph">
+<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>Not all containers implement this function.</li></ul></div>
+</div><div class="generic-info"><div class="doc-name">
+BECOME-LAZY
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(CONTAINER)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Transforms CONTAINER into lazy variant.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+instance implementing functional, lazy API. Content of returned instance is identical to the content of input CONTAINER.</div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+<b>Notes:</b>
+<div class="doc-paragraph">
+<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul></div>
+</div></div></div><div id="3789338485372599577"><h4>Classes
+</h4>Symbols in package CL-DATA-STRUCTURES:
+<div class="class-info"><div class="doc-name">
+FUNDAMENTAL-CONTAINER
+</div>
+<img src="CL-DATA-STRUCTURES-FUNDAMENTAL-CONTAINER.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Root class of containers.</div><div class="class-info"><div class="doc-name">
+FUNDAMENTAL-MODIFICATION-OPERATION-STATUS
+</div>
+<img src="CL-DATA-STRUCTURES-FUNDAMENTAL-MODIFICATION-OPERATION-STATUS.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Base class of all fundamental modification status classes.</div><div class="class-info"><div class="doc-name">
+FUNCTIONAL
+</div>
+<img src="CL-DATA-STRUCTURES-FUNCTIONAL.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Object implements functional api.</div><div class="class-info"><div class="doc-name">
+MUTABLE
+</div>
+<img src="CL-DATA-STRUCTURES-MUTABLE.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Object implements mutable api.</div><div class="class-info"><div class="doc-name">
+TRANSACTIONAL
+</div>
+<img src="CL-DATA-STRUCTURES-TRANSACTIONAL.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Object implements mutable api in transactional way.</div><div class="class-info"><div class="doc-name">
+LAZY
+</div>
+<img src="CL-DATA-STRUCTURES-LAZY.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Functional object, with lazy implementation.</div></div><div id="4124744797648332331"><h4>Conditions
+</h4><p>Cl-data-structures tries to signal only well structured errors that are possible to interpret. In order to achieve this hierarchy of condition classes is introduced. Below there is documentation explaining this.</p>Symbols in package CL-DATA-STRUCTURES:
+<div class="class-info"><div class="doc-name">
+TEXTUAL-ERROR
+</div>
+<img src="CL-DATA-STRUCTURES-TEXTUAL-ERROR.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Error with human readable text description.</div><div class="class-info"><div class="doc-name">
+INVALID-ARGUMENT
+</div>
+<img src="CL-DATA-STRUCTURES-INVALID-ARGUMENT.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Error signaled if for some reason passed argument is invalid.</div><div class="class-info"><div class="doc-name">
+INITIALIZATION-ERROR
+</div>
+<img src="CL-DATA-STRUCTURES-INITIALIZATION-ERROR.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Error signaled when variable exceeds allowed bounds.</div><div class="class-info"><div class="doc-name">
+OUT-OF-BOUNDS
+</div>
+<img src="CL-DATA-STRUCTURES-OUT-OF-BOUNDS.svg" alt="Inheritance" class="centered">
+<br>
+</div><div class="class-info"><div class="doc-name">
+ARGUMENT-OUT-OF-BOUNDS
+</div>
+<img src="CL-DATA-STRUCTURES-ARGUMENT-OUT-OF-BOUNDS.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Error signaled when passed argument exceeds allowed bounds</div><div class="class-info"><div class="doc-name">
+INITIALIZATION-OUT-OF-BOUNDS
+</div>
+<img src="CL-DATA-STRUCTURES-INITIALIZATION-OUT-OF-BOUNDS.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Error signaled when container can&#039;t be initialized with value because value exceeds bounds.</div><div class="class-info"><div class="doc-name">
+NOT-IMPLEMENTED
+</div>
+<img src="CL-DATA-STRUCTURES-NOT-IMPLEMENTED.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Error signaled when not implemented functionality is accessed..</div></div></div></div></div></div>
+</body>
+</html>
