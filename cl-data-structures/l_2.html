@@ -1,10 +1,188 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2304372130016073977">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#4517218044086421377">Overview</a><ul><li><a href="l_1.html#2095726793290289577">Conventions</a><ul><li><a href="l_1.html#3340379247417861354">Docstrings and docstample</a></li></ul></li><li><a href="l_1.html#1234677718990836577">Key concepts</a><ul><li><a href="l_1.html#1628938812139543777">Signaling errors</a></li><li><a href="l_1.html#2112284316359810450">POSITION-MODIFICATION metaprotocol</a></li><li><a href="l_1.html#1382299177844451100">Modification Status</a></li><li><a href="l_1.html#866999129797086325">Trait classes</a></li><li><a href="l_1.html#3953987125191215454">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3382245581488429500">API Reference</a><ul><li><a href="l_2.html#2921453153497667754">Common API</a><ul><li><a href="l_2.html#4242321459147375500">Generic Functions</a></li><li><a href="l_2.html#3239808924481254454">Macros</a></li><li><a href="l_2.html#1049328722986916775">Classes</a></li><li><a href="l_2.html#867404982732099825">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#1757213129081323550">Dictionary structures</a><ul><li><a href="l_3.html#3786834059875198477">API</a></li><li><a href="l_3.html#766249981601976625">HAMT</a><ul><li><a href="l_3.html#382683306564403650">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="3382245581488429500"><h2>API Reference
-</h2><p>This section contains reference of all functions, classes and macros provided by this library to the user.</p><div id="2921453153497667754"><h3>Common API
-</h3><p>Following is the most abstract API of cl-data-structures library.</p><div id="4242321459147375500"><h4>Generic Functions
-</h4><div id="3064910347348672225"><h5>Query Functions
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#652924099705609225">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#2876654238303237925">Overview</a><ul><li><a href="l_1.html#616246711051183225">Conventions</a><ul><li><a href="l_1.html#1429000111791493150">Docstrings and docstample</a></li></ul></li><li><a href="l_1.html#1041503039163246075">Key concepts</a><ul><li><a href="l_1.html#80006138689549475">Signaling errors</a></li><li><a href="l_1.html#367498178018571925">POSITION-MODIFICATION metaprotocol</a></li><li><a href="l_1.html#2879330864072081579">Modification Status</a></li><li><a href="l_1.html#1112280089841529700">Trait classes</a></li><li><a href="l_1.html#1818102345769994700">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3074516891044905800">API Reference</a><ul><li><a href="l_2.html#2030946198788864827">Meta level</a><ul><li><a href="l_2.html#1061820575249424575">Generic Functions</a></li><li><a href="l_2.html#3522083092863111077">Classes</a></li></ul></li><li><a href="l_2.html#2094490639424323727">Common API</a><ul><li><a href="l_2.html#3277976663567554979">Generic Functions</a></li><li><a href="l_2.html#3174181100435264400">Macros</a></li><li><a href="l_2.html#4396639905893057231">Classes</a></li><li><a href="l_2.html#2741345001147259654">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#3203118837756006000">Dictionary structures</a><ul><li><a href="l_3.html#1281033469637203100">API</a></li><li><a href="l_3.html#2337082868334588400">HAMT</a><ul><li><a href="l_3.html#4565066053203885454">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="3074516891044905800"><h2>API Reference
+</h2><p>This section contains reference of all functions, classes and macros provided by this library to the user.</p><div id="2030946198788864827"><h3>Meta level
+</h3><p>Following classes and functions are used to define actual user API. See POSITION-MODIFICATION section for further explanations.</p><div id="1061820575249424575"><h4>Generic Functions
+</h4>Symbols in package CL-DATA-STRUCTURES:
+<div class="generic-info"><div class="doc-name">
+MAKE-BUCKET
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(OPERATION CONTAINER LOCATION &amp;KEY HASH VALUE &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Generic, low level function used to create all sorts of buckets (like those in dictionaries). Buckets are modified by grow-bucket and shrink-bucket functions.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+New bucket. Precise type of bucket is not relevant to this level of abstraction and usually is defined in context of specific container.</div>
+<b>Notes:</b>
+<div class="doc-paragraph">
+This function is not allowed to perform any side effects.</div>
+</div><div class="generic-info"><div class="doc-name">
+GROW-BUCKET
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;KEY HASH VALUE &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Generic, low level function used to grow all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>Bucket.</li>
+<li>Instance of modification-operation-status.</li>
+<li>Boolean. T if element was added into container, NIL otherwise. If NIL was returned, POSITION-MODIFICATION may assume that container was not changed, and therefore ignore returned bucket.</li>
+</ol></div>
+<b>Notes:</b>
+<div class="doc-paragraph">
+This function is not allowed to perform any side effects. See grow-bucket! for function that is allowed to do so.</div>
+</div><div class="generic-info"><div class="doc-name">
+SHRINK-BUCKET
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;KEY HASH &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Generic, low level function used to shrink all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>Bucket. May also return nil to indicate empty bucket.</li>
+<li>Instance of modification-operation-status.</li>
+<li>Boolean. T if element was added into container, NIL otherwise. If NIL was returned, POSITION-MODIFICATION may assume that container was not changed, and therefore ignore returned bucket.</li>
+</ol></div>
+<b>Notes:</b>
+<div class="doc-paragraph">
+This function is not allowed to perform any side effects. See shrink-bucket! for function that is allowed to do so.</div>
+</div><div class="generic-info"><div class="doc-name">
+GROW-BUCKET!
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;KEY HASH VALUE &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Generic, low level function used to destructivly grow all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>New or passed bucket.</li>
+<li>Instance of position modification status.</li>
+<li>Boolean. T if returned bucket contains new elements, NIL otherwise. If NIL was returned, position-modification is free to ignore first value.</li>
+</ol></div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+Can modify bucket.</div>
+</div><div class="generic-info"><div class="doc-name">
+SHRINK-BUCKET!
+</div><div class="doc-lambda-list"><b>Arguments:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;KEY HASH &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">
+<b>Description:</b>
+Generic, low level function used to destructivly shrink all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.</div>
+<b>Returns:</b>
+<div class="doc-paragraph">
+<ol><li>New or passed bucket. May return nil as empty bucket.</li>
+<li>Instance of position modification status.</li>
+<li>Boolean. T if returned bucket contains new elements, NIL otherwise. If NIL was returned, position-modification is free to ignore first value.</li>
+</ol></div>
+<div class="doc-paragraph">
+<b>Side Effects:</b>
+Can modify bucket.</div>
+</div></div><div id="3522083092863111077"><h4>Classes
+</h4>Symbols in package CL-DATA-STRUCTURES:
+<div class="class-info"><div class="doc-name">
+FUNCTIONAL-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-FUNCTIONAL-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function that inherits this class is not allowed to perform any side effects.</div><div class="class-info"><div class="doc-name">
+DESTRUCTIVE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-DESTRUCTIVE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function that inherits this class is expected to perform side effects.</div><div class="class-info"><div class="doc-name">
+SHRINK-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-SHRINK-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function will attempt to remove element from container.</div><div class="class-info"><div class="doc-name">
+GROW-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-GROW-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function will attempt to add new element to container.</div><div class="class-info"><div class="doc-name">
+INSERT-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-INSERT-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of INSERT and (SETF AT).</div><div class="class-info"><div class="doc-name">
+UPDATE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-UPDATE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE and UPDATE!.</div><div class="class-info"><div class="doc-name">
+ADD-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-ADD-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ADD and ADD!.</div><div class="class-info"><div class="doc-name">
+ERASE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-ERASE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE and ERASE!.</div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-INSERT-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-FUNCTIONAL-INSERT-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of INSERT.</div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-UPDATE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-FUNCTIONAL-UPDATE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE.</div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ADD-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-FUNCTIONAL-ADD-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ADD.</div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ERASE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-FUNCTIONAL-ERASE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE.</div><div class="class-info"><div class="doc-name">
+INSERT!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-INSERT!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of INSERT.</div><div class="class-info"><div class="doc-name">
+UPDATE!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-UPDATE!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE.</div><div class="class-info"><div class="doc-name">
+ADD!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-ADD!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ADD.</div><div class="class-info"><div class="doc-name">
+ERASE!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES-ERASE!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE.</div></div></div><div id="2094490639424323727"><h3>Common API
+</h3><p>Following is the most abstract API of cl-data-structures library.</p><div id="3277976663567554979"><h4>Generic Functions
+</h4><div id="4399964603572765177"><h5>Query Functions
 </h5><p>Following generic functions check state of the container and are not allowed to change it.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 AT
@@ -48,7 +226,7 @@ FUNCTIONALP
 </div><b>Returns:</b>
 <div class="doc-paragraph">
 T if CONTAINER exposes functional API and NIL if not.</div>
-</div></div><div id="2088490478838168600"><h5>Functional modification API
+</div></div><div id="3295494134377204179"><h5>Functional modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 INSERT
@@ -98,7 +276,7 @@ Functional API: non-destructively remove element at LOCATION from the CONTAINER.
 <ol><li>Instance of the same type as CONTAINER, without value at LOCATION</li>
 <li>Modification status object.</li>
 </ol></div>
-</div></div><div id="2065664878343544077"><h5>Mutable modification API
+</div></div><div id="4222142556015706400"><h5>Mutable modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 (SETF AT)
@@ -154,7 +332,7 @@ Mutable API: destructively remove element at LOCATION from the CONTAINER.</div>
 <div class="doc-paragraph">
 <b>Side Effects:</b>
 If erase took place, destructivly transform CONTAINER.</div>
-</div></div><div id="4283833004222901677"><h5>Variants API
+</div></div><div id="1470215589738644777"><h5>Variants API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 BECOME-FUNCTIONAL
@@ -220,7 +398,7 @@ May vary, depending on type of the CONTAINER. Also, some (or all) parts of inter
 <b>Notes:</b>
 <div class="doc-paragraph">
 <ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul></div>
-</div></div></div><div id="3239808924481254454"><h4>Macros
+</div></div></div><div id="3174181100435264400"><h4>Macros
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="macro-info"><div class="doc-name">
 MOD-BIND
@@ -229,7 +407,7 @@ MOD-BIND
 </div><div class="doc-paragraph">
 <b>Description:</b>
 This macro attempts to mimic multiple-value-bind syntax for modification operations performed on containers. All of those operations will return secondary object representing operation status that shall be bound in lexical environment and. Next, symbol-macrolets will be established, that inline found and value function calls on operation status (like with-accessors).</div>
-</div></div><div id="1049328722986916775"><h4>Classes
+</div></div><div id="4396639905893057231"><h4>Classes
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 FUNDAMENTAL-CONTAINER
@@ -267,7 +445,7 @@ LAZY
 <img src="CL-DATA-STRUCTURES-LAZY.svg" alt="Inheritance" class="centered">
 <br>
 <b>Description:</b>
-Functional object, with lazy implementation.</div></div><div id="867404982732099825"><h4>Conditions
+Functional object, with lazy implementation.</div></div><div id="2741345001147259654"><h4>Conditions
 </h4><p>Cl-data-structures tries to signal only well structured errors that are possible to interpret. In order to achieve this hierarchy of condition classes is introduced. Below there is documentation explaining this.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 TEXTUAL-ERROR
