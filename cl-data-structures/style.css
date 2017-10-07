@@ -187,6 +187,13 @@ table{
 
 
 
+
+
+pre{
+    white-space: ;
+    none: ;
+}
+
 img.centered{
     display: block;
     max-width: 95%;
