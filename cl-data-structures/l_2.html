@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2071197507043032227">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#1250263974933909977">Overview</a><ul><li><a href="l_1.html#910720319584345400">Conventions</a><ul><li><a href="l_1.html#3275198258884861400">Docstrings and docstample</a></li></ul></li><li><a href="l_1.html#1906195794068810727">Key concepts</a><ul><li><a href="l_1.html#4263270051557717531">Signaling errors</a></li><li><a href="l_1.html#3888066899771441400">POSITION-MODIFICATION metaprotocol</a></li><li><a href="l_1.html#3416517464184824354">Modification Status</a></li><li><a href="l_1.html#743087652449806625">Trait classes</a></li><li><a href="l_1.html#1201068534716446177">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3255353037131438425">API Reference</a><ul><li><a href="l_2.html#1636136554564085277">Meta level</a><ul><li><a href="l_2.html#536771040551631275">Generic Functions</a></li><li><a href="l_2.html#4091222395335722077">Classes</a></li></ul></li><li><a href="l_2.html#623257646020494875">Common API</a><ul><li><a href="l_2.html#2961035037411038900">Generic Functions</a></li><li><a href="l_2.html#914478464290227525">Macros</a></li><li><a href="l_2.html#2860226021666734500">Classes</a></li><li><a href="l_2.html#3603188675535725577">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#1089080425612362625">Dictionary structures</a><ul><li><a href="l_3.html#1162481401736977077">API</a></li><li><a href="l_3.html#3633850123894136254">HAMT</a><ul><li><a href="l_3.html#2950245170094113125">Constructing</a></li><li><a href="l_3.html#2651574012709249554">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="3255353037131438425"><h2>API Reference
-</h2><p>This section contains reference of all functions, classes and macros provided by this library to the user.</p><div id="1636136554564085277"><h3>Meta level
-</h3><p>Following classes and functions are used to define actual user API. See POSITION-MODIFICATION section for further explanations.</p><div id="536771040551631275"><h4>Generic Functions
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2663466529128587979">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#341257148660026950">Overview</a><ul><li><a href="l_1.html#4167954979742430177">Conventions</a><ul><li><a href="l_1.html#4013840066128386331">Docstrings and docstample</a></li></ul></li><li><a href="l_1.html#1031672919870469175">Key concepts</a><ul><li><a href="l_1.html#216692737498899350">Signaling errors</a></li><li><a href="l_1.html#4089100142471125931">POSITION-MODIFICATION metaprotocol</a></li><li><a href="l_1.html#4322706507368323754">Modification Status</a></li><li><a href="l_1.html#1040221629226840125">Trait classes</a></li><li><a href="l_1.html#4252608317073994477">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#1005460587335939150">API Reference</a><ul><li><a href="l_2.html#2815874027884640779">Meta level</a><ul><li><a href="l_2.html#2537045325220517154">Generic Functions</a></li><li><a href="l_2.html#2087638655826075950">Classes</a></li></ul></li><li><a href="l_2.html#1487764993630169477">Common API</a><ul><li><a href="l_2.html#785485132241463875">Generic Functions</a></li><li><a href="l_2.html#2229225315182260850">Macros</a></li><li><a href="l_2.html#2151001001659174927">Classes</a></li><li><a href="l_2.html#995633870731005675">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#4066753179574864354">Dictionary structures</a><ul><li><a href="l_3.html#1346622255651661627">API</a></li><li><a href="l_3.html#406846424300757675">HAMT</a><ul><li><a href="l_3.html#1657024601894141027">Constructing</a></li><li><a href="l_3.html#3053930026149278900">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="1005460587335939150"><h2>API Reference
+</h2><p>This section contains reference of all functions, classes and macros provided by this library to the user.</p><div id="2815874027884640779"><h3>Meta level
+</h3><p>Following classes and functions are used to define actual user API. See POSITION-MODIFICATION section for further explanations.</p><div id="2537045325220517154"><h4>Generic Functions
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 MAKE-BUCKET
@@ -45,7 +45,7 @@ Generic, low level function used to shrink all sorts of buckets (like those in d
 <div class="doc-paragraph">
 <ol><li>Bucket. May also return nil to indicate empty bucket.</li>
 <li>Instance of modification-operation-status.</li>
-<li>Boolean. T if element was added into container, NIL otherwise. If NIL was returned, POSITION-MODIFICATION may assume that container was not changed, and therefore ignore returned bucket.</li>
+<li>Boolean. T if element was removed from container, NIL otherwise. If NIL was returned, POSITION-MODIFICATION may assume that container was not changed, and therefore ignore returned bucket.</li>
 </ol></div>
 <b>Notes:</b>
 <div class="doc-paragraph">
@@ -77,12 +77,12 @@ Generic, low level function used to destructivly shrink all sorts of buckets (li
 <div class="doc-paragraph">
 <ol><li>New or passed bucket. May return nil as empty bucket.</li>
 <li>Instance of position modification status.</li>
-<li>Boolean. T if returned bucket contains new elements, NIL otherwise. If NIL was returned, position-modification is free to ignore first value.</li>
+<li>Boolean. T if elements were removed from BUCKET, NIL otherwise. If NIL was returned, position-modification is free to ignore first value.</li>
 </ol></div>
 <div class="doc-paragraph">
 <b>Side Effects:</b>
 Can modify bucket.</div>
-</div></div><div id="4091222395335722077"><h4>Classes
+</div></div><div id="2087638655826075950"><h4>Classes
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 FUNCTIONAL-FUNCTION
@@ -180,9 +180,9 @@ ERASE!-FUNCTION
 <img src="CL-DATA-STRUCTURES-ERASE!-FUNCTION.svg" alt="Inheritance" class="centered">
 <br>
 <b>Description:</b>
-Class of ERASE.</div></div></div><div id="623257646020494875"><h3>Common API
-</h3><p>Following is the most abstract API of cl-data-structures library.</p><div id="2961035037411038900"><h4>Generic Functions
-</h4><div id="1119796911829239150"><h5>Query Functions
+Class of ERASE.</div></div></div><div id="1487764993630169477"><h3>Common API
+</h3><p>Following is the most abstract API of cl-data-structures library.</p><div id="785485132241463875"><h4>Generic Functions
+</h4><div id="963504334903720025"><h5>Query Functions
 </h5><p>Following generic functions check state of the container and are not allowed to change it.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 AT
@@ -282,7 +282,7 @@ FUNCTIONALP
 <b>Returns:</b>
 <div class="doc-paragraph">
 T if CONTAINER exposes functional API and NIL if not.</div>
-</div></div><div id="224367388797465550"><h5>Functional modification API
+</div></div><div id="3189218425197659400"><h5>Functional modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 INSERT
@@ -367,7 +367,7 @@ Functional API: non-destructively remove element at LOCATION from the CONTAINER.
 <ol><li>Instance of the same type as CONTAINER, without value at LOCATION</li>
 <li>Modification status object.</li>
 </ol></div>
-</div></div><div id="30712043073204675"><h5>Mutable modification API
+</div></div><div id="2140706536271725827"><h5>Mutable modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 (SETF AT)
@@ -378,7 +378,7 @@ Functional API: non-destructively remove element at LOCATION from the CONTAINER.
 Destructively insert/replace element in the CONTAINER at LOCATION with NEW-VALUE.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
-<ol><li>&#039;NEW-VALUE</li>
+<ol><li>NEW-VALUE</li>
 <li>modification-status object as second value.</li>
 </ol></div>
 </div><div class="generic-info"><div class="doc-name">
@@ -423,7 +423,7 @@ Mutable API: destructively remove element at LOCATION from the CONTAINER.</div>
 <div class="doc-paragraph">
 <b>Side Effects:</b>
 If erase took place, destructivly transform CONTAINER.</div>
-</div></div><div id="2640389650498335125"><h5>Variants API
+</div></div><div id="3043322563946100479"><h5>Variants API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 BECOME-FUNCTIONAL
@@ -489,7 +489,7 @@ May vary, depending on type of the CONTAINER. Also, some (or all) parts of inter
 <b>Notes:</b>
 <div class="doc-paragraph">
 <ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul></div>
-</div></div></div><div id="914478464290227525"><h4>Macros
+</div></div></div><div id="2229225315182260850"><h4>Macros
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="macro-info"><div class="doc-name">
 MOD-BIND
@@ -498,7 +498,7 @@ MOD-BIND
 </div><div class="doc-paragraph">
 <b>Description:</b>
 This macro attempts to mimic multiple-value-bind syntax for modification operations performed on containers. All of those operations will return secondary object representing operation status that shall be bound in lexical environment and. Next, symbol-macrolets will be established, that inline found and value function calls on operation status (like with-accessors).</div>
-</div></div><div id="2860226021666734500"><h4>Classes
+</div></div><div id="2151001001659174927"><h4>Classes
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 FUNDAMENTAL-CONTAINER
@@ -536,7 +536,7 @@ LAZY
 <img src="CL-DATA-STRUCTURES-LAZY.svg" alt="Inheritance" class="centered">
 <br>
 <b>Description:</b>
-Functional object, with lazy implementation.</div></div><div id="3603188675535725577"><h4>Conditions
+Functional object, with lazy implementation.</div></div><div id="995633870731005675"><h4>Conditions
 </h4><p>Cl-data-structures tries to signal only well structured errors that are possible to interpret. In order to achieve this hierarchy of condition classes is introduced. Below there is documentation explaining this.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="error-info"><div class="doc-name">
 TEXTUAL-ERROR
