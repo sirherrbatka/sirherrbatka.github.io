@@ -1,75 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#4027295039038115331">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3920997251579164900">Overview</a><ul><li><a href="l_1.html#2141295841218766050">Conventions</a></li><li><a href="l_1.html#3540820972188604331">Key concepts</a><ul><li><a href="l_1.html#283023268661035175">Signaling errors</a></li><li><a href="l_1.html#2756258029555992654">Modification Status</a></li><li><a href="l_1.html#969461507162169450">Trait classes</a></li><li><a href="l_1.html#1509330835118547350">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3703562457547459000">API Reference</a><ul><li><a href="l_2.html#83553826776506125">Meta level</a><ul><li><a href="l_2.html#2768286314186651379">Generic Functions</a></li><li><a href="l_2.html#608792041535272075">Classes</a></li></ul></li><li><a href="l_2.html#3827002299166816577">Common API</a><ul><li><a href="l_2.html#3850214645360678731">Generic Functions</a></li><li><a href="l_2.html#3133987488624321554">Macros</a></li><li><a href="l_2.html#1004541089597842225">Classes</a></li><li><a href="l_2.html#3551938551952971054">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#1050847759505388000">Internal details</a><ul><li><a href="l_3.html#3361718660377666879">Docstrings and docstample</a></li><li><a href="l_3.html#2448202317081021479">POSITION-MODIFICATION metaprotocol</a></li></ul></li><li><a href="l_4.html#3089425203579543400">Dictionary structures</a><ul><li><a href="l_4.html#3102895619044199554">API</a></li><li><a href="l_4.html#1067623572140447725">HAMT</a><ul><li><a href="l_4.html#4031158419032782054">Constructing</a></li><li><a href="l_4.html#1174962095674439477">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="3089425203579543400"><h2>Dictionary structures
-</h2><p>Dictionaries map values to unique keys. Common Lisp standard already contains such structures (hash tables, alists, plists) and therefore idea should not be alien to a Lisp programmer. CL-DATA-STRUCTURES offers both functional and mutable dictionaries, with HAMT being the prime example of complete, feature rich implementation of the protocol. In practice, containers present in this module are either ordered containers (for instance binary search trees) or some sort of unordered hash table (either classiscal hashtable or some sort of hashing tree). In each case, overview of data structure is present in this document.</p><div id="3102895619044199554"><h3>API
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#4237728049602084054">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#1687447708558430977">Overview</a><ul><li><a href="l_1.html#2218225099694333927">Conventions</a></li><li><a href="l_1.html#2120916916091226827">Key concepts</a><ul><li><a href="l_1.html#1895657532378769900">Signaling errors</a></li><li><a href="l_1.html#1610770823435152927">Modification Status</a></li><li><a href="l_1.html#636407248902677525">Trait classes</a></li><li><a href="l_1.html#1712331459530699150">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#2235046247856728800">API Reference</a><ul><li><a href="l_2.html#4235315937984345500">Meta level</a><ul><li><a href="l_2.html#3050713577751658325">Generic Functions</a></li><li><a href="l_2.html#130376249242337800">Classes</a></li></ul></li><li><a href="l_2.html#2053128795434039050">Common API</a><ul><li><a href="l_2.html#637840415066178025">Generic Functions</a></li><li><a href="l_2.html#3486477520814592854">Macros</a></li><li><a href="l_2.html#1780936284326109300">Classes</a></li><li><a href="l_2.html#1305696110324158150">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#4383328662990280900">Internal details</a><ul><li><a href="l_3.html#1424365239705629327">Docstrings and docstample</a></li><li><a href="l_3.html#1081682624684728950">POSITION-MODIFICATION metaprotocol</a></li></ul></li><li><a href="l_4.html#1694776585998317900">Dictionary structures</a><ul><li><a href="l_4.html#818957821381318450">API</a></li><li><a href="l_4.html#4472856488633376031">HAMT</a><ul><li><a href="l_4.html#2215578055512769027">Constructing</a></li><li><a href="l_4.html#3392481165021679254">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="1694776585998317900"><h2>Dictionary structures
+</h2><p>Dictionaries map values to unique keys. Common Lisp standard already contains such structures (hash tables, alists, plists) and therefore idea should not be alien to a Lisp programmer. CL-DATA-STRUCTURES offers both functional and mutable dictionaries, with HAMT being the prime example of complete, feature rich implementation of the protocol. In practice, containers present in this module are either ordered containers (for instance binary search trees) or some sort of unordered hash table (either classiscal hashtable or some sort of hashing tree). In each case, overview of data structure is present in this document.</p><div id="818957821381318450"><h3>API
 </h3><p>To obtain value under key use following functions:</p><ul><li>AT</li>
 </ul><p>To change mapping use following purely functional functions:</p><ul><li>INSERT</li>
 <li>ADD</li>
 <li>UPDATE</li>
+<li>ERASE</li>
+<li>ERASE-IF</li>
 </ul><p>To change mapping in destructive way, use following functions:</p><ul><li>(SETF AT)</li>
 <li>ADD!</li>
 <li>UPDATE!</li>
+<li>ERASE!</li>
+<li>ERASE-IF!</li>
 </ul><p>This package adds set of another trait classes, specific to dictionaries.</p><div class="class-info"><div class="doc-name">
 DICTIONARY
 </div>
 <img src="CL-DATA-STRUCTURES.DICTS-DICTIONARY.svg" alt="Inheritance" class="centered">
 <br>
-<b>Description:</b>
-Container that provides location to value mapping. Either ordered or unordered.</div><div class="class-info"><div class="doc-name">
+<div class="doc-paragraph">Description
+ Container that provides location to value mapping. Either ordered or unordered.</div></div><div class="class-info"><div class="doc-name">
 HASHING-DICTIONARY
 </div>
 <img src="CL-DATA-STRUCTURES.DICTS-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
 <br>
-<b>Description:</b>
-Dictionary that uses hashing function. Hashing function is assumed to return fixnum.</div><p>In addition to this, on this level, few additional functions are defined.</p><div class="generic-info"><div class="doc-name">
+<div class="doc-paragraph">Description
+ Dictionary that uses hashing function. Hashing function is assumed to return fixnum.</div></div><p>In addition to this, on this level, few additional functions are defined.</p><div class="generic-info"><div class="doc-name">
 FIND-CONTENT
 </div><div class="doc-lambda-list"><b>Arguments:</b>
 (CONTAINER BUCKET LOCATION &amp;KEY HASH &amp;ALLOW-OTHER-KEYS)
-</div><div class="doc-paragraph">
-<b>Description:</b>
-Attempts to find element under LOCATION in the the bucket.</div>
-<b>Returns:</b>
-<div class="doc-paragraph">
-<ol><li>Element</li>
-<li>Boolean. T if element was found, NIL otherwise.</li>
-</ol></div>
-<b>Notes:</b>
-<div class="doc-paragraph">
-This function accepts other keys. In case of hashing dictionaries, one will be :hash that is expected to be fixnum.</div>
-</div><div class="generic-info"><div class="doc-name">
+</div><div class="doc-paragraph">Arguments and Values
+ CONTAINER -- Container that owns bucket. Acts as passed interface for method dispatch.
+ BUCKET -- Bucket that will be searched.
+ LOCATION -- Location that will be searched.
+
+
+Description
+ Attempts to find element under LOCATION in the the bucket.
+
+
+Notes
+ This function accepts other keys. In case of hashing dictionaries, one will be :hash that is expected to be fixnum.
+
+
+Returns following values
+ 1 -- Element
+ 2 -- Boolean. T if element was found, NIL otherwise.</div></div><div class="generic-info"><div class="doc-name">
 SINGLE-ELEMENT-P
 </div><div class="doc-lambda-list"><b>Arguments:</b>
 (BUCKET)
-</div><div class="doc-paragraph">
-<b>Description:</b>
-Checks if bucket holds just one element (if not, consider rehashing).</div>
-<b>Returns:</b>
-<div class="doc-paragraph">
-Boolean. T if only single element exists in bucket, NIL otherwise.</div>
-<b>Notes:</b>
-<div class="doc-paragraph">
-This function will return NIL if bucket is empty.</div>
-</div></div><div id="1067623572140447725"><h3>HAMT
+</div><div class="doc-paragraph">Arguments and Values
+ BUCKET -- Bucket that will be checked.
+
+
+Description
+ Checks if bucket holds just one element (if not, consider rehashing).
+
+
+Notes
+ This function will return NIL if bucket is empty.
+
+
+Returns: Boolean. T if only single element exists in bucket, NIL otherwise.</div></div></div><div id="4472856488633376031"><h3>HAMT
 </h3><p>HAMT stands from hash array mapped trie. This data structure is used most commonly as functional dictionary in standard libraries of few recent languages (including Clojure and Scala). Cl-data-structures implementation offers also mutable and transactional variant of this structure. Although this container is not optimized for destructive modification, it is still faster then copying on write whole path. Since HAMT contains transactional implementation, lazy functional implementation is also present.</p><p>CL-DATA-STRUCTURES implementation of this data structure is unusual, because presence of transactional implementation. Transactional in this sense means that destructive changes are isolated to the single instance of container (think: delayed copy). Thanks to this it is possible to implement fancy stuff like diff generation from changes applied during transformation in efficient way (usefull for creating eventual consistent systems).</p><p>Dictionary implementation of HAMT is present in the system as a class.</p><div class="class-info"><div class="doc-name">
 HAMT-DICTIONARY
 </div>
 <img src="CL-DATA-STRUCTURES.DICTS.HAMT-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
 <br>
-<b>Description:</b>
-Root HAMT dictionary class.</div><div class="class-info"><div class="doc-name">
+<div class="doc-paragraph">Description
+ Root HAMT dictionary class.</div></div><div class="class-info"><div class="doc-name">
 FUNCTIONAL-HAMT-DICTIONARY
 </div>
 <img src="CL-DATA-STRUCTURES.DICTS.HAMT-FUNCTIONAL-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
 <br>
-<b>Description:</b>
-HAMT dictionary that implements functional api.</div><div class="class-info"><div class="doc-name">
+<div class="doc-paragraph">Description
+ HAMT dictionary that implements functional api.</div></div><div class="class-info"><div class="doc-name">
 MUTABLE-HAMT-DICTIONARY
 </div>
 <img src="CL-DATA-STRUCTURES.DICTS.HAMT-MUTABLE-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
 <br>
-<b>Description:</b>
-HAMT dictionary that implements mutable api.</div><p>As you can see, it inherits DICTIONARY trait class as well as lower level FUNDAMENTAL-HAMT-CONTAINER class. All instances of this class can be used with following functions:</p><div class="function-info"><div class="doc-name">
+<div class="doc-paragraph">Description
+ HAMT dictionary that implements mutable api.</div></div><p>As you can see, it inherits DICTIONARY trait class as well as lower level FUNDAMENTAL-HAMT-CONTAINER class. All instances of this class can be used with following functions:</p><div class="function-info"><div class="doc-name">
 HAMT-DICTIONARY-AT
 </div><div class="doc-lambda-list"><b>Arguments:</b>
 ()
@@ -77,41 +89,59 @@ HAMT-DICTIONARY-AT
 HAMT-DICTIONARY-SIZE
 </div><div class="doc-lambda-list"><b>Arguments:</b>
 (CONTAINER)
-</div><div class="doc-paragraph">Implementation of SIZE</div></div><p>Functional dictionary is represented by the following class:</p><p>There is no lazy-hamt-dictionary class, because lazy hamt dictionary is nothing more then a TRANSACTIONAL-HAMT-DICTIONARY inside LAZY-BOX.</p><div id="4031158419032782054"><h4>Constructing
+</div><div class="doc-paragraph">Implementation of SIZE</div></div><p>Functional dictionary is represented by the following class:</p><p>There is no lazy-hamt-dictionary class, because lazy hamt dictionary is nothing more then a TRANSACTIONAL-HAMT-DICTIONARY inside LAZY-BOX.</p><div id="2215578055512769027"><h4>Constructing
 </h4><p>To construct HAMT dictionary, use following functions.</p>Symbols in package CL-DATA-STRUCTURES.DICTS.HAMT:
 <div class="function-info"><div class="doc-name">
 MAKE-FUNCTIONAL-HAMT-DICTIONARY
 </div><div class="doc-lambda-list"><b>Arguments:</b>
 (HASH-FN EQUAL-FN &amp;KEY (MAX-DEPTH +DEPTH+))
-</div><div class="doc-paragraph">
-<b>Description:</b>
-Constructs and return new functional-hamt-dictionary</div>
-<b>Returns:</b>
-<div class="doc-paragraph">
-new instance of functional-hamt-dictionary.</div>
-<div class="doc-paragraph">
-<b>Execeptional Situations:</b>
-Will raise condition of type INITIALIZATION-OUT-OF-BOUNDS if max-depth is less than 1 or larger than 12.</div>
-<b>Notes:</b>
-<div class="doc-paragraph">
-In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.</div>
-</div><div class="function-info"><div class="doc-name">
+</div><div class="doc-paragraph">Syntax
+ make-functional-hamt-dictionary hash-fn equal-fn &amp;key max-depth =&gt; functional-hamt-dictionary
+
+
+Arguments and Values
+ HASH-FN -- function that will be used to hash keys. Should return fixnum and be proper hashing function.
+ EQUAL-FN -- function used to resolve conflicts.
+ MAX-DEPTH -- how many level this HAMT can hold at most? Each level translates into additional 5 bits of hash used. Should be larger than 0, at most 12.
+
+
+Description
+ Constructs and return new functional-hamt-dictionary
+
+
+Notes
+ In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.
+
+
+Returns: new instance of functional-hamt-dictionary.
+
+Exceptional Situations
+ Will raise condition of type INITIALIZATION-OUT-OF-BOUNDS if max-depth is less than 1 or larger than 12.</div></div><div class="function-info"><div class="doc-name">
 MAKE-MUTABLE-HAMT-DICTIONARY
 </div><div class="doc-lambda-list"><b>Arguments:</b>
 (HASH-FN EQUAL-FN &amp;KEY (MAX-DEPTH +DEPTH+))
-</div><div class="doc-paragraph">
-<b>Description:</b>
-Constructs and return new mutable-hamt-dictionary</div>
-<b>Returns:</b>
-<div class="doc-paragraph">
-new instance of mutable-hamt-dictionary.</div>
-<div class="doc-paragraph">
-<b>Execeptional Situations:</b>
-Will raise condition of type INITIALIZATION-OUT-OF-BOUNDS if max-depth is less than 1 or larger than 12.</div>
-<b>Notes:</b>
-<div class="doc-paragraph">
-In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.</div>
-</div></div><div id="1174962095674439477"><h4>POSITION-MODIFICATION contracts
+</div><div class="doc-paragraph">Syntax
+ make-mutable-hamt-dictionary hash-fn equal-fn &amp;key max-depth =&gt; mutable-hamt-dictionary
+
+
+Arguments and Values
+ HASH-FN -- function that will be used to hash keys. Should return fixnum and be proper hashing function.
+ EQUAL-FN -- function used to resolve conflicts.
+ MAX-DEPTH -- how many level this HAMT can hold at most? Each level translates into additional 5 bits of hash used. Should be larger than 0, at most 12.
+
+
+Description
+ Constructs and return new mutable-hamt-dictionary
+
+
+Notes
+ In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.
+
+
+Returns: new instance of mutable-hamt-dictionary.
+
+Exceptional Situations
+ Will raise condition of type INITIALIZATION-OUT-OF-BOUNDS if max-depth is less than 1 or larger than 12.</div></div></div><div id="3392481165021679254"><h4>POSITION-MODIFICATION contracts
 </h4><p>Since HAMT is hashing container, many of the functions accept additional hash key argument with fixnum produced by the hashing function.</p><p>SHRINK-BUCKET function must be defined in terms all functional shrink-functions and buckets. Will accept :hash.</p><p>GROW-BUCKET function must be defined in terms all functional grow-functions and buckets. Will accept :hash.</p><p>SHRINK-BUCKET! function must be defined in terms all mutable shrink-functions and buckets. Will accept :hash.</p><p>GROW-BUCKET! function must be defined in terms all mutable grow-functions and buckets. Will accept :hash.</p><p>MAKE-BUCKET function must be defined in terms of all grow-functions and will return list of hash-content-tuple as bucket. Will accept :hash</p><p>Bucket must be usable with cl-ds.dicts:find-content. FIND-CONTENT function will accept hash as key argument.</p></div></div></div></div></div>
 </body>
 </html>
