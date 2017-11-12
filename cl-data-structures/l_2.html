@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2919399268996294825">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#4225416591334885377">Overview</a><ul><li><a href="l_1.html#3068222088185777900">Conventions</a></li><li><a href="l_1.html#2434828276387610025">Key concepts</a><ul><li><a href="l_1.html#305238867834942600">Signaling errors</a></li><li><a href="l_1.html#3360234089898036325">Modification Status</a></li><li><a href="l_1.html#1823917632709946800">Trait classes</a></li><li><a href="l_1.html#1695307861642167827">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#106144187617142350">API Reference</a><ul><li><a href="l_2.html#4102318127675175531">Common API</a><ul><li><a href="l_2.html#988137734379554850">Generic Functions</a></li><li><a href="l_2.html#1529850654500879427">Macros</a></li><li><a href="l_2.html#800230505527899550">Classes</a></li><li><a href="l_2.html#389185512320706725">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#4429505913721917600">Internal details</a><ul><li><a href="l_3.html#4086908853375891400">Docstrings and docstample</a></li><li><a href="l_3.html#3846244786684194054">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_3.html#4250678774023440200">Generic Functions</a></li><li><a href="l_3.html#2384579579191683579">Classes</a></li></ul></li><li><a href="l_3.html#3468356646827741177">Lazy evaluation</a></li></ul></li><li><a href="l_4.html#3121075892428810225">Dictionary structures</a><ul><li><a href="l_4.html#2586221853623217225">API</a></li><li><a href="l_4.html#3711606486771243454">HAMT</a><ul><li><a href="l_4.html#433694622449085400">Constructing</a></li><li><a href="l_4.html#3651533664983149077">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="106144187617142350"><h2>API Reference
-</h2><p>This section contains reference of all the functions, classes and macros provided by this library to the user.</p><div id="4102318127675175531"><h3>Common API
-</h3><div id="988137734379554850"><h4>Generic Functions
-</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entieriety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="673827405980740050"><h5>Query Functions
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#1886647954777497927">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#2987844915861116025">Overview</a><ul><li><a href="l_1.html#1724765274973823877">Conventions</a></li><li><a href="l_1.html#3719255720453328254">Key concepts</a><ul><li><a href="l_1.html#3075410758565639979">Signaling errors</a></li><li><a href="l_1.html#2517627418353705779">Modification Status</a></li><li><a href="l_1.html#1757435293781108827">Trait classes</a></li><li><a href="l_1.html#1818630581650738050">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3144946045076922125">API Reference</a><ul><li><a href="l_2.html#3465688201897862200">Common API</a><ul><li><a href="l_2.html#831822804296722875">Generic Functions</a></li><li><a href="l_2.html#3973847366445286531">Macros</a></li><li><a href="l_2.html#4130727469127641854">Classes</a></li><li><a href="l_2.html#2119680153413646200">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#1939493067080456877">Internal details</a><ul><li><a href="l_3.html#852059030209461425">Docstrings and docstample</a></li><li><a href="l_3.html#3103322159762955325">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_3.html#4491300701717215431">Generic Functions</a></li><li><a href="l_3.html#2960196511617707054">Classes</a></li></ul></li><li><a href="l_3.html#1064206119273187150">Lazy evaluation</a></li></ul></li><li><a href="l_4.html#1543381353052816550">Dictionary structures</a><ul><li><a href="l_4.html#680828876989606150">API</a></li><li><a href="l_4.html#3646030465399600531">HAMT</a><ul><li><a href="l_4.html#2622945267147230025">Constructing</a></li><li><a href="l_4.html#2847675404587886279">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="3144946045076922125"><h2>API Reference
+</h2><p>This section contains reference of all the functions, classes and macros provided by this library to the user.</p><div id="3465688201897862200"><h3>Common API
+</h3><div id="831822804296722875"><h4>Generic Functions
+</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entieriety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="4198172072931466500"><h5>Query Functions
 </h5><p>Following generic functions check state of the container and are not allowed to change it.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 AT
@@ -44,10 +44,10 @@ SIZE
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:SIZE CONTAINER) 1))</pre></code></div>
 <div class="doc-paragraph">
 <b>Description:</b>
-How many elements CONTAINER holds currently?</div>
+How many elements the CONTAINER holds currently?</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
-number of elements in the container.</div>
+The number of elements in the container.</div>
 </div><div class="generic-info"><div class="doc-name">
 MUTABLEP
 </div><div class="doc-lambda-list"><b>Arguments:</b>
@@ -104,7 +104,7 @@ FUNCTIONALP
 <b>Returns:</b>
 <div class="doc-paragraph">
 T if CONTAINER exposes functional API and NIL if not.</div>
-</div></div><div id="3520410710979644300"><h5>Functional modification API
+</div></div><div id="1768103059472662900"><h5>Functional modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 INSERT
@@ -120,7 +120,7 @@ INSERT
                  (ALEXANDRIA.0.DEV:COMPOSE #&#039;NULL #&#039;EQL)))</pre></code></div>
 <div class="doc-paragraph">
 <b>Description:</b>
-Functional API: non-destructively insert NEW-VALUE into CONTAINER at LOCATION. Will replace element value at LOCATION if it was already occupied.</div>
+Functional API: non-destructively insert the NEW-VALUE into the CONTAINER at the LOCATION. Will replace a value at the LOCATION if it was already occupied.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
 <ol><li>Instance of the same type as CONTAINER, with NEW-VALUE at LOCATION</li>
@@ -177,7 +177,7 @@ UPDATE
 (CONTAINER LOCATION NEW-VALUE)
 </div><div class="doc-paragraph">
 <b>Description:</b>
-Functional API: if there is value at LOCATION in the CONTAINER, return new instance with NEW-VALUE at LOCATION.</div>
+Functional API: if there is value at LOCATION in the CONTAINER return new instance with NEW-VALUE at LOCATION.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
 <ol><li>New container, with updated value at LOCATION if UPDATE took place</li>
@@ -207,7 +207,7 @@ ERASE
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;A) 5)))</pre></code></div>
 <div class="doc-paragraph">
 <b>Description:</b>
-Functional API: non-destructively remove element at LOCATION from the CONTAINER.</div>
+Functional API: non-destructively remove a element at the LOCATION from the CONTAINER.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
 <ol><li>Instance of the same type as CONTAINER, without value at LOCATION</li>
@@ -251,7 +251,7 @@ ERASE-IF
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;B) 6)))</pre></code></div>
 <div class="doc-paragraph">
 <b>Description:</b>
-Functional API: non-destructively remove element at LOCATION from the CONTAINER, only when CONDITION function returns true. CONDITION will be called with location that matches according to comparsion function, and with value.</div>
+Functional API: non-destructively remove element at LOCATION from the CONTAINER, only when CONDITION function returns true. CONDITION will be called with location that matches according to comparsion function used to construct container, and with a value.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
 <ol><li>Instance of the same type as CONTAINER, without value at LOCATION</li>
@@ -260,7 +260,7 @@ Functional API: non-destructively remove element at LOCATION from the CONTAINER,
 <b>Notes:</b>
 <div class="doc-paragraph">
 This is the functional counterpart to the ERASE-IF! function.</div>
-</div></div><div id="533474503898767600"><h5>Mutable modification API
+</div></div><div id="1565126764976523777"><h5>Mutable modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 (SETF AT)
@@ -283,7 +283,7 @@ ADD!
 (CONTAINER LOCATION NEW-VALUE)
 </div><div class="doc-paragraph">
 <b>Description:</b>
-Destructively add NEW-VALUE into CONTAINER at LOCATION. Will not replace value at LOCATION if it was already occupied.</div>
+Destructively add the NEW-VALUE into the CONTAINER at the LOCATION. Will not replace a value at LOCATION if it was already occupied.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
 <ol><li>CONTAINER</li>
@@ -301,7 +301,7 @@ UPDATE!
 (CONTAINER LOCATION NEW-VALUE)
 </div><div class="doc-paragraph">
 <b>Description:</b>
-Mutable API: If LOCATION is taken in the CONTAINER, destructivly update it with NEW-VALUE</div>
+Mutable API: If the LOCATION is taken in the CONTAINER, destructivly update it with the NEW-VALUE</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
 <ol><li>CONTAINER</li>
@@ -316,7 +316,7 @@ ERASE!
 (CONTAINER LOCATION)
 </div><div class="doc-paragraph">
 <b>Description:</b>
-Mutable API: destructively remove element at LOCATION from the CONTAINER.</div>
+Mutable API: destructively remove a element at the LOCATION from the CONTAINER.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
 <ol><li>CONTAINER</li>
@@ -369,7 +369,7 @@ Functional API: destructively remove element at LOCATION from the CONTAINER, onl
 <b>Notes:</b>
 <div class="doc-paragraph">
 This is the destructive counterpart to the ERASE-IF function.</div>
-</div></div><div id="850594414147906675"><h5>Variants API
+</div></div><div id="1965315039700766327"><h5>Variants API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 BECOME-FUNCTIONAL
@@ -380,10 +380,10 @@ BECOME-FUNCTIONAL
 Transforms CONTAINER into functional variant.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
-instance implementing functional API. Content of returned instance is identical to the content of input CONTAINER.</div>
+A instance implementing functional API. Content of returned instance is identical to the content of input CONTAINER.</div>
 <div class="doc-paragraph">
 <b>Side Effects:</b>
-May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of a internal representation can be shared between both the CONTAINER and a returned instance. Side effects from the mutable CONTAINER may leak into a returned instance.</div>
 <b>Notes:</b>
 <div class="doc-paragraph">
 <ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>Not all containers implement this function.</li></ul></div>
@@ -393,13 +393,13 @@ BECOME-MUTABLE
 (CONTAINER)
 </div><div class="doc-paragraph">
 <b>Description:</b>
-Transforms CONTAINER into mutable variant.</div>
+Transforms the CONTAINER into a mutable variant.</div>
 <b>Returns:</b>
 <div class="doc-paragraph">
-instance implementing mutable API. Content of returned instance is identical to the content of input CONTAINER.</div>
+A instance implementing mutable API. Content of the returned instance is identical to the content of the input CONTAINER.</div>
 <div class="doc-paragraph">
 <b>Side Effects:</b>
-May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of a internal representation can be shared between both the CONTAINER and a returned instance. Side effects from the mutable CONTAINER may leak into the returned instance.</div>
 <b>Notes:</b>
 <div class="doc-paragraph">
 <ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>Not all containers implement this function.</li></ul></div>
@@ -415,7 +415,7 @@ Transforms CONTAINER into transactional variant.</div>
 instance implementing mutable API. Content of returned instance is identical to the content of input CONTAINER.</div>
 <div class="doc-paragraph">
 <b>Side Effects:</b>
-May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both the CONTAINER and a returned instance. Side effects from the mutable CONTAINER may leak into the returned instance.</div>
 <b>Notes:</b>
 <div class="doc-paragraph">
 <ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>Not all containers implement this function.</li></ul></div>
@@ -431,11 +431,11 @@ Transforms CONTAINER into lazy variant.</div>
 instance implementing functional, lazy API. Content of returned instance is identical to the content of input CONTAINER.</div>
 <div class="doc-paragraph">
 <b>Side Effects:</b>
-May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both CONTAINER and returned instance. Side effects from mutable CONTAINER may leak into returned instance.</div>
+May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both the CONTAINER and a returned instance. Side effects from the mutable CONTAINER may leak into the returned instance.</div>
 <b>Notes:</b>
 <div class="doc-paragraph">
 <ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul></div>
-</div></div></div><div id="1529850654500879427"><h4>Macros
+</div></div></div><div id="3973847366445286531"><h4>Macros
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="macro-info"><div class="doc-name">
 MOD-BIND
@@ -444,7 +444,7 @@ MOD-BIND
 </div><div class="doc-paragraph">
 <b>Description:</b>
 This macro attempts to mimic multiple-value-bind syntax for modification operations performed on containers. All of those operations will return secondary object representing operation status that shall be bound in lexical environment and. Next, symbol-macrolets will be established, that inline found and value function calls on operation status (like with-accessors).</div>
-</div></div><div id="800230505527899550"><h4>Classes
+</div></div><div id="4130727469127641854"><h4>Classes
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 FUNDAMENTAL-CONTAINER
@@ -482,7 +482,7 @@ LAZY
 <img src="CL-DATA-STRUCTURES-LAZY.svg" alt="Inheritance" class="centered">
 <br>
 <b>Description:</b>
-Functional object, with lazy implementation.</div></div><div id="389185512320706725"><h4>Conditions
+Functional object, with lazy implementation.</div></div><div id="2119680153413646200"><h4>Conditions
 </h4><p>Cl-data-structures tries to signal only the well structured errors that are possible to interpret. In order to achieve this, the hierarchy of condition classes is introduced. Below there is documentation explaining it.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="error-info"><div class="doc-name">
 TEXTUAL-ERROR
