@@ -3,10 +3,23 @@
 ** deklarowana w manifeście
 ** koniecznie utworzenie obiektu intent                              :intent:
 *** ważne dla interakcji pomiędzy aplikacjami
-** cykl życia                                                     :important:
-*** startowanie
-**** startActivity()
-**** startActivityForResult()
+** tworzenie i startowanie                                        :important:
+*** tworzenie intent                                                 :intent:
+**** Intent intent = new Intent(this, Activity.class);               :intent:
+*** uruchomienie activity
+**** startActivity(intent)
+**** startActivityForResult(intent)
+***** analog okienka dialogowe (mniej więcej)
+***** ponieważ java to choroba, jest to dziwne
+****** Intent intent = new Intent(this, GroupActivity.class);
+****** startActivityForResult(intent, CODE_ADD_GROUP_ACTIVITY);
+****** przy powrocie wywołanie onActivityResult(int reqCode, int resCode, Intent i)
+******* TODO reqCode
+******* resCode
+******** status wyniku (powodzenie == RESULT_OK)
+*** Dodatkowe informacje przekazywane w intent
+**** intent.putExtra("MAX_VALUE", 123);
+** cykl życia                                                :important:easy:
 *** listenery
 **** uruchomienie
 ***** onCreate()
@@ -29,4 +42,10 @@
 ***** onResume()
 **** Niszczenie activity
 ***** onStop() (wipierw zostanie zatrzymana i ukryta)
-***** onDestroy() (następnie zniszczona)
+***** onDestroy() (następnie
+* TODO Przechowywanie danych                                 :important:easy:
+* TODO Activity i fragmenty                                       :important:
+* TODO Czujniki i ich wykorzystanie                               :important:
+* TODO Manifest i uprawnienia                                :important:easy:
+* TODO Kwalifikatory i ich zastosowanie                           :important:
+* TODO Wątki i async task                                    :important:easy:
