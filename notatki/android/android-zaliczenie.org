@@ -1,0 +1,32 @@
+* activity                                              :activity:
+** reprezentuje pojedynczy ekran zawierający interfej użytkownika
+** deklarowana w manifeście
+** koniecznie utworzenie obiektu intent                              :intent:
+*** ważne dla interakcji pomiędzy aplikacjami
+** cykl życia                                                     :important:
+*** startowanie
+**** startActivity()
+**** startActivityForResult()
+*** listenery
+**** uruchomienie
+***** onCreate()
+****** przy tworzenie activity
+****** inicjalizacja wszystkiego
+***** onStart()
+****** Wywołana przed wyświetleniem
+***** onResume()
+****** Wywołana przed rozpoczęciem interakcji
+**** zmiana activity
+***** onPause (dla aktywności ukrywanej)
+****** Zapisanie danych, zatrzymanie działań.
+***** onResume() (dla aktywności pokazywanej)
+**** zatrzymanie activity
+***** onStop()
+****** Wywoływane gdy activity przestaje być widoczne.
+**** Wznawianie zatrzymanej activity
+***** onRestart()
+***** onStart()
+***** onResume()
+**** Niszczenie activity
+***** onStop() (wipierw zostanie zatrzymana i ukryta)
+***** onDestroy() (następnie zniszczona)
