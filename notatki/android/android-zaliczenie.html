@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-01-22 pon 20:41 -->
+<!-- 2018-01-22 pon 20:43 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -232,87 +232,87 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2b65719">1. activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></a>
+<li><a href="#org7bedb0f">1. activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></a>
 <ul>
-<li><a href="#orgd41dfeb">1.1. reprezentuje pojedynczy ekran zawierający interfej użytkownika</a></li>
-<li><a href="#orge5dd09a">1.2. deklarowana w manifeście</a></li>
-<li><a href="#orgdd8547f">1.3. koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></a>
+<li><a href="#org8986c12">1.1. reprezentuje pojedynczy ekran zawierający interfej użytkownika</a></li>
+<li><a href="#org3679996">1.2. deklarowana w manifeście</a></li>
+<li><a href="#orge74a1c7">1.3. koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></a>
 <ul>
-<li><a href="#org736e4e4">1.3.1. ważne dla interakcji pomiędzy aplikacjami</a></li>
+<li><a href="#org363b20b">1.3.1. ważne dla interakcji pomiędzy aplikacjami</a></li>
 </ul>
 </li>
-<li><a href="#org4ad441c">1.4. tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a>
+<li><a href="#org51951ad">1.4. tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a>
 <ul>
-<li><a href="#org789fdd8">1.4.1. tworzenie intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></a></li>
-<li><a href="#org5e47707">1.4.2. uruchomienie activity</a></li>
-<li><a href="#org2846558">1.4.3. Dodatkowe informacje przekazywane w intent</a></li>
+<li><a href="#org65e89a4">1.4.1. tworzenie intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></a></li>
+<li><a href="#orgddf230d">1.4.2. uruchomienie activity</a></li>
+<li><a href="#orgee33708">1.4.3. Dodatkowe informacje przekazywane w intent</a></li>
 </ul>
 </li>
-<li><a href="#orgc732d81">1.5. cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
+<li><a href="#orgcd29764">1.5. cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
 <ul>
-<li><a href="#orgb6b6464">1.5.1. listenery</a></li>
+<li><a href="#org8441897">1.5.1. listenery</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org4465c61">2. <span class="todo TODO">TODO</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
-<li><a href="#orgad38d02">3. <span class="todo TODO">TODO</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#orgfbc40e9">4. <span class="todo TODO">TODO</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org7a43b12">5. <span class="todo TODO">TODO</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
-<li><a href="#orgca83ee7">6. <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org6e9f283">7. <span class="todo TODO">TODO</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
+<li><a href="#org334b7e5">2. <span class="todo TODO">TODO</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
+<li><a href="#org152d766">3. <span class="todo TODO">TODO</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#org6626606">4. <span class="todo TODO">TODO</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#orgc1248b7">5. <span class="todo TODO">TODO</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
+<li><a href="#org3007b6e">6. <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#orgcd4088b">7. <span class="todo TODO">TODO</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org2b65719" class="outline-2">
-<h2 id="org2b65719"><span class="section-number-2">1</span> activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></h2>
+<div id="outline-container-org7bedb0f" class="outline-2">
+<h2 id="org7bedb0f"><span class="section-number-2">1</span> activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgd41dfeb" class="outline-3">
-<h3 id="orgd41dfeb"><span class="section-number-3">1.1</span> reprezentuje pojedynczy ekran zawierający interfej użytkownika</h3>
+<div id="outline-container-org8986c12" class="outline-3">
+<h3 id="org8986c12"><span class="section-number-3">1.1</span> reprezentuje pojedynczy ekran zawierający interfej użytkownika</h3>
 </div>
-<div id="outline-container-orge5dd09a" class="outline-3">
-<h3 id="orge5dd09a"><span class="section-number-3">1.2</span> deklarowana w manifeście</h3>
+<div id="outline-container-org3679996" class="outline-3">
+<h3 id="org3679996"><span class="section-number-3">1.2</span> deklarowana w manifeście</h3>
 </div>
-<div id="outline-container-orgdd8547f" class="outline-3">
-<h3 id="orgdd8547f"><span class="section-number-3">1.3</span> koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></h3>
+<div id="outline-container-orge74a1c7" class="outline-3">
+<h3 id="orge74a1c7"><span class="section-number-3">1.3</span> koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-org736e4e4" class="outline-4">
-<h4 id="org736e4e4"><span class="section-number-4">1.3.1</span> ważne dla interakcji pomiędzy aplikacjami</h4>
+<div id="outline-container-org363b20b" class="outline-4">
+<h4 id="org363b20b"><span class="section-number-4">1.3.1</span> ważne dla interakcji pomiędzy aplikacjami</h4>
 </div>
 </div>
-<div id="outline-container-org4ad441c" class="outline-3">
-<h3 id="org4ad441c"><span class="section-number-3">1.4</span> tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-org51951ad" class="outline-3">
+<h3 id="org51951ad"><span class="section-number-3">1.4</span> tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 <div class="outline-text-3" id="text-1-4">
 </div>
-<div id="outline-container-org789fdd8" class="outline-4">
-<h4 id="org789fdd8"><span class="section-number-4">1.4.1</span> tworzenie intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></h4>
+<div id="outline-container-org65e89a4" class="outline-4">
+<h4 id="org65e89a4"><span class="section-number-4">1.4.1</span> tworzenie intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></h4>
 <div class="outline-text-4" id="text-1-4-1">
 </div>
 <ol class="org-ol">
-<li><a id="org3a1e3dc"></a>Intent intent = new Intent(this, Activity.class);&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span><br /></li>
+<li><a id="org756e62e"></a>Intent intent = new Intent(this, Activity.class);&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span><br /></li>
 </ol>
 </div>
-<div id="outline-container-org5e47707" class="outline-4">
-<h4 id="org5e47707"><span class="section-number-4">1.4.2</span> uruchomienie activity</h4>
+<div id="outline-container-orgddf230d" class="outline-4">
+<h4 id="orgddf230d"><span class="section-number-4">1.4.2</span> uruchomienie activity</h4>
 <div class="outline-text-4" id="text-1-4-2">
 </div>
 <ol class="org-ol">
-<li><a id="org8931734"></a>startActivity(intent)<br /></li>
-<li><a id="org07bddf6"></a>startActivityForResult(intent)<br />
+<li><a id="org4d92cfb"></a>startActivity(intent)<br /></li>
+<li><a id="orgc80bcc6"></a>startActivityForResult(intent)<br />
 <ol class="org-ol">
-<li><a id="org631d252"></a>analog okienka dialogowe (mniej więcej)<br /></li>
-<li><a id="orgaf4350f"></a>ponieważ java to choroba, jest to dziwne<br />
+<li><a id="org4b1b88f"></a>analog okienka dialogowe (mniej więcej)<br /></li>
+<li><a id="orgac840d3"></a>ponieważ java to choroba, jest to dziwne<br />
 <ol class="org-ol">
-<li><a id="org7da2c18"></a>Intent intent = new Intent(this, GroupActivity.class);<br /></li>
-<li><a id="org5f5c69e"></a>startActivityForResult(intent, CODE<sub>ADD</sub><sub>GROUP</sub><sub>ACTIVITY</sub>);<br /></li>
-<li><a id="orge180e72"></a>przy powrocie wywołanie onActivityResult(int reqCode, int resCode, Intent i)<br />
+<li><a id="orgcbf2460"></a>Intent intent = new Intent(this, GroupActivity.class);<br /></li>
+<li><a id="org795173f"></a>startActivityForResult(intent, CODE<sub>ADD</sub><sub>GROUP</sub><sub>ACTIVITY</sub>);<br /></li>
+<li><a id="orge730b8f"></a>przy powrocie wywołanie onActivityResult(int reqCode, int resCode, Intent i)<br />
 <ol class="org-ol">
-<li><a id="orgdd33a75"></a><span class="todo TODO">TODO</span> reqCode<br /></li>
-<li><a id="org0ec80f2"></a>resCode<br />
+<li><a id="org6732c31"></a><span class="todo TODO">TODO</span> reqCode<br /></li>
+<li><a id="org7f186b0"></a>resCode<br />
 <ol class="org-ol">
-<li><a id="org6726c64"></a>status wyniku (powodzenie == RESULT<sub>OK</sub>)<br /></li>
+<li><a id="org786fa37"></a>status wyniku (powodzenie == RESULT<sub>OK</sub>)<br /></li>
 </ol>
 </li>
 </ol>
@@ -323,101 +323,101 @@ for the JavaScript code in this tag.
 </li>
 </ol>
 </div>
-<div id="outline-container-org2846558" class="outline-4">
-<h4 id="org2846558"><span class="section-number-4">1.4.3</span> Dodatkowe informacje przekazywane w intent</h4>
+<div id="outline-container-orgee33708" class="outline-4">
+<h4 id="orgee33708"><span class="section-number-4">1.4.3</span> Dodatkowe informacje przekazywane w intent</h4>
 <div class="outline-text-4" id="text-1-4-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgd439eec"></a>intent.putExtra("MAX<sub>VALUE</sub>", 123);<br /></li>
+<li><a id="orga4dccf8"></a>intent.putExtra("MAX<sub>VALUE</sub>", 123);<br /></li>
 </ol>
 </div>
 </div>
-<div id="outline-container-orgc732d81" class="outline-3">
-<h3 id="orgc732d81"><span class="section-number-3">1.5</span> cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
+<div id="outline-container-orgcd29764" class="outline-3">
+<h3 id="orgcd29764"><span class="section-number-3">1.5</span> cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
 <div class="outline-text-3" id="text-1-5">
 </div>
-<div id="outline-container-orgb6b6464" class="outline-4">
-<h4 id="orgb6b6464"><span class="section-number-4">1.5.1</span> listenery</h4>
+<div id="outline-container-org8441897" class="outline-4">
+<h4 id="org8441897"><span class="section-number-4">1.5.1</span> listenery</h4>
 <div class="outline-text-4" id="text-1-5-1">
 </div>
 <ol class="org-ol">
-<li><a id="orgf53dc34"></a>uruchomienie<br />
+<li><a id="orgdf9aa02"></a>uruchomienie<br />
 <ol class="org-ol">
-<li><a id="org02b3df0"></a>onCreate()<br />
+<li><a id="org411708a"></a>onCreate()<br />
 <ol class="org-ol">
-<li><a id="orga7a5bfa"></a>przy tworzenie activity<br /></li>
-<li><a id="orgc8d52d5"></a>inicjalizacja wszystkiego<br /></li>
+<li><a id="org682b523"></a>przy tworzenie activity<br /></li>
+<li><a id="org4df33dc"></a>inicjalizacja wszystkiego<br /></li>
 </ol>
 </li>
-<li><a id="orgf3982f6"></a>onStart()<br />
+<li><a id="org07feb1a"></a>onStart()<br />
 <ol class="org-ol">
-<li><a id="org4d67010"></a>Wywołana przed wyświetleniem<br /></li>
+<li><a id="orgdcc1714"></a>Wywołana przed wyświetleniem<br /></li>
 </ol>
 </li>
-<li><a id="org7314d71"></a>onResume()<br />
+<li><a id="orgdf94462"></a>onResume()<br />
 <ol class="org-ol">
-<li><a id="org75207bd"></a>Wywołana przed rozpoczęciem interakcji<br /></li>
-</ol>
-</li>
-</ol>
-</li>
-<li><a id="orgf515e1b"></a>zmiana activity<br />
-<ol class="org-ol">
-<li><a id="org30d1e8c"></a>onPause (dla aktywności ukrywanej)<br />
-<ol class="org-ol">
-<li><a id="org67b93ef"></a>Zapisanie danych, zatrzymanie działań.<br /></li>
-</ol>
-</li>
-<li><a id="org33ba52b"></a>onResume() (dla aktywności pokazywanej)<br /></li>
-</ol>
-</li>
-<li><a id="org7beecc4"></a>zatrzymanie activity<br />
-<ol class="org-ol">
-<li><a id="org7f37dfd"></a>onStop()<br />
-<ol class="org-ol">
-<li><a id="org457a63a"></a>Wywoływane gdy activity przestaje być widoczne.<br /></li>
+<li><a id="orge3b9ccf"></a>Wywołana przed rozpoczęciem interakcji<br /></li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a id="org89b553d"></a>Wznawianie zatrzymanej activity<br />
+<li><a id="orgab080d2"></a>zmiana activity<br />
 <ol class="org-ol">
-<li><a id="org5b28e13"></a>onRestart()<br /></li>
-<li><a id="orgc214bda"></a>onStart()<br /></li>
-<li><a id="org94d4ce2"></a>onResume()<br /></li>
+<li><a id="org9565184"></a>onPause (dla aktywności ukrywanej)<br />
+<ol class="org-ol">
+<li><a id="org78825cb"></a>Zapisanie danych, zatrzymanie działań.<br /></li>
 </ol>
 </li>
-<li><a id="org20b6bb5"></a>Niszczenie activity<br />
+<li><a id="orgc95cf04"></a>onResume() (dla aktywności pokazywanej)<br /></li>
+</ol>
+</li>
+<li><a id="orgdd57d23"></a>zatrzymanie activity<br />
 <ol class="org-ol">
-<li><a id="org3194696"></a>onStop() (wipierw zostanie zatrzymana i ukryta)<br /></li>
-<li><a id="org6ca73df"></a>onDestroy() (następnie<br /></li>
+<li><a id="orgeba933b"></a>onStop()<br />
+<ol class="org-ol">
+<li><a id="org336719f"></a>Wywoływane gdy activity przestaje być widoczne.<br /></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org1a51ba6"></a>Wznawianie zatrzymanej activity<br />
+<ol class="org-ol">
+<li><a id="orgcd383bf"></a>onRestart()<br /></li>
+<li><a id="orgb96ac84"></a>onStart()<br /></li>
+<li><a id="org6a19d84"></a>onResume()<br /></li>
+</ol>
+</li>
+<li><a id="org22e64b8"></a>Niszczenie activity<br />
+<ol class="org-ol">
+<li><a id="org3736950"></a>onStop() (wipierw zostanie zatrzymana i ukryta)<br /></li>
+<li><a id="org4bdb1d8"></a>onDestroy() (następnie<br /></li>
 </ol>
 </li>
 </ol>
 </div>
 </div>
 </div>
-<div id="outline-container-org4465c61" class="outline-2">
-<h2 id="org4465c61"><span class="section-number-2">2</span> <span class="todo TODO">TODO</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h2>
+<div id="outline-container-org334b7e5" class="outline-2">
+<h2 id="org334b7e5"><span class="section-number-2">2</span> <span class="todo TODO">TODO</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h2>
 </div>
-<div id="outline-container-orgad38d02" class="outline-2">
-<h2 id="orgad38d02"><span class="section-number-2">3</span> <span class="todo TODO">TODO</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h2>
+<div id="outline-container-org152d766" class="outline-2">
+<h2 id="org152d766"><span class="section-number-2">3</span> <span class="todo TODO">TODO</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h2>
 </div>
-<div id="outline-container-orgfbc40e9" class="outline-2">
-<h2 id="orgfbc40e9"><span class="section-number-2">4</span> <span class="todo TODO">TODO</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h2>
+<div id="outline-container-org6626606" class="outline-2">
+<h2 id="org6626606"><span class="section-number-2">4</span> <span class="todo TODO">TODO</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h2>
 </div>
-<div id="outline-container-org7a43b12" class="outline-2">
-<h2 id="org7a43b12"><span class="section-number-2">5</span> <span class="todo TODO">TODO</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h2>
+<div id="outline-container-orgc1248b7" class="outline-2">
+<h2 id="orgc1248b7"><span class="section-number-2">5</span> <span class="todo TODO">TODO</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h2>
 </div>
-<div id="outline-container-orgca83ee7" class="outline-2">
-<h2 id="orgca83ee7"><span class="section-number-2">6</span> <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h2>
+<div id="outline-container-org3007b6e" class="outline-2">
+<h2 id="org3007b6e"><span class="section-number-2">6</span> <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h2>
 </div>
-<div id="outline-container-org6e9f283" class="outline-2">
-<h2 id="org6e9f283"><span class="section-number-2">7</span> <span class="todo TODO">TODO</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h2>
+<div id="outline-container-orgcd4088b" class="outline-2">
+<h2 id="orgcd4088b"><span class="section-number-2">7</span> <span class="todo TODO">TODO</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h2>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2018-01-22 pon 20:41</p>
+<p class="date">Created: 2018-01-22 pon 20:43</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
