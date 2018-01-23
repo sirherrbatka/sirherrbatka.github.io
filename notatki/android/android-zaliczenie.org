@@ -91,7 +91,28 @@
 ***** timestamp
 ***** surowe dane
 **** by korzystać z sensora potrzeba uprawnień.
-** TODO Manifest i uprawnienia                               :important:easy:
+** DONE Manifest i uprawnienia                               :important:easy:
+   CLOSED: [2018-01-23 wto 19:08]
+*** plik xml dostarcza informacje o aplikacji dla androida
+*** zawiera
+**** nazwa pakietu javy
+**** opis komponentów aplikacji (activities, services, providers)
+**** nazwy klas implementujące komponenty
+**** procesy hostujące komponenty
+**** deklarację uprawnień
+**** wymagania odnośnie wersji
+**** lista zależności (bibliotek)
+*** uprawnienia
+**** description (ludzki opis)
+**** icon (obrazek)
+**** label (ludzka nazwa)
+**** name (nazwa kodowa)
+**** permissionGroup (przypisanie uprawnienia do grupy)
+**** protectionlevel
+***** normal -- izolowany dostęp do funkcji apliakcji. Nie pyta użytkownika o zgodę.
+***** dangerous -- dostęp do prywatnych danych. Może prosić o pozwolenie.
+***** signature -- zezwala na dostęp aplikacjom podpisanym tym samym certyfikatem.
+***** signatureOrSystem -- jak wyżej ale dodatkowo pozwala na dostęp aplikacjom systemowym.
 ** TODO Kwalifikatory i ich zastosowanie                          :important:
 ** TODO Wątki i async task                                   :important:easy:
 * iOS
