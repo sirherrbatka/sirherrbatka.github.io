@@ -158,6 +158,38 @@
 ***** subscript -- dereferencja elementu z array
 ***** index -- pozycja elementu w array
 ***** indexOfObject -- przyjmuje predykat, zwraca indeks pierwszego elementu dla którego predykat jest spełniony.
+*** słowniki
+**** mapuje stringi na obiekty
+**** NSDictionary
+**** NSMutableDictionary
+***** dodatkowe metody
+****** setValue
+****** removeObject
+**** metody
+***** count
+***** allKeys
+***** allValues
+***** value
+*** sety
+**** zbíór (obiekt albo w nim jest, albo go w nim nie ma).
+**** NSSet
+**** NSMutableSet
+***** dodatkowe metody
+****** union
+****** minus
+****** intersect
+****** setSet
+***** add
+***** filter
+***** remove
+**** NSCountedSet
+***** mutowalny set, pozwala na wielokrotne dodanie tego samego elementu
+**** metody
+***** contains
+***** filtered (tworzy set na podstawie istniejącego, zawierający jedynie elementy dla których predykat zwraca true).
+***** member -- zwraca obiekt jeśli jest zawarty w zbiorze.
+***** interects
+***** isSubset
 ** TODO CoreData.                                                 :important:
 ** TODO Storyboards.                                              :important:
 ** TODO Klasy mutable i non-mutable.                              :important:
