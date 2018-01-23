@@ -44,7 +44,14 @@
 ***** Niszczenie activity
 ****** onStop() (wipierw zostanie zatrzymana i ukryta)
 ****** onDestroy() (następnie
-** TODO Przechowywanie danych                                :important:easy:
+** DONE Przechowywanie danych                                :important:easy:
+   CLOSED: [2018-01-23 wto 19:15]
+*** dla activity
+**** przed przejściem activity do zniszczenia wywoływany jest callback onSaveInstanceState(Bundle bundle)
+**** Bundle pozwala na przechowywanie stanu.
+**** podczas przywracania wywoływane jest onRestoreInstanceState(Bundle bundle)
+**** bundle przekazywane jest też do onCreate
+**** istnieje też parcalable, ale nie należy go używać do przechowywania danych a jedynie do IPC
 ** TODO Activity i fragmenty                                      :important:
 ** DONE Czujniki i ich wykorzystanie                              :important:
    CLOSED: [2018-01-23 wto 18:38]
@@ -120,6 +127,37 @@
 *** Jeśli Objective-C to pytanie, odpowiedzią jest NIE.
 ** TODO Zarządzanie pamięcią w Objective-C                   :important:easy:
 ** TODO Podstawowe klasy systemowe (NSString, NSArray, NSDictionary, NSSet, ...) :important:easy:
+*** stringi
+**** NSSstring -- niemutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)
+**** NSMutableString -- mutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)
+**** metody
+***** compare
+***** hash
+***** isEqual
+***** getCString
+***** utf8String
+***** length
+***** write -- zapisz string do pliku (wtf?! why?).
+*** array
+**** NSArray -- stały, statyczny array
+**** NSMutableArray -- dynamiczny array
+***** dodatkowe metody
+****** insert (rozsuń by zrobić miejsce, wsadź do środka)
+****** add (dodaj na koniec)
+**** NSPointerArray -- potrafi trzymać nil (yay!)
+***** ma bardziej rozbudowane semantykę do obsługi pamięci (może być zainicjalizowane by trzymać weak pointery)
+***** dodatkowe gówno-metody
+****** insertPointer
+****** addPointer
+***** dodatkowo to co w mutable array
+**** metody
+***** count
+***** contains
+***** firstObject -- z początku array
+***** lastObject -- na końcu array
+***** subscript -- dereferencja elementu z array
+***** index -- pozycja elementu w array
+***** indexOfObject -- przyjmuje predykat, zwraca indeks pierwszego elementu dla którego predykat jest spełniony.
 ** TODO CoreData.                                                 :important:
 ** TODO Storyboards.                                              :important:
 ** TODO Klasy mutable i non-mutable.                              :important:
