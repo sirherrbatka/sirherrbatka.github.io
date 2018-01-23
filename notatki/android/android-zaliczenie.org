@@ -46,7 +46,51 @@
 ****** onDestroy() (następnie
 ** TODO Przechowywanie danych                                :important:easy:
 ** TODO Activity i fragmenty                                      :important:
-** TODO Czujniki i ich wykorzystanie                              :important:
+** DONE Czujniki i ich wykorzystanie                              :important:
+   CLOSED: [2018-01-23 wto 18:38]
+*** Zgodnie z https://developer.android.com/guide/topics/sensors/sensors_overview.html
+*** Typy
+    | sensor                   | typ               | a co to robi?                                            |
+    |--------------------------+-------------------+----------------------------------------------------------|
+    | TYPE_ACCELEROMETER       | hardware          | przyśpieszenie w m/s^2 włącznie z siłą grawitacji        |
+    | TYPE_AMBIENT_TEMPERATURE | hardware          | temperatura w stopniach Celsjusza                        |
+    | TYPE_GRAVITY             | software/hardware | przyśpieszenie w m/s^2                                   |
+    | TYPE_GYROSCOPE           | software/hardware | mierzy rotację we wszystkich osiach                      |
+    | TYPE_LIGHT               | hardware          | światło w lx                                             |
+    | TYPE_LINEAR_ACCELERATION | software/hardware | akcelerometr, pomija siłę grawitacji                     |
+    | TYPE_MAGNETIC_FIELD      | hardware          | polę geomagnetyczne we wszystkich osiach w mikro Teslach |
+    | TYPE_ORIENTATION         | software          | mierzy rotację. Potrafi obecnie zwrócić macierz rotacji. |
+    | TYPE_PRESSURE            | hardware          | Mierzy ciśnienie w pascalach.                            |
+    | TYPE_PROXIMITY           | hardware          | zbliżenie w cm od ekranu                                 |
+    | TYPE_RELATIVE_HUMIDITY   | hardware          | wilgotność powietrza w %                                 |
+    | TYPE_ROTATION_VECTOR     | software/hardware | W zasadzie to samo to orientacja?                        |
+    | TYPE_TEMPERATURE         | hardware          | przestarzałe, używać TYPE_AMBIENT_TEMPERATURE            |
+*** Czujniki ruhchu
+**** mierzą siły wzdłuż trzech osi
+**** akcelerometr
+**** czujnik grawitacji
+**** żyroskop
+**** czujnik rotacji?
+*** Czujniki pozycji
+**** mierzą fizyczną pozycję urządzenia
+**** czujnik orientacji (nie wiem jak ma działać)
+**** magnetometr
+*** czujniki środowiskowe
+**** temperatura
+**** ciśnienie
+**** wilgotność i jaśność
+*** Wykorzystanie
+**** pobrać z SystemService SensorManager
+**** pobrać z SensorManager instancję sensor
+**** ((SensorManager)getSystemService(Context.SENSOR_SERVICE)).getDefaultSensor(Sensor.TYPE_ACCELEROMETER)...
+**** List<Sensor> deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL) by zobaczyć jakie sensory są obecne.
+**** można podłączyć się do sensora za pomocą SensorEventListener
+**** SensorEvent
+***** typ sensora
+***** dokładność danych
+***** timestamp
+***** surowe dane
+**** by korzystać z sensora potrzeba uprawnień.
 ** TODO Manifest i uprawnienia                               :important:easy:
 ** TODO Kwalifikatory i ich zastosowanie                          :important:
 ** TODO Wątki i async task                                   :important:easy:
