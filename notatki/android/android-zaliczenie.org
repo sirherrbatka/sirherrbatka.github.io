@@ -52,7 +52,51 @@
 **** podczas przywracania wywoływane jest onRestoreInstanceState(Bundle bundle)
 **** bundle przekazywane jest też do onCreate
 **** istnieje też parcalable, ale nie należy go używać do przechowywania danych a jedynie do IPC
-** TODO Activity i fragmenty                                      :important:
+** DONE Activity i fragmenty                                      :important:
+   CLOSED: [2018-01-24 śro 07:54]
+*** fragmenty
+**** reprezentują zachowanie części interfejsu w activity
+**** mogą być wykorzystane ponownie w wielu activity
+**** mogą być użyte w większej liczbie w jednym activity
+**** posiada własny cykl życia
+**** musi siedzieć w activity, ponieważ niczym u tasiemca, jego cykl życia jest powiązany z cyklem activity
+**** gdy activity jeż działa (w stanie resumed) można swodobnie dodawać i usuwać fragmenty
+**** tworzenie
+***** subklasa Fragment
+***** kod zbliżony do activity
+****** onCreate
+****** onStart
+****** onPause
+****** onStop
+***** wbudowane fragmenty
+****** DialogFragment
+****** ListFragment
+****** PreferenceFragmentCompat
+***** ładowanie layoutu
+       public static class ExampleFragment extends Fragment {
+       @Override
+       public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                Bundle savedInstanceState) {
+          // Inflate the layout for this fragment
+          return inflater.inflate(R.layout.example_fragment, container, false);
+          }
+       }
+****** argumenty inflate
+******* ID
+******* ViewGroup (rodzic)
+******* boolean, informacja o tym czy fragment ma zostać dołączony do grupy w trakcie inflacji
+***** dodawanie do aktywności
+****** dodaj do pliku layoutu
+****** ewentualnie można zrobić to programistycznie
+******* FragmentManager fragmentManager = getSupportFragmentManager(); FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+******* ExampleFragment fragment = new ExampleFragment();
+        fragmentTransaction.add(R.id.fragment_container, fragment); //pierwszy argument to ViewGroup do którego ma zostać dodany fragment
+        fragmentTransaction.addToBackStack(fragment);
+        fragmentTransaction.commit();
+****** pobranie activity
+******* metoda call activity
+****** pobranie dodanego fragmentu
+******* ExampleFragment fragment = (ExampleFragment) getFragmentManager().findFragmentById(R.id.example_fragment);
 ** DONE Czujniki i ich wykorzystanie                              :important:
    CLOSED: [2018-01-23 wto 18:38]
 *** Zgodnie z https://developer.android.com/guide/topics/sensors/sensors_overview.html
@@ -184,6 +228,8 @@
 ***** remove
 **** NSCountedSet
 ***** mutowalny set, pozwala na wielokrotne dodanie tego samego elementu
+***** dodatkowe mestody
+****** count
 **** metody
 ***** contains
 ***** filtered (tworzy set na podstawie istniejącego, zawierający jedynie elementy dla których predykat zwraca true).
