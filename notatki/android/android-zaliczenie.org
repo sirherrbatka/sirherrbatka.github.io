@@ -165,12 +165,45 @@
 ***** signature -- zezwala na dostęp aplikacjom podpisanym tym samym certyfikatem.
 ***** signatureOrSystem -- jak wyżej ale dodatkowo pozwala na dostęp aplikacjom systemowym.
 ** TODO Kwalifikatory i ich zastosowanie                          :important:
-** TODO Wątki i async task                                   :important:easy:
+** DONE Wątki i async task                                   :important:easy:
+   CLOSED: [2018-01-24 śro 08:06]
+*** Broń boże nie próbować blokować wątku GUI.
+*** private class DownloadFilesTask extends AsyncTask<URL, Integer, Long> {
+        protected Long doInBackground(URL... urls) {
+             int count = urls.length;
+             long totalSize = 0;
+             for (int i = 0; i < count; i++) {
+                 totalSize += Downloader.downloadFile(urls[i]);
+                 publishProgress((int) ((i / (float) count) * 100));
+                 // Escape early if cancel() is called
+                 if (isCancelled()) break;
+             }
+             return totalSize;
+          }
+
+          protected void onProgressUpdate(Integer... progress) { //na wątku UI
+              setProgressPercent(progress[0]);
+          }
+
+          protected void onPostExecute(Long result) { //na wątku UI
+              showDialog("Downloaded " + result + " bytes");
+          }
+     }
+*** new DownloadFilesTask().execute(url1, url2, url3);
+*** dodatkowe metody
+**** onCancelled()
+**** onCancel()
+**** onPreExecute
+*** parametry generyczne:
+**** co przyjmuje przy konstrukcji
+**** co zwraca w ramach progress
+**** co zwraca po wykonaniu
 * iOS
 ** TODO Objective-C                                           :important:WTF:
 *** Jeśli Objective-C to pytanie, odpowiedzią jest NIE.
 ** TODO Zarządzanie pamięcią w Objective-C                   :important:easy:
-** TODO Podstawowe klasy systemowe (NSString, NSArray, NSDictionary, NSSet, ...) :important:easy:
+** DONE Podstawowe klasy systemowe (NSString, NSArray, NSDictionary, NSSet, ...) :important:easy:
+   CLOSED: [2018-01-24 śro 07:57]
 *** stringi
 **** NSSstring -- niemutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)
 **** NSMutableString -- mutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)
