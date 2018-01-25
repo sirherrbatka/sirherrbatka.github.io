@@ -165,6 +165,22 @@
 ***** signature -- zezwala na dostęp aplikacjom podpisanym tym samym certyfikatem.
 ***** signatureOrSystem -- jak wyżej ale dodatkowo pozwala na dostęp aplikacjom systemowym.
 ** TODO Kwalifikatory i ich zastosowanie                          :important:
+*** aplikacja ma zasoby w folderze ref
+*** następnie zasoby są przepisane do podkatalogu
+    | folder   | opis                                    |
+    |----------+-----------------------------------------|
+    | animator | P.XML typu property animations          |
+    | anim     | P.XML typu tween animations             |
+    | color    | P.XML definiuje listę kolorów           |
+    | drawable | P.Bitmap                                |
+    | mimap    | P. dla różnych gęstości ikon            |
+    | layout   | P.XML definiuje layout                  |
+    | menu     | P.XML definiuje menu                    |
+    | raw      | P. do zapisu w raw formie               |
+    | values   | Prote P. XML z string int colors arrays |
+    | xml      | Pliki XML w ich środowisku              |
+    | fonts    | Pliki czcionek                         |
+*** https://developer.android.com/guide/topics/resources/providing-resources.html
 ** DONE Wątki i async task                                   :important:easy:
    CLOSED: [2018-01-24 śro 08:06]
 *** Broń boże nie próbować blokować wątku GUI.

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-01-24 śro 08:13 -->
+<!-- 2018-01-25 czw 08:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -232,205 +232,211 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd920301">1. Android</a>
+<li><a href="#org9846735">1. Android</a>
 <ul>
-<li><a href="#orga1e7d18">1.1. activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></a>
+<li><a href="#orgf83aaac">1.1. activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></a>
 <ul>
-<li><a href="#orgb2d10ee">1.1.1. reprezentuje pojedynczy ekran zawierający interfej użytkownika</a></li>
-<li><a href="#orgbc80e26">1.1.2. deklarowana w manifeście</a></li>
-<li><a href="#org547569a">1.1.3. koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></a></li>
-<li><a href="#org50da799">1.1.4. tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#orga51d835">1.1.5. cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
+<li><a href="#orge2a0317">1.1.1. reprezentuje pojedynczy ekran zawierający interfej użytkownika</a></li>
+<li><a href="#org3975700">1.1.2. deklarowana w manifeście</a></li>
+<li><a href="#org31b88b6">1.1.3. koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></a></li>
+<li><a href="#org34af3f9">1.1.4. tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#org3b47978">1.1.5. cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
 </ul>
 </li>
-<li><a href="#org88a85a8">1.2. <span class="done DONE">DONE</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
+<li><a href="#org8cd5309">1.2. <span class="done DONE">DONE</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
 <ul>
-<li><a href="#orge9ffd66">1.2.1. dla activity</a></li>
+<li><a href="#orgfdaff72">1.2.1. dla activity</a></li>
 </ul>
 </li>
-<li><a href="#org4a3acbe">1.3. <span class="done DONE">DONE</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a>
+<li><a href="#orgbac75b6">1.3. <span class="done DONE">DONE</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a>
 <ul>
-<li><a href="#orgeb462de">1.3.1. fragmenty</a></li>
+<li><a href="#org473e481">1.3.1. fragmenty</a></li>
 </ul>
 </li>
-<li><a href="#orgbc0af2c">1.4. <span class="done DONE">DONE</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a>
+<li><a href="#org848d36d">1.4. <span class="done DONE">DONE</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a>
 <ul>
-<li><a href="#orgb8994e9">1.4.1. Zgodnie z https://developer.android.com/guide/topics/sensors/sensors_overview.html</a></li>
-<li><a href="#org271b8a5">1.4.2. Typy</a></li>
-<li><a href="#org01ae70d">1.4.3. Czujniki ruhchu</a></li>
-<li><a href="#org97087fe">1.4.4. Czujniki pozycji</a></li>
-<li><a href="#org55c56ec">1.4.5. czujniki środowiskowe</a></li>
-<li><a href="#org9039274">1.4.6. Wykorzystanie</a></li>
+<li><a href="#org9d93926">1.4.1. Zgodnie z https://developer.android.com/guide/topics/sensors/sensors_overview.html</a></li>
+<li><a href="#orgfedb6ff">1.4.2. Typy</a></li>
+<li><a href="#org185c3b0">1.4.3. Czujniki ruhchu</a></li>
+<li><a href="#orga82bcf2">1.4.4. Czujniki pozycji</a></li>
+<li><a href="#orgde25f6f">1.4.5. czujniki środowiskowe</a></li>
+<li><a href="#orge84b61c">1.4.6. Wykorzystanie</a></li>
 </ul>
 </li>
-<li><a href="#org5b23e3b">1.5. <span class="done DONE">DONE</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
+<li><a href="#orgd159713">1.5. <span class="done DONE">DONE</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
 <ul>
-<li><a href="#org8f286aa">1.5.1. plik xml dostarcza informacje o aplikacji dla androida</a></li>
-<li><a href="#org689eaa0">1.5.2. zawiera</a></li>
-<li><a href="#org3310879">1.5.3. uprawnienia</a></li>
+<li><a href="#orgbbf7207">1.5.1. plik xml dostarcza informacje o aplikacji dla androida</a></li>
+<li><a href="#orge0ffc5b">1.5.2. zawiera</a></li>
+<li><a href="#orgd3b844f">1.5.3. uprawnienia</a></li>
 </ul>
 </li>
-<li><a href="#org2edd491">1.6. <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org1fb86b4">1.7. <span class="done DONE">DONE</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
+<li><a href="#orgc3fa3aa">1.6. <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a>
 <ul>
-<li><a href="#orgd2ab4c2">1.7.1. Broń boże nie próbować blokować wątku GUI.</a></li>
-<li><a href="#orgac779eb">1.7.2. private class DownloadFilesTask extends AsyncTask&lt;URL, Integer, Long&gt; {</a></li>
-<li><a href="#orgd3e8652">1.7.3. new DownloadFilesTask().execute(url1, url2, url3);</a></li>
-<li><a href="#orgc6d1e00">1.7.4. dodatkowe metody</a></li>
-<li><a href="#orge2a98c4">1.7.5. parametry generyczne:</a></li>
+<li><a href="#org67c12d1">1.6.1. aplikacja ma zasoby w folderze ref</a></li>
+<li><a href="#org24cf547">1.6.2. następnie zasoby są przepisane do podkatalogu</a></li>
+<li><a href="#org6089ab5">1.6.3. https://developer.android.com/guide/topics/resources/providing-resources.html</a></li>
+</ul>
+</li>
+<li><a href="#org5e91ffb">1.7. <span class="done DONE">DONE</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
+<ul>
+<li><a href="#org08abb29">1.7.1. Broń boże nie próbować blokować wątku GUI.</a></li>
+<li><a href="#org21a9363">1.7.2. private class DownloadFilesTask extends AsyncTask&lt;URL, Integer, Long&gt; {</a></li>
+<li><a href="#org46a68e1">1.7.3. new DownloadFilesTask().execute(url1, url2, url3);</a></li>
+<li><a href="#org473e647">1.7.4. dodatkowe metody</a></li>
+<li><a href="#org3ea4053">1.7.5. parametry generyczne:</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org60164ff">2. iOS</a>
+<li><a href="#orge91d6d8">2. iOS</a>
 <ul>
-<li><a href="#orgbb30690">2.1. <span class="todo TODO">TODO</span> Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></a>
+<li><a href="#orga39cd63">2.1. <span class="todo TODO">TODO</span> Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></a>
 <ul>
-<li><a href="#orga62587f">2.1.1. Jeśli Objective-C to pytanie, odpowiedzią jest NIE.</a></li>
+<li><a href="#org7289d45">2.1.1. Jeśli Objective-C to pytanie, odpowiedzią jest NIE.</a></li>
 </ul>
 </li>
-<li><a href="#org21b1f73">2.2. <span class="todo TODO">TODO</span> Zarządzanie pamięcią w Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
-<li><a href="#org89707ab">2.3. <span class="done DONE">DONE</span> Podstawowe klasy systemowe (NSString, NSArray, NSDictionary, NSSet, &#x2026;)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
+<li><a href="#org4d3c09d">2.2. <span class="todo TODO">TODO</span> Zarządzanie pamięcią w Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a></li>
+<li><a href="#orgcab4b92">2.3. <span class="done DONE">DONE</span> Podstawowe klasy systemowe (NSString, NSArray, NSDictionary, NSSet, &#x2026;)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></a>
 <ul>
-<li><a href="#org3a74e0e">2.3.1. stringi</a></li>
-<li><a href="#org30e29ae">2.3.2. array</a></li>
-<li><a href="#org98ca586">2.3.3. słowniki</a></li>
-<li><a href="#org30b9e4b">2.3.4. sety</a></li>
+<li><a href="#org45396c8">2.3.1. stringi</a></li>
+<li><a href="#orgd01abd2">2.3.2. array</a></li>
+<li><a href="#orgc44d301">2.3.3. słowniki</a></li>
+<li><a href="#org10df31a">2.3.4. sety</a></li>
 </ul>
 </li>
-<li><a href="#org9de5340">2.4. <span class="todo TODO">TODO</span> CoreData.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org3067ebb">2.5. <span class="todo TODO">TODO</span> Storyboards.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org178a80b">2.6. <span class="todo TODO">TODO</span> Klasy mutable i non-mutable.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org1411b08">2.7. <span class="todo TODO">TODO</span> AppStore Guidelines.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org36a920a">2.8. <span class="todo TODO">TODO</span> Wykorzystanie Instruments (profiler).&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
-<li><a href="#org0f28442">2.9. <span class="todo TODO">TODO</span> Wykorzystanie symulatora.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></a></li>
+<li><a href="#org6962648">2.4. <span class="todo TODO">TODO</span> CoreData.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#orgb628e20">2.5. <span class="todo TODO">TODO</span> Storyboards.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#org2984979">2.6. <span class="todo TODO">TODO</span> Klasy mutable i non-mutable.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#orga227e1a">2.7. <span class="todo TODO">TODO</span> AppStore Guidelines.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#org000ff7f">2.8. <span class="todo TODO">TODO</span> Wykorzystanie Instruments (profiler).&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></a></li>
+<li><a href="#orgbcad350">2.9. <span class="todo TODO">TODO</span> Wykorzystanie symulatora.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd920301" class="outline-2">
-<h2 id="orgd920301"><span class="section-number-2">1</span> Android</h2>
+<div id="outline-container-org9846735" class="outline-2">
+<h2 id="org9846735"><span class="section-number-2">1</span> Android</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orga1e7d18" class="outline-3">
-<h3 id="orga1e7d18"><span class="section-number-3">1.1</span> activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></h3>
+<div id="outline-container-orgf83aaac" class="outline-3">
+<h3 id="orgf83aaac"><span class="section-number-3">1.1</span> activity&#xa0;&#xa0;&#xa0;<span class="tag"><span class="activity">activity</span></span></h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-orgb2d10ee" class="outline-4">
-<h4 id="orgb2d10ee"><span class="section-number-4">1.1.1</span> reprezentuje pojedynczy ekran zawierający interfej użytkownika</h4>
+<div id="outline-container-orge2a0317" class="outline-4">
+<h4 id="orge2a0317"><span class="section-number-4">1.1.1</span> reprezentuje pojedynczy ekran zawierający interfej użytkownika</h4>
 </div>
-<div id="outline-container-orgbc80e26" class="outline-4">
-<h4 id="orgbc80e26"><span class="section-number-4">1.1.2</span> deklarowana w manifeście</h4>
+<div id="outline-container-org3975700" class="outline-4">
+<h4 id="org3975700"><span class="section-number-4">1.1.2</span> deklarowana w manifeście</h4>
 </div>
-<div id="outline-container-org547569a" class="outline-4">
-<h4 id="org547569a"><span class="section-number-4">1.1.3</span> koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></h4>
+<div id="outline-container-org31b88b6" class="outline-4">
+<h4 id="org31b88b6"><span class="section-number-4">1.1.3</span> koniecznie utworzenie obiektu intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span></h4>
 <div class="outline-text-4" id="text-1-1-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgba4f201"></a>ważne dla interakcji pomiędzy aplikacjami<br /></li>
+<li><a id="orgb59b1a1"></a>ważne dla interakcji pomiędzy aplikacjami<br /></li>
 </ol>
 </div>
-<div id="outline-container-org50da799" class="outline-4">
-<h4 id="org50da799"><span class="section-number-4">1.1.4</span> tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h4>
+<div id="outline-container-org34af3f9" class="outline-4">
+<h4 id="org34af3f9"><span class="section-number-4">1.1.4</span> tworzenie i startowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h4>
 <div class="outline-text-4" id="text-1-1-4">
 </div>
 <ol class="org-ol">
-<li><a id="orgf067e9c"></a>tworzenie intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span><br />
+<li><a id="orgc0a9f87"></a>tworzenie intent&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span><br />
 <ol class="org-ol">
-<li><a id="orgfa6d9b9"></a>Intent intent = new Intent(this, Activity.class);&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span><br /></li>
+<li><a id="org85e92e2"></a>Intent intent = new Intent(this, Activity.class);&#xa0;&#xa0;&#xa0;<span class="tag"><span class="intent">intent</span></span><br /></li>
 </ol>
 </li>
-<li><a id="org3cf13a2"></a>uruchomienie activity<br />
+<li><a id="org36d3f59"></a>uruchomienie activity<br />
 <ol class="org-ol">
-<li><a id="orgbff06b7"></a>startActivity(intent)<br /></li>
-<li><a id="org43697e9"></a>startActivityForResult(intent)<br />
+<li><a id="orgfe454e4"></a>startActivity(intent)<br /></li>
+<li><a id="org473a43d"></a>startActivityForResult(intent)<br />
 <ol class="org-ol">
-<li><a id="org4a1d909"></a>analog okienka dialogowe (mniej więcej)<br /></li>
-<li><a id="org06fe675"></a>ponieważ java to choroba, jest to dziwne<br />
+<li><a id="org5e26b97"></a>analog okienka dialogowe (mniej więcej)<br /></li>
+<li><a id="org5c279e8"></a>ponieważ java to choroba, jest to dziwne<br />
 <ol class="org-ol">
-<li><a id="orgcbc4c38"></a>Intent intent = new Intent(this, GroupActivity.class);<br /></li>
-<li><a id="orgcb600d6"></a>startActivityForResult(intent, CODE<sub>ADD</sub><sub>GROUP</sub><sub>ACTIVITY</sub>);<br /></li>
-<li><a id="org88e388f"></a>przy powrocie wywołanie onActivityResult(int reqCode, int resCode, Intent i)<br />
+<li><a id="org2990627"></a>Intent intent = new Intent(this, GroupActivity.class);<br /></li>
+<li><a id="org62634cc"></a>startActivityForResult(intent, CODE<sub>ADD</sub><sub>GROUP</sub><sub>ACTIVITY</sub>);<br /></li>
+<li><a id="orgd8abde7"></a>przy powrocie wywołanie onActivityResult(int reqCode, int resCode, Intent i)<br />
 <ol class="org-ol">
-<li><a id="org6f03e49"></a><span class="todo TODO">TODO</span> reqCode<br /></li>
-<li><a id="org8782545"></a>resCode<br />
+<li><a id="orgdaf0959"></a><span class="todo TODO">TODO</span> reqCode<br /></li>
+<li><a id="org2eb8b7a"></a>resCode<br />
 <ol class="org-ol">
-<li><a id="orgbb76f30"></a>status wyniku (powodzenie == RESULT<sub>OK</sub>)<br /></li>
-</ol>
-</li>
-</ol>
-</li>
+<li><a id="orgf5582e4"></a>status wyniku (powodzenie == RESULT<sub>OK</sub>)<br /></li>
 </ol>
 </li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a id="org379e156"></a>Dodatkowe informacje przekazywane w intent<br />
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="orgbba71b3"></a>Dodatkowe informacje przekazywane w intent<br />
 <ol class="org-ol">
-<li><a id="orgcfe254c"></a>intent.putExtra("MAX<sub>VALUE</sub>", 123);<br /></li>
+<li><a id="org2c1e489"></a>intent.putExtra("MAX<sub>VALUE</sub>", 123);<br /></li>
 </ol>
 </li>
 </ol>
 </div>
-<div id="outline-container-orga51d835" class="outline-4">
-<h4 id="orga51d835"><span class="section-number-4">1.1.5</span> cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h4>
+<div id="outline-container-org3b47978" class="outline-4">
+<h4 id="org3b47978"><span class="section-number-4">1.1.5</span> cykl życia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h4>
 <div class="outline-text-4" id="text-1-1-5">
 </div>
 <ol class="org-ol">
-<li><a id="org7d42afe"></a>listenery<br />
+<li><a id="orgea41b9f"></a>listenery<br />
 <ol class="org-ol">
-<li><a id="org8352ee9"></a>uruchomienie<br />
+<li><a id="orgd8628a8"></a>uruchomienie<br />
 <ol class="org-ol">
-<li><a id="org8b1633f"></a>onCreate()<br />
+<li><a id="orgead58f1"></a>onCreate()<br />
 <ol class="org-ol">
-<li><a id="org740bb1d"></a>przy tworzenie activity<br /></li>
-<li><a id="org4775eef"></a>inicjalizacja wszystkiego<br /></li>
+<li><a id="org12335c7"></a>przy tworzenie activity<br /></li>
+<li><a id="orge72170f"></a>inicjalizacja wszystkiego<br /></li>
 </ol>
 </li>
-<li><a id="org3fafc5c"></a>onStart()<br />
+<li><a id="org43bc33e"></a>onStart()<br />
 <ol class="org-ol">
-<li><a id="org798d5f7"></a>Wywołana przed wyświetleniem<br /></li>
+<li><a id="orge9ef7c7"></a>Wywołana przed wyświetleniem<br /></li>
 </ol>
 </li>
-<li><a id="orgf22c375"></a>onResume()<br />
+<li><a id="org7162a8a"></a>onResume()<br />
 <ol class="org-ol">
-<li><a id="org598c2e4"></a>Wywołana przed rozpoczęciem interakcji<br /></li>
-</ol>
-</li>
-</ol>
-</li>
-<li><a id="org156b55c"></a>zmiana activity<br />
-<ol class="org-ol">
-<li><a id="org69f11eb"></a>onPause (dla aktywności ukrywanej)<br />
-<ol class="org-ol">
-<li><a id="orgd05a950"></a>Zapisanie danych, zatrzymanie działań.<br /></li>
-</ol>
-</li>
-<li><a id="org2d29f04"></a>onResume() (dla aktywności pokazywanej)<br /></li>
-</ol>
-</li>
-<li><a id="org4bb995f"></a>zatrzymanie activity<br />
-<ol class="org-ol">
-<li><a id="org12be24b"></a>onStop()<br />
-<ol class="org-ol">
-<li><a id="orgaa61968"></a>Wywoływane gdy activity przestaje być widoczne.<br /></li>
+<li><a id="orgbfbbd4c"></a>Wywołana przed rozpoczęciem interakcji<br /></li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a id="org6ea1cb7"></a>Wznawianie zatrzymanej activity<br />
+<li><a id="org0b2d832"></a>zmiana activity<br />
 <ol class="org-ol">
-<li><a id="orgea6b21a"></a>onRestart()<br /></li>
-<li><a id="org616c2e1"></a>onStart()<br /></li>
-<li><a id="org1b2e892"></a>onResume()<br /></li>
+<li><a id="org818fc0d"></a>onPause (dla aktywności ukrywanej)<br />
+<ol class="org-ol">
+<li><a id="org17dd5fe"></a>Zapisanie danych, zatrzymanie działań.<br /></li>
 </ol>
 </li>
-<li><a id="org7e6927a"></a>Niszczenie activity<br />
+<li><a id="org0880c5f"></a>onResume() (dla aktywności pokazywanej)<br /></li>
+</ol>
+</li>
+<li><a id="org1c30af3"></a>zatrzymanie activity<br />
 <ol class="org-ol">
-<li><a id="org7b140be"></a>onStop() (wipierw zostanie zatrzymana i ukryta)<br /></li>
-<li><a id="org03b41f7"></a>onDestroy() (następnie<br /></li>
+<li><a id="org0bddacf"></a>onStop()<br />
+<ol class="org-ol">
+<li><a id="org59e5736"></a>Wywoływane gdy activity przestaje być widoczne.<br /></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="orgf7de9d7"></a>Wznawianie zatrzymanej activity<br />
+<ol class="org-ol">
+<li><a id="orgb71ac5f"></a>onRestart()<br /></li>
+<li><a id="org7590cf8"></a>onStart()<br /></li>
+<li><a id="org898e04c"></a>onResume()<br /></li>
+</ol>
+</li>
+<li><a id="orgc05e740"></a>Niszczenie activity<br />
+<ol class="org-ol">
+<li><a id="org49d85e5"></a>onStop() (wipierw zostanie zatrzymana i ukryta)<br /></li>
+<li><a id="org6683b14"></a>onDestroy() (następnie<br /></li>
 </ol>
 </li>
 </ol>
@@ -438,57 +444,57 @@ for the JavaScript code in this tag.
 </ol>
 </div>
 </div>
-<div id="outline-container-org88a85a8" class="outline-3">
-<h3 id="org88a85a8"><span class="section-number-3">1.2</span> <span class="done DONE">DONE</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
+<div id="outline-container-org8cd5309" class="outline-3">
+<h3 id="org8cd5309"><span class="section-number-3">1.2</span> <span class="done DONE">DONE</span> Przechowywanie danych&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-orge9ffd66" class="outline-4">
-<h4 id="orge9ffd66"><span class="section-number-4">1.2.1</span> dla activity</h4>
+<div id="outline-container-orgfdaff72" class="outline-4">
+<h4 id="orgfdaff72"><span class="section-number-4">1.2.1</span> dla activity</h4>
 <div class="outline-text-4" id="text-1-2-1">
 </div>
 <ol class="org-ol">
-<li><a id="org8109fc0"></a>przed przejściem activity do zniszczenia wywoływany jest callback onSaveInstanceState(Bundle bundle)<br /></li>
-<li><a id="orgd5c4b66"></a>Bundle pozwala na przechowywanie stanu.<br /></li>
-<li><a id="org0aa1d83"></a>podczas przywracania wywoływane jest onRestoreInstanceState(Bundle bundle)<br /></li>
-<li><a id="orgd3a4f74"></a>bundle przekazywane jest też do onCreate<br /></li>
-<li><a id="org12f34ad"></a>istnieje też parcalable, ale nie należy go używać do przechowywania danych a jedynie do IPC<br /></li>
+<li><a id="orga52cdc9"></a>przed przejściem activity do zniszczenia wywoływany jest callback onSaveInstanceState(Bundle bundle)<br /></li>
+<li><a id="org9928f26"></a>Bundle pozwala na przechowywanie stanu.<br /></li>
+<li><a id="orgb59c2da"></a>podczas przywracania wywoływane jest onRestoreInstanceState(Bundle bundle)<br /></li>
+<li><a id="org8d633e3"></a>bundle przekazywane jest też do onCreate<br /></li>
+<li><a id="org619f8d1"></a>istnieje też parcalable, ale nie należy go używać do przechowywania danych a jedynie do IPC<br /></li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org4a3acbe" class="outline-3">
-<h3 id="org4a3acbe"><span class="section-number-3">1.3</span> <span class="done DONE">DONE</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-orgbac75b6" class="outline-3">
+<h3 id="orgbac75b6"><span class="section-number-3">1.3</span> <span class="done DONE">DONE</span> Activity i fragmenty&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-orgeb462de" class="outline-4">
-<h4 id="orgeb462de"><span class="section-number-4">1.3.1</span> fragmenty</h4>
+<div id="outline-container-org473e481" class="outline-4">
+<h4 id="org473e481"><span class="section-number-4">1.3.1</span> fragmenty</h4>
 <div class="outline-text-4" id="text-1-3-1">
 </div>
 <ol class="org-ol">
-<li><a id="orga55454d"></a>reprezentują zachowanie części interfejsu w activity<br /></li>
-<li><a id="org2667796"></a>mogą być wykorzystane ponownie w wielu activity<br /></li>
-<li><a id="orgef42e29"></a>mogą być użyte w większej liczbie w jednym activity<br /></li>
-<li><a id="orgfcea87f"></a>posiada własny cykl życia<br /></li>
-<li><a id="org5c83397"></a>musi siedzieć w activity, ponieważ niczym u tasiemca, jego cykl życia jest powiązany z cyklem activity<br /></li>
-<li><a id="org33821c3"></a>gdy activity jeż działa (w stanie resumed) można swodobnie dodawać i usuwać fragmenty<br /></li>
-<li><a id="org3511728"></a>tworzenie<br />
+<li><a id="org20a3d67"></a>reprezentują zachowanie części interfejsu w activity<br /></li>
+<li><a id="org0207872"></a>mogą być wykorzystane ponownie w wielu activity<br /></li>
+<li><a id="org17966d7"></a>mogą być użyte w większej liczbie w jednym activity<br /></li>
+<li><a id="org8fc8d18"></a>posiada własny cykl życia<br /></li>
+<li><a id="org0f4f3b8"></a>musi siedzieć w activity, ponieważ niczym u tasiemca, jego cykl życia jest powiązany z cyklem activity<br /></li>
+<li><a id="org6e2ba60"></a>gdy activity jeż działa (w stanie resumed) można swodobnie dodawać i usuwać fragmenty<br /></li>
+<li><a id="org67ffdbe"></a>tworzenie<br />
 <ol class="org-ol">
-<li><a id="org2936118"></a>subklasa Fragment<br /></li>
-<li><a id="org267a757"></a>kod zbliżony do activity<br />
+<li><a id="org724db01"></a>subklasa Fragment<br /></li>
+<li><a id="orgea20eac"></a>kod zbliżony do activity<br />
 <ol class="org-ol">
-<li><a id="org4a59f40"></a>onCreate<br /></li>
-<li><a id="orge10c0dc"></a>onStart<br /></li>
-<li><a id="orgb01e6cd"></a>onPause<br /></li>
-<li><a id="org5bc151c"></a>onStop<br /></li>
+<li><a id="orgce97d77"></a>onCreate<br /></li>
+<li><a id="org8f735d4"></a>onStart<br /></li>
+<li><a id="org7a9161e"></a>onPause<br /></li>
+<li><a id="org07b7c11"></a>onStop<br /></li>
 </ol>
 </li>
-<li><a id="org02ab471"></a>wbudowane fragmenty<br />
+<li><a id="org378f95e"></a>wbudowane fragmenty<br />
 <ol class="org-ol">
-<li><a id="org77d990f"></a>DialogFragment<br /></li>
-<li><a id="orgb084f40"></a>ListFragment<br /></li>
-<li><a id="orgebda472"></a>PreferenceFragmentCompat<br /></li>
+<li><a id="orgb8fef5a"></a>DialogFragment<br /></li>
+<li><a id="org1c80929"></a>ListFragment<br /></li>
+<li><a id="org582edfa"></a>PreferenceFragmentCompat<br /></li>
 </ol>
 </li>
-<li><a id="org71eff59"></a>ładowanie layoutu<br />
+<li><a id="org071fc3a"></a>ładowanie layoutu<br />
 <div class="outline-text-6" id="text-1-3-1-7-4">
 <p>
 public static class ExampleFragment extends Fragment {
@@ -502,22 +508,22 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="org173ca9b"></a>argumenty inflate<br />
+<li><a id="org7afb33e"></a>argumenty inflate<br />
 <ol class="org-ol">
-<li><a id="org911a744"></a>ID<br /></li>
-<li><a id="org626b070"></a>ViewGroup (rodzic)<br /></li>
-<li><a id="org9ce5d6a"></a>boolean, informacja o tym czy fragment ma zostać dołączony do grupy w trakcie inflacji<br /></li>
+<li><a id="org5958883"></a>ID<br /></li>
+<li><a id="orgf3bf4dc"></a>ViewGroup (rodzic)<br /></li>
+<li><a id="org81767b2"></a>boolean, informacja o tym czy fragment ma zostać dołączony do grupy w trakcie inflacji<br /></li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a id="orga4e802a"></a>dodawanie do aktywności<br />
+<li><a id="orgae1c205"></a>dodawanie do aktywności<br />
 <ol class="org-ol">
-<li><a id="org8f3fc2a"></a>dodaj do pliku layoutu<br /></li>
-<li><a id="org76693ef"></a>ewentualnie można zrobić to programistycznie<br />
+<li><a id="orga7100a9"></a>dodaj do pliku layoutu<br /></li>
+<li><a id="org574288e"></a>ewentualnie można zrobić to programistycznie<br />
 <ol class="org-ol">
-<li><a id="orgfeb8307"></a>FragmentManager fragmentManager = getSupportFragmentManager(); FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();<br /></li>
-<li><a id="org1e9896b"></a>ExampleFragment fragment = new ExampleFragment();<br />
+<li><a id="org7fbf7be"></a>FragmentManager fragmentManager = getSupportFragmentManager(); FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();<br /></li>
+<li><a id="orgbaa52d4"></a>ExampleFragment fragment = new ExampleFragment();<br />
 <div class="outline-text-8" id="text-1-3-1-7-5-2-2">
 <p>
 fragmentTransaction.add(R.id.fragment<sub>container</sub>, fragment); //pierwszy argument to ViewGroup do którego ma zostać dodany fragment
@@ -528,14 +534,14 @@ fragmentTransaction.commit();
 </li>
 </ol>
 </li>
-<li><a id="org73bd7ca"></a>pobranie activity<br />
+<li><a id="orgb7d181b"></a>pobranie activity<br />
 <ol class="org-ol">
-<li><a id="org21a7d6c"></a>metoda call activity<br /></li>
+<li><a id="orga94b56f"></a>metoda call activity<br /></li>
 </ol>
 </li>
-<li><a id="org007a19c"></a>pobranie dodanego fragmentu<br />
+<li><a id="org2da0c1e"></a>pobranie dodanego fragmentu<br />
 <ol class="org-ol">
-<li><a id="org2ba7435"></a>ExampleFragment fragment = (ExampleFragment) getFragmentManager().findFragmentById(R.id.example<sub>fragment</sub>);<br /></li>
+<li><a id="org4610785"></a>ExampleFragment fragment = (ExampleFragment) getFragmentManager().findFragmentById(R.id.example<sub>fragment</sub>);<br /></li>
 </ol>
 </li>
 </ol>
@@ -545,15 +551,15 @@ fragmentTransaction.commit();
 </ol>
 </div>
 </div>
-<div id="outline-container-orgbc0af2c" class="outline-3">
-<h3 id="orgbc0af2c"><span class="section-number-3">1.4</span> <span class="done DONE">DONE</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-org848d36d" class="outline-3">
+<h3 id="org848d36d"><span class="section-number-3">1.4</span> <span class="done DONE">DONE</span> Czujniki i ich wykorzystanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 <div class="outline-text-3" id="text-1-4">
 </div>
-<div id="outline-container-orgb8994e9" class="outline-4">
-<h4 id="orgb8994e9"><span class="section-number-4">1.4.1</span> Zgodnie z <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html">https://developer.android.com/guide/topics/sensors/sensors_overview.html</a></h4>
+<div id="outline-container-org9d93926" class="outline-4">
+<h4 id="org9d93926"><span class="section-number-4">1.4.1</span> Zgodnie z <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html">https://developer.android.com/guide/topics/sensors/sensors_overview.html</a></h4>
 </div>
-<div id="outline-container-org271b8a5" class="outline-4">
-<h4 id="org271b8a5"><span class="section-number-4">1.4.2</span> Typy</h4>
+<div id="outline-container-orgfedb6ff" class="outline-4">
+<h4 id="orgfedb6ff"><span class="section-number-4">1.4.2</span> Typy</h4>
 <div class="outline-text-4" id="text-1-4-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -654,114 +660,198 @@ fragmentTransaction.commit();
 </table>
 </div>
 </div>
-<div id="outline-container-org01ae70d" class="outline-4">
-<h4 id="org01ae70d"><span class="section-number-4">1.4.3</span> Czujniki ruhchu</h4>
+<div id="outline-container-org185c3b0" class="outline-4">
+<h4 id="org185c3b0"><span class="section-number-4">1.4.3</span> Czujniki ruhchu</h4>
 <div class="outline-text-4" id="text-1-4-3">
 </div>
 <ol class="org-ol">
-<li><a id="orga15da8c"></a>mierzą siły wzdłuż trzech osi<br /></li>
-<li><a id="orgbb2c3df"></a>akcelerometr<br /></li>
-<li><a id="org6be25c1"></a>czujnik grawitacji<br /></li>
-<li><a id="org7309df2"></a>żyroskop<br /></li>
-<li><a id="orgb2bca2e"></a>czujnik rotacji?<br /></li>
+<li><a id="org3c2c8d8"></a>mierzą siły wzdłuż trzech osi<br /></li>
+<li><a id="orga87424c"></a>akcelerometr<br /></li>
+<li><a id="org0c2d6ad"></a>czujnik grawitacji<br /></li>
+<li><a id="org0ecef11"></a>żyroskop<br /></li>
+<li><a id="org903b97d"></a>czujnik rotacji?<br /></li>
 </ol>
 </div>
-<div id="outline-container-org97087fe" class="outline-4">
-<h4 id="org97087fe"><span class="section-number-4">1.4.4</span> Czujniki pozycji</h4>
+<div id="outline-container-orga82bcf2" class="outline-4">
+<h4 id="orga82bcf2"><span class="section-number-4">1.4.4</span> Czujniki pozycji</h4>
 <div class="outline-text-4" id="text-1-4-4">
 </div>
 <ol class="org-ol">
-<li><a id="org9954ed4"></a>mierzą fizyczną pozycję urządzenia<br /></li>
-<li><a id="orgbde347f"></a>czujnik orientacji (nie wiem jak ma działać)<br /></li>
-<li><a id="orge9d66e3"></a>magnetometr<br /></li>
+<li><a id="org457289a"></a>mierzą fizyczną pozycję urządzenia<br /></li>
+<li><a id="org68815d9"></a>czujnik orientacji (nie wiem jak ma działać)<br /></li>
+<li><a id="orge5f5319"></a>magnetometr<br /></li>
 </ol>
 </div>
-<div id="outline-container-org55c56ec" class="outline-4">
-<h4 id="org55c56ec"><span class="section-number-4">1.4.5</span> czujniki środowiskowe</h4>
+<div id="outline-container-orgde25f6f" class="outline-4">
+<h4 id="orgde25f6f"><span class="section-number-4">1.4.5</span> czujniki środowiskowe</h4>
 <div class="outline-text-4" id="text-1-4-5">
 </div>
 <ol class="org-ol">
-<li><a id="orgc90f9bf"></a>temperatura<br /></li>
-<li><a id="org96bd21e"></a>ciśnienie<br /></li>
-<li><a id="org30e6da0"></a>wilgotność i jaśność<br /></li>
+<li><a id="org0caf631"></a>temperatura<br /></li>
+<li><a id="org6eedb45"></a>ciśnienie<br /></li>
+<li><a id="orgeb0c9bf"></a>wilgotność i jaśność<br /></li>
 </ol>
 </div>
-<div id="outline-container-org9039274" class="outline-4">
-<h4 id="org9039274"><span class="section-number-4">1.4.6</span> Wykorzystanie</h4>
+<div id="outline-container-orge84b61c" class="outline-4">
+<h4 id="orge84b61c"><span class="section-number-4">1.4.6</span> Wykorzystanie</h4>
 <div class="outline-text-4" id="text-1-4-6">
 </div>
 <ol class="org-ol">
-<li><a id="orgdf3c9cf"></a>pobrać z SystemService SensorManager<br /></li>
-<li><a id="orgc9a54c1"></a>pobrać z SensorManager instancję sensor<br /></li>
-<li><a id="org8ada6b1"></a>((SensorManager)getSystemService(Context.SENSOR<sub>SERVICE</sub>)).getDefaultSensor(Sensor.TYPE<sub>ACCELEROMETER</sub>)&#x2026;<br /></li>
-<li><a id="org59b5ba8"></a>List&lt;Sensor&gt; deviceSensors = mSensorManager.getSensorList(Sensor.TYPE<sub>ALL</sub>) by zobaczyć jakie sensory są obecne.<br /></li>
-<li><a id="org911f7be"></a>można podłączyć się do sensora za pomocą SensorEventListener<br /></li>
-<li><a id="org0538b55"></a>SensorEvent<br />
+<li><a id="org0bba52a"></a>pobrać z SystemService SensorManager<br /></li>
+<li><a id="org09721ed"></a>pobrać z SensorManager instancję sensor<br /></li>
+<li><a id="orgd6459f2"></a>((SensorManager)getSystemService(Context.SENSOR<sub>SERVICE</sub>)).getDefaultSensor(Sensor.TYPE<sub>ACCELEROMETER</sub>)&#x2026;<br /></li>
+<li><a id="orgdd52651"></a>List&lt;Sensor&gt; deviceSensors = mSensorManager.getSensorList(Sensor.TYPE<sub>ALL</sub>) by zobaczyć jakie sensory są obecne.<br /></li>
+<li><a id="org9135531"></a>można podłączyć się do sensora za pomocą SensorEventListener<br /></li>
+<li><a id="org91774c5"></a>SensorEvent<br />
 <ol class="org-ol">
-<li><a id="org2af442a"></a>typ sensora<br /></li>
-<li><a id="org51dd0e0"></a>dokładność danych<br /></li>
-<li><a id="org4d29091"></a>timestamp<br /></li>
-<li><a id="orgfbfda5a"></a>surowe dane<br /></li>
+<li><a id="orga87ef8b"></a>typ sensora<br /></li>
+<li><a id="org01be0fb"></a>dokładność danych<br /></li>
+<li><a id="org2695f10"></a>timestamp<br /></li>
+<li><a id="orgbe5ef68"></a>surowe dane<br /></li>
 </ol>
 </li>
-<li><a id="org370d86d"></a>by korzystać z sensora potrzeba uprawnień.<br /></li>
+<li><a id="org5c8e18c"></a>by korzystać z sensora potrzeba uprawnień.<br /></li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org5b23e3b" class="outline-3">
-<h3 id="org5b23e3b"><span class="section-number-3">1.5</span> <span class="done DONE">DONE</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
+<div id="outline-container-orgd159713" class="outline-3">
+<h3 id="orgd159713"><span class="section-number-3">1.5</span> <span class="done DONE">DONE</span> Manifest i uprawnienia&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
 <div class="outline-text-3" id="text-1-5">
 </div>
-<div id="outline-container-org8f286aa" class="outline-4">
-<h4 id="org8f286aa"><span class="section-number-4">1.5.1</span> plik xml dostarcza informacje o aplikacji dla androida</h4>
+<div id="outline-container-orgbbf7207" class="outline-4">
+<h4 id="orgbbf7207"><span class="section-number-4">1.5.1</span> plik xml dostarcza informacje o aplikacji dla androida</h4>
 </div>
-<div id="outline-container-org689eaa0" class="outline-4">
-<h4 id="org689eaa0"><span class="section-number-4">1.5.2</span> zawiera</h4>
+<div id="outline-container-orge0ffc5b" class="outline-4">
+<h4 id="orge0ffc5b"><span class="section-number-4">1.5.2</span> zawiera</h4>
 <div class="outline-text-4" id="text-1-5-2">
 </div>
 <ol class="org-ol">
-<li><a id="org1321d78"></a>nazwa pakietu javy<br /></li>
-<li><a id="org9d695f5"></a>opis komponentów aplikacji (activities, services, providers)<br /></li>
-<li><a id="orgc5d480d"></a>nazwy klas implementujące komponenty<br /></li>
-<li><a id="org06f5e73"></a>procesy hostujące komponenty<br /></li>
-<li><a id="orgfbdcfff"></a>deklarację uprawnień<br /></li>
-<li><a id="orge34fa5a"></a>wymagania odnośnie wersji<br /></li>
-<li><a id="orgec0381c"></a>lista zależności (bibliotek)<br /></li>
+<li><a id="orga10bb65"></a>nazwa pakietu javy<br /></li>
+<li><a id="orgb82c6c3"></a>opis komponentów aplikacji (activities, services, providers)<br /></li>
+<li><a id="orgf91e796"></a>nazwy klas implementujące komponenty<br /></li>
+<li><a id="orgf2036e8"></a>procesy hostujące komponenty<br /></li>
+<li><a id="orgb1ac751"></a>deklarację uprawnień<br /></li>
+<li><a id="orgc0a5cc4"></a>wymagania odnośnie wersji<br /></li>
+<li><a id="org866c60a"></a>lista zależności (bibliotek)<br /></li>
 </ol>
 </div>
-<div id="outline-container-org3310879" class="outline-4">
-<h4 id="org3310879"><span class="section-number-4">1.5.3</span> uprawnienia</h4>
+<div id="outline-container-orgd3b844f" class="outline-4">
+<h4 id="orgd3b844f"><span class="section-number-4">1.5.3</span> uprawnienia</h4>
 <div class="outline-text-4" id="text-1-5-3">
 </div>
 <ol class="org-ol">
-<li><a id="org37811b1"></a>description (ludzki opis)<br /></li>
-<li><a id="orgebbbee0"></a>icon (obrazek)<br /></li>
-<li><a id="org0b8fd59"></a>label (ludzka nazwa)<br /></li>
-<li><a id="orge5ac3ec"></a>name (nazwa kodowa)<br /></li>
-<li><a id="orgd971846"></a>permissionGroup (przypisanie uprawnienia do grupy)<br /></li>
-<li><a id="org22833b9"></a>protectionlevel<br />
+<li><a id="orgb943763"></a>description (ludzki opis)<br /></li>
+<li><a id="orgc06f74f"></a>icon (obrazek)<br /></li>
+<li><a id="orgc4003a7"></a>label (ludzka nazwa)<br /></li>
+<li><a id="org814d3c6"></a>name (nazwa kodowa)<br /></li>
+<li><a id="orgbaada1e"></a>permissionGroup (przypisanie uprawnienia do grupy)<br /></li>
+<li><a id="orgae9e756"></a>protectionlevel<br />
 <ol class="org-ol">
-<li><a id="org6aba400"></a>normal &#x2013; izolowany dostęp do funkcji apliakcji. Nie pyta użytkownika o zgodę.<br /></li>
-<li><a id="org897d477"></a>dangerous &#x2013; dostęp do prywatnych danych. Może prosić o pozwolenie.<br /></li>
-<li><a id="org3006f7e"></a>signature &#x2013; zezwala na dostęp aplikacjom podpisanym tym samym certyfikatem.<br /></li>
-<li><a id="org5802791"></a>signatureOrSystem &#x2013; jak wyżej ale dodatkowo pozwala na dostęp aplikacjom systemowym.<br /></li>
+<li><a id="orga1b9cdd"></a>normal &#x2013; izolowany dostęp do funkcji apliakcji. Nie pyta użytkownika o zgodę.<br /></li>
+<li><a id="org3903786"></a>dangerous &#x2013; dostęp do prywatnych danych. Może prosić o pozwolenie.<br /></li>
+<li><a id="orgbfde6b7"></a>signature &#x2013; zezwala na dostęp aplikacjom podpisanym tym samym certyfikatem.<br /></li>
+<li><a id="org0883d5b"></a>signatureOrSystem &#x2013; jak wyżej ale dodatkowo pozwala na dostęp aplikacjom systemowym.<br /></li>
 </ol>
 </li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org2edd491" class="outline-3">
-<h3 id="org2edd491"><span class="section-number-3">1.6</span> <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-orgc3fa3aa" class="outline-3">
+<h3 id="orgc3fa3aa"><span class="section-number-3">1.6</span> <span class="todo TODO">TODO</span> Kwalifikatory i ich zastosowanie&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div class="outline-text-3" id="text-1-6">
 </div>
-<div id="outline-container-org1fb86b4" class="outline-3">
-<h3 id="org1fb86b4"><span class="section-number-3">1.7</span> <span class="done DONE">DONE</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
+<div id="outline-container-org67c12d1" class="outline-4">
+<h4 id="org67c12d1"><span class="section-number-4">1.6.1</span> aplikacja ma zasoby w folderze ref</h4>
+</div>
+<div id="outline-container-org24cf547" class="outline-4">
+<h4 id="org24cf547"><span class="section-number-4">1.6.2</span> następnie zasoby są przepisane do podkatalogu</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">folder</th>
+<th scope="col" class="org-left">opis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">animator</td>
+<td class="org-left">P.XML typu property animations</td>
+</tr>
+
+<tr>
+<td class="org-left">anim</td>
+<td class="org-left">P.XML typu tween animations</td>
+</tr>
+
+<tr>
+<td class="org-left">color</td>
+<td class="org-left">P.XML definiuje listę kolorów</td>
+</tr>
+
+<tr>
+<td class="org-left">drawable</td>
+<td class="org-left">P.Bitmap</td>
+</tr>
+
+<tr>
+<td class="org-left">mimap</td>
+<td class="org-left">P. dla różnych gęstości ikon</td>
+</tr>
+
+<tr>
+<td class="org-left">layout</td>
+<td class="org-left">P.XML definiuje layout</td>
+</tr>
+
+<tr>
+<td class="org-left">menu</td>
+<td class="org-left">P.XML definiuje menu</td>
+</tr>
+
+<tr>
+<td class="org-left">raw</td>
+<td class="org-left">P. do zapisu w raw formie</td>
+</tr>
+
+<tr>
+<td class="org-left">values</td>
+<td class="org-left">Prote P. XML z string int colors arrays</td>
+</tr>
+
+<tr>
+<td class="org-left">xml</td>
+<td class="org-left">Pliki XML w ich środowisku</td>
+</tr>
+
+<tr>
+<td class="org-left">fonts</td>
+<td class="org-left">Pliki czcionek</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org6089ab5" class="outline-4">
+<h4 id="org6089ab5"><span class="section-number-4">1.6.3</span> <a href="https://developer.android.com/guide/topics/resources/providing-resources.html">https://developer.android.com/guide/topics/resources/providing-resources.html</a></h4>
+</div>
+</div>
+<div id="outline-container-org5e91ffb" class="outline-3">
+<h3 id="org5e91ffb"><span class="section-number-3">1.7</span> <span class="done DONE">DONE</span> Wątki i async task&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
 <div class="outline-text-3" id="text-1-7">
 </div>
-<div id="outline-container-orgd2ab4c2" class="outline-4">
-<h4 id="orgd2ab4c2"><span class="section-number-4">1.7.1</span> Broń boże nie próbować blokować wątku GUI.</h4>
+<div id="outline-container-org08abb29" class="outline-4">
+<h4 id="org08abb29"><span class="section-number-4">1.7.1</span> Broń boże nie próbować blokować wątku GUI.</h4>
 </div>
-<div id="outline-container-orgac779eb" class="outline-4">
-<h4 id="orgac779eb"><span class="section-number-4">1.7.2</span> private class DownloadFilesTask extends AsyncTask&lt;URL, Integer, Long&gt; {</h4>
+<div id="outline-container-org21a9363" class="outline-4">
+<h4 id="org21a9363"><span class="section-number-4">1.7.2</span> private class DownloadFilesTask extends AsyncTask&lt;URL, Integer, Long&gt; {</h4>
 <div class="outline-text-4" id="text-1-7-2">
 <p>
 protected Long doInBackground(URL&#x2026; urls) {
@@ -791,204 +881,204 @@ protected void onProgressUpdate(Integer&#x2026; progress) { //na wątku UI
 </p>
 </div>
 </div>
-<div id="outline-container-orgd3e8652" class="outline-4">
-<h4 id="orgd3e8652"><span class="section-number-4">1.7.3</span> new DownloadFilesTask().execute(url1, url2, url3);</h4>
+<div id="outline-container-org46a68e1" class="outline-4">
+<h4 id="org46a68e1"><span class="section-number-4">1.7.3</span> new DownloadFilesTask().execute(url1, url2, url3);</h4>
 </div>
-<div id="outline-container-orgc6d1e00" class="outline-4">
-<h4 id="orgc6d1e00"><span class="section-number-4">1.7.4</span> dodatkowe metody</h4>
+<div id="outline-container-org473e647" class="outline-4">
+<h4 id="org473e647"><span class="section-number-4">1.7.4</span> dodatkowe metody</h4>
 <div class="outline-text-4" id="text-1-7-4">
 </div>
 <ol class="org-ol">
-<li><a id="org81859ff"></a>onCancelled()<br /></li>
-<li><a id="org7d25346"></a>onCancel()<br /></li>
-<li><a id="org5a50cb0"></a>onPreExecute<br /></li>
+<li><a id="org2278280"></a>onCancelled()<br /></li>
+<li><a id="org841f546"></a>onCancel()<br /></li>
+<li><a id="orgabec3c0"></a>onPreExecute<br /></li>
 </ol>
 </div>
-<div id="outline-container-orge2a98c4" class="outline-4">
-<h4 id="orge2a98c4"><span class="section-number-4">1.7.5</span> parametry generyczne:</h4>
+<div id="outline-container-org3ea4053" class="outline-4">
+<h4 id="org3ea4053"><span class="section-number-4">1.7.5</span> parametry generyczne:</h4>
 <div class="outline-text-4" id="text-1-7-5">
 </div>
 <ol class="org-ol">
-<li><a id="org2eb202f"></a>co przyjmuje przy konstrukcji<br /></li>
-<li><a id="orgd2e5c49"></a>co zwraca w ramach progress<br /></li>
-<li><a id="orgf3a1974"></a>co zwraca po wykonaniu<br /></li>
+<li><a id="org539ce87"></a>co przyjmuje przy konstrukcji<br /></li>
+<li><a id="org9f5121a"></a>co zwraca w ramach progress<br /></li>
+<li><a id="org1f845ef"></a>co zwraca po wykonaniu<br /></li>
 </ol>
 </div>
 </div>
 </div>
-<div id="outline-container-org60164ff" class="outline-2">
-<h2 id="org60164ff"><span class="section-number-2">2</span> iOS</h2>
+<div id="outline-container-orge91d6d8" class="outline-2">
+<h2 id="orge91d6d8"><span class="section-number-2">2</span> iOS</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgbb30690" class="outline-3">
-<h3 id="orgbb30690"><span class="section-number-3">2.1</span> <span class="todo TODO">TODO</span> Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></h3>
+<div id="outline-container-orga39cd63" class="outline-3">
+<h3 id="orga39cd63"><span class="section-number-3">2.1</span> <span class="todo TODO">TODO</span> Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
-<div id="outline-container-orga62587f" class="outline-4">
-<h4 id="orga62587f"><span class="section-number-4">2.1.1</span> Jeśli Objective-C to pytanie, odpowiedzią jest NIE.</h4>
+<div id="outline-container-org7289d45" class="outline-4">
+<h4 id="org7289d45"><span class="section-number-4">2.1.1</span> Jeśli Objective-C to pytanie, odpowiedzią jest NIE.</h4>
 </div>
 </div>
-<div id="outline-container-org21b1f73" class="outline-3">
-<h3 id="org21b1f73"><span class="section-number-3">2.2</span> <span class="todo TODO">TODO</span> Zarządzanie pamięcią w Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
+<div id="outline-container-org4d3c09d" class="outline-3">
+<h3 id="org4d3c09d"><span class="section-number-3">2.2</span> <span class="todo TODO">TODO</span> Zarządzanie pamięcią w Objective-C&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
 </div>
-<div id="outline-container-org89707ab" class="outline-3">
-<h3 id="org89707ab"><span class="section-number-3">2.3</span> <span class="done DONE">DONE</span> Podstawowe klasy systemowe (NSString, NSArray, NSDictionary, NSSet, &#x2026;)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
+<div id="outline-container-orgcab4b92" class="outline-3">
+<h3 id="orgcab4b92"><span class="section-number-3">2.3</span> <span class="done DONE">DONE</span> Podstawowe klasy systemowe (NSString, NSArray, NSDictionary, NSSet, &#x2026;)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="easy">easy</span></span></h3>
 <div class="outline-text-3" id="text-2-3">
 </div>
-<div id="outline-container-org3a74e0e" class="outline-4">
-<h4 id="org3a74e0e"><span class="section-number-4">2.3.1</span> stringi</h4>
+<div id="outline-container-org45396c8" class="outline-4">
+<h4 id="org45396c8"><span class="section-number-4">2.3.1</span> stringi</h4>
 <div class="outline-text-4" id="text-2-3-1">
 </div>
 <ol class="org-ol">
-<li><a id="org8d492c9"></a>NSSstring &#x2013; niemutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)<br /></li>
-<li><a id="org0c4fd9e"></a>NSMutableString &#x2013; mutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)<br /></li>
-<li><a id="orgf47fce7"></a>metody<br />
+<li><a id="org85415b7"></a>NSSstring &#x2013; niemutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)<br /></li>
+<li><a id="org7412ff8"></a>NSMutableString &#x2013; mutowalny string (UTF-16, możliwe utworzenie z UTF lub ascii)<br /></li>
+<li><a id="org28a1dd7"></a>metody<br />
 <ol class="org-ol">
-<li><a id="org552af63"></a>compare<br /></li>
-<li><a id="org26affe2"></a>hash<br /></li>
-<li><a id="org7b379d9"></a>isEqual<br /></li>
-<li><a id="org8492cce"></a>getCString<br /></li>
-<li><a id="org62034f3"></a>utf8String<br /></li>
-<li><a id="org0855e59"></a>length<br /></li>
-<li><a id="orgf8506a9"></a>write &#x2013; zapisz string do pliku (wtf?! why?).<br /></li>
+<li><a id="org5078021"></a>compare<br /></li>
+<li><a id="org1b025af"></a>hash<br /></li>
+<li><a id="org9f3c319"></a>isEqual<br /></li>
+<li><a id="org9e8259c"></a>getCString<br /></li>
+<li><a id="org95710e5"></a>utf8String<br /></li>
+<li><a id="org91ab520"></a>length<br /></li>
+<li><a id="orgccd2dd1"></a>write &#x2013; zapisz string do pliku (wtf?! why?).<br /></li>
 </ol>
 </li>
 </ol>
 </div>
-<div id="outline-container-org30e29ae" class="outline-4">
-<h4 id="org30e29ae"><span class="section-number-4">2.3.2</span> array</h4>
+<div id="outline-container-orgd01abd2" class="outline-4">
+<h4 id="orgd01abd2"><span class="section-number-4">2.3.2</span> array</h4>
 <div class="outline-text-4" id="text-2-3-2">
 </div>
 <ol class="org-ol">
-<li><a id="orgf6c88d3"></a>NSArray &#x2013; stały, statyczny array<br /></li>
-<li><a id="orga5c01b5"></a>NSMutableArray &#x2013; dynamiczny array<br />
+<li><a id="org4e002d2"></a>NSArray &#x2013; stały, statyczny array<br /></li>
+<li><a id="org96f5cec"></a>NSMutableArray &#x2013; dynamiczny array<br />
 <ol class="org-ol">
-<li><a id="org5697b90"></a>dodatkowe metody<br />
+<li><a id="orga251b1e"></a>dodatkowe metody<br />
 <ol class="org-ol">
-<li><a id="org915b4c3"></a>insert (rozsuń by zrobić miejsce, wsadź do środka)<br /></li>
-<li><a id="org88d466e"></a>add (dodaj na koniec)<br /></li>
+<li><a id="orgac6d0f7"></a>insert (rozsuń by zrobić miejsce, wsadź do środka)<br /></li>
+<li><a id="org264ab81"></a>add (dodaj na koniec)<br /></li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a id="org2cecb85"></a>NSPointerArray &#x2013; potrafi trzymać nil (yay!)<br />
+<li><a id="orgf8fa960"></a>NSPointerArray &#x2013; potrafi trzymać nil (yay!)<br />
 <ol class="org-ol">
-<li><a id="orgb20fd6c"></a>ma bardziej rozbudowane semantykę do obsługi pamięci (może być zainicjalizowane by trzymać weak pointery)<br /></li>
-<li><a id="orga37f5f5"></a>dodatkowe gówno-metody<br />
+<li><a id="org997bc1e"></a>ma bardziej rozbudowane semantykę do obsługi pamięci (może być zainicjalizowane by trzymać weak pointery)<br /></li>
+<li><a id="org87c190a"></a>dodatkowe gówno-metody<br />
 <ol class="org-ol">
-<li><a id="orga54b45f"></a>insertPointer<br /></li>
-<li><a id="org5c7a672"></a>addPointer<br /></li>
+<li><a id="orgbfd2ec4"></a>insertPointer<br /></li>
+<li><a id="org830857c"></a>addPointer<br /></li>
 </ol>
 </li>
-<li><a id="orge679c89"></a>dodatkowo to co w mutable array<br /></li>
+<li><a id="org0a09659"></a>dodatkowo to co w mutable array<br /></li>
 </ol>
 </li>
-<li><a id="org8d8ef67"></a>metody<br />
+<li><a id="org4a08f27"></a>metody<br />
 <ol class="org-ol">
-<li><a id="orgb8e4f7a"></a>count<br /></li>
-<li><a id="orgff8e8ec"></a>contains<br /></li>
-<li><a id="org969cb41"></a>firstObject &#x2013; z początku array<br /></li>
-<li><a id="org9e5bc40"></a>lastObject &#x2013; na końcu array<br /></li>
-<li><a id="org67a4a72"></a>subscript &#x2013; dereferencja elementu z array<br /></li>
-<li><a id="org4097bdc"></a>index &#x2013; pozycja elementu w array<br /></li>
-<li><a id="org4788d9d"></a>indexOfObject &#x2013; przyjmuje predykat, zwraca indeks pierwszego elementu dla którego predykat jest spełniony.<br /></li>
+<li><a id="orgdcf99b6"></a>count<br /></li>
+<li><a id="orgff1af86"></a>contains<br /></li>
+<li><a id="org4f75b41"></a>firstObject &#x2013; z początku array<br /></li>
+<li><a id="org3e0e119"></a>lastObject &#x2013; na końcu array<br /></li>
+<li><a id="orgcb2e8b8"></a>subscript &#x2013; dereferencja elementu z array<br /></li>
+<li><a id="orgc7bb94c"></a>index &#x2013; pozycja elementu w array<br /></li>
+<li><a id="org8c8651b"></a>indexOfObject &#x2013; przyjmuje predykat, zwraca indeks pierwszego elementu dla którego predykat jest spełniony.<br /></li>
 </ol>
 </li>
 </ol>
 </div>
-<div id="outline-container-org98ca586" class="outline-4">
-<h4 id="org98ca586"><span class="section-number-4">2.3.3</span> słowniki</h4>
+<div id="outline-container-orgc44d301" class="outline-4">
+<h4 id="orgc44d301"><span class="section-number-4">2.3.3</span> słowniki</h4>
 <div class="outline-text-4" id="text-2-3-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgd8a9343"></a>mapuje stringi na obiekty<br /></li>
-<li><a id="orgc9d3983"></a>NSDictionary<br /></li>
-<li><a id="orgaac2426"></a>NSMutableDictionary<br />
+<li><a id="org35228c0"></a>mapuje stringi na obiekty<br /></li>
+<li><a id="org59459ed"></a>NSDictionary<br /></li>
+<li><a id="org5a40025"></a>NSMutableDictionary<br />
 <ol class="org-ol">
-<li><a id="org3fda667"></a>dodatkowe metody<br />
+<li><a id="org644a28e"></a>dodatkowe metody<br />
 <ol class="org-ol">
-<li><a id="org68d7d53"></a>setValue<br /></li>
-<li><a id="org3aed00d"></a>removeObject<br /></li>
+<li><a id="orgb2cf3cd"></a>setValue<br /></li>
+<li><a id="org2f450f3"></a>removeObject<br /></li>
 </ol>
 </li>
 </ol>
 </li>
-<li><a id="org2f66100"></a>metody<br />
+<li><a id="org2a408ee"></a>metody<br />
 <ol class="org-ol">
-<li><a id="org57f5f7f"></a>count<br /></li>
-<li><a id="org5251d9b"></a>allKeys<br /></li>
-<li><a id="orge05f5d7"></a>allValues<br /></li>
-<li><a id="org9397244"></a>value<br /></li>
+<li><a id="org8e5ecc4"></a>count<br /></li>
+<li><a id="orge5c0098"></a>allKeys<br /></li>
+<li><a id="org12e1282"></a>allValues<br /></li>
+<li><a id="orge406fe6"></a>value<br /></li>
 </ol>
 </li>
 </ol>
 </div>
-<div id="outline-container-org30b9e4b" class="outline-4">
-<h4 id="org30b9e4b"><span class="section-number-4">2.3.4</span> sety</h4>
+<div id="outline-container-org10df31a" class="outline-4">
+<h4 id="org10df31a"><span class="section-number-4">2.3.4</span> sety</h4>
 <div class="outline-text-4" id="text-2-3-4">
 </div>
 <ol class="org-ol">
-<li><a id="org41ada3f"></a>zbíór (obiekt albo w nim jest, albo go w nim nie ma).<br /></li>
-<li><a id="orge5747b3"></a>NSSet<br /></li>
-<li><a id="org734baa7"></a>NSMutableSet<br />
+<li><a id="org6a23a67"></a>zbíór (obiekt albo w nim jest, albo go w nim nie ma).<br /></li>
+<li><a id="org8d3e06d"></a>NSSet<br /></li>
+<li><a id="orgc61e73c"></a>NSMutableSet<br />
 <ol class="org-ol">
-<li><a id="org9ba2f20"></a>dodatkowe metody<br />
+<li><a id="org5456403"></a>dodatkowe metody<br />
 <ol class="org-ol">
-<li><a id="orgd07452f"></a>union<br /></li>
-<li><a id="org54490f1"></a>minus<br /></li>
-<li><a id="org501c736"></a>intersect<br /></li>
-<li><a id="orgbcab647"></a>setSet<br /></li>
+<li><a id="org4f3822f"></a>union<br /></li>
+<li><a id="orgc543708"></a>minus<br /></li>
+<li><a id="orgc20e538"></a>intersect<br /></li>
+<li><a id="org3a8a575"></a>setSet<br /></li>
 </ol>
 </li>
-<li><a id="orgc4ee813"></a>add<br /></li>
-<li><a id="orgbf07aef"></a>filter<br /></li>
-<li><a id="orga8d2928"></a>remove<br /></li>
+<li><a id="orgffd188e"></a>add<br /></li>
+<li><a id="org5707729"></a>filter<br /></li>
+<li><a id="org752003d"></a>remove<br /></li>
 </ol>
 </li>
-<li><a id="org0def4ff"></a>NSCountedSet<br />
+<li><a id="org21bf7cb"></a>NSCountedSet<br />
 <ol class="org-ol">
-<li><a id="org4c7a900"></a>mutowalny set, pozwala na wielokrotne dodanie tego samego elementu<br /></li>
-<li><a id="orgd42e218"></a>dodatkowe mestody<br />
+<li><a id="orgb49eae6"></a>mutowalny set, pozwala na wielokrotne dodanie tego samego elementu<br /></li>
+<li><a id="orgb04a33b"></a>dodatkowe mestody<br />
 <ol class="org-ol">
-<li><a id="orga885976"></a>count<br /></li>
-</ol>
-</li>
-</ol>
-</li>
-<li><a id="orgd6905e7"></a>metody<br />
-<ol class="org-ol">
-<li><a id="org6732f9a"></a>contains<br /></li>
-<li><a id="orgec2bca6"></a>filtered (tworzy set na podstawie istniejącego, zawierający jedynie elementy dla których predykat zwraca true).<br /></li>
-<li><a id="org37d1a07"></a>member &#x2013; zwraca obiekt jeśli jest zawarty w zbiorze.<br /></li>
-<li><a id="org6954eed"></a>interects<br /></li>
-<li><a id="org0b3972a"></a>isSubset<br /></li>
+<li><a id="orgf67f88a"></a>count<br /></li>
 </ol>
 </li>
 </ol>
+</li>
+<li><a id="org538445c"></a>metody<br />
+<ol class="org-ol">
+<li><a id="org88c5032"></a>contains<br /></li>
+<li><a id="orgcf56071"></a>filtered (tworzy set na podstawie istniejącego, zawierający jedynie elementy dla których predykat zwraca true).<br /></li>
+<li><a id="org17caf13"></a>member &#x2013; zwraca obiekt jeśli jest zawarty w zbiorze.<br /></li>
+<li><a id="org622e876"></a>interects<br /></li>
+<li><a id="org30e4402"></a>isSubset<br /></li>
+</ol>
+</li>
+</ol>
 </div>
 </div>
-<div id="outline-container-org9de5340" class="outline-3">
-<h3 id="org9de5340"><span class="section-number-3">2.4</span> <span class="todo TODO">TODO</span> CoreData.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-org6962648" class="outline-3">
+<h3 id="org6962648"><span class="section-number-3">2.4</span> <span class="todo TODO">TODO</span> CoreData.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 </div>
-<div id="outline-container-org3067ebb" class="outline-3">
-<h3 id="org3067ebb"><span class="section-number-3">2.5</span> <span class="todo TODO">TODO</span> Storyboards.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-orgb628e20" class="outline-3">
+<h3 id="orgb628e20"><span class="section-number-3">2.5</span> <span class="todo TODO">TODO</span> Storyboards.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 </div>
-<div id="outline-container-org178a80b" class="outline-3">
-<h3 id="org178a80b"><span class="section-number-3">2.6</span> <span class="todo TODO">TODO</span> Klasy mutable i non-mutable.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-org2984979" class="outline-3">
+<h3 id="org2984979"><span class="section-number-3">2.6</span> <span class="todo TODO">TODO</span> Klasy mutable i non-mutable.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 </div>
-<div id="outline-container-org1411b08" class="outline-3">
-<h3 id="org1411b08"><span class="section-number-3">2.7</span> <span class="todo TODO">TODO</span> AppStore Guidelines.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-orga227e1a" class="outline-3">
+<h3 id="orga227e1a"><span class="section-number-3">2.7</span> <span class="todo TODO">TODO</span> AppStore Guidelines.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 </div>
-<div id="outline-container-org36a920a" class="outline-3">
-<h3 id="org36a920a"><span class="section-number-3">2.8</span> <span class="todo TODO">TODO</span> Wykorzystanie Instruments (profiler).&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
+<div id="outline-container-org000ff7f" class="outline-3">
+<h3 id="org000ff7f"><span class="section-number-3">2.8</span> <span class="todo TODO">TODO</span> Wykorzystanie Instruments (profiler).&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span></span></h3>
 </div>
-<div id="outline-container-org0f28442" class="outline-3">
-<h3 id="org0f28442"><span class="section-number-3">2.9</span> <span class="todo TODO">TODO</span> Wykorzystanie symulatora.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></h3>
+<div id="outline-container-orgbcad350" class="outline-3">
+<h3 id="orgbcad350"><span class="section-number-3">2.9</span> <span class="todo TODO">TODO</span> Wykorzystanie symulatora.&#xa0;&#xa0;&#xa0;<span class="tag"><span class="important">important</span>&#xa0;<span class="WTF">WTF</span></span></h3>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2018-01-24 śro 08:13</p>
+<p class="date">Created: 2018-01-25 czw 08:30</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
