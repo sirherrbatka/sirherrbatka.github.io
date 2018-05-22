@@ -233,6 +233,7 @@
 ***** write -- zapisz string do pliku (wtf?! why?).
 *** array
 **** NSArray -- stały, statyczny array
+***** dodawanie poprzez metodę adding
 **** NSMutableArray -- dynamiczny array
 ***** dodatkowe metody
 ****** insert (rozsuń by zrobić miejsce, wsadź do środka)
@@ -286,8 +287,13 @@
 ***** interects
 ***** isSubset
 ** TODO CoreData.                                                 :important:
+*** https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CoreData/index.html
 ** TODO Storyboards.                                              :important:
-** TODO Klasy mutable i non-mutable.                              :important:
+** DONE Klasy mutable i non-mutable.                              :important:
+   CLOSED: [2018-01-25 czw 08:36]
+*** Mutable pozwalają na modyfikację.
+*** non-mutable nie pozwalają na mutację. (modyfikacja poprzez kopię)
+*** https://developer.apple.com/library/content/documentation/General/Conceptual/CocoaEncyclopedia/ObjectMutability/ObjectMutability.html
 ** TODO AppStore Guidelines.                                      :important:
 ** TODO Wykorzystanie Instruments (profiler).                     :important:
 ** TODO Wykorzystanie symulatora.                             :important:WTF:
