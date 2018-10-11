@@ -7,7 +7,7 @@
 #+TAGS:        lisp, cl-ds
 #+LANGUAGE:    en
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
-#+DESCRIPTION: How cl-data-structure provides universal stream-like interface, and why it is usefull.
+#+DESCRIPTION: How cl-data-structure provides universal stream-like interface, and why it is useful.
 
 Before I decided to live in The Land Of Lisp I was living and slowly dying by the C++. Common Lisp is obviously much nicer, friendlier, better designed and more comfortable language but there is one aspect of C++ that appeared to be clearly lacking in the Common Lisp: iterators.
 
