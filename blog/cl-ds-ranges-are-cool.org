@@ -28,13 +28,15 @@ CSV format is absolutely horrible but at the same time ubiquitous. It is sadly, 
 First of, cl-ds.fs package offers the find function. Find function acts similar to the POSIX find, that is: it allows to find files. Called find will return the find-range object. Find-range is a way to obtain paths to desired files. Calling cl-ds:consume-front on find-range will return two values, path and information if the end was reached. The content of the range is constructed lazily, after each call to consume-front, so obtaining a fixed number of top results is efficient. Let's find my CSV files!
 
 #+BEGIN_SRC common-lisp
-  (let* ((path-to-data-directory "~/Datasets/")
-         (file-range (cl-ds.fs:find `((:all-directories :path "/home/shka/Datasets/")
-                                        (:all-files :predicate ,(lambda (x)
-                                                                  (string= "csv" (pathname-type x))))))))
-       (multiple-value-bind (path more) (cl-ds:consume-front file-range)
-         (print path) ; path is a pathname to csv file
-         ))
+   (let* ((search-in `((:all-directories :path "/home/shka/Datasets/")
+                       (:all-files :predicate
+                                   ,(lambda (x)
+                                      (string= "csv"
+                                               (pathname-type x))))))
+          (file-range (cl-ds.fs:find search-in)))
+        (multiple-value-bind (path more) (cl-ds:consume-front file-range)
+          (print path) ; path is a pathname to csv file
+          ))
 #+END_SRC
 
 The above example demonstrates how to call cl-ds.fs:find function. We are passing search specification in the form of the list. Each cell in the spefication handles part of a hierchical file system path. It is possible to use regexps with :regex-file and :regex-directory. Along with the ability to pass arbitrary function as a predicate for path makes this perhaps just slightly more flexible then your standard posix find program. Cl-ds:consume-front clearly needs to not only provide user with the result, but also inform if end was reached. This is the purpose of the more argument.
@@ -42,10 +44,12 @@ The above example demonstrates how to call cl-ds.fs:find function. We are passin
 We obviously don't want to manually walk over the range in the loop, or, at least, not every time. Instead, It is preferred to use aggregation functions. Those include the cl-ds.alg:accumulate function (literally like reduce function but works on ranges and containers of cl-ds) as well as count-elements and various math related functions (average, median and others). In order to convert range into vector, we can use cl-ds.alg:to-vector function, just like demonstated below.
 
 #+BEGIN_SRC common-lisp
-  (let* ((path-to-data-directory "~/Datasets/")
-         (file-range (cl-ds.fs:find `((:all-directories :path "/home/shka/Datasets/")
-                                      (:all-files :predicate ,(lambda (x)
-                                                                (string= "csv" (pathname-type x)))))))
+  (let* ((search-in `((:all-directories :path "/home/shka/Datasets/")
+                      (:all-files :predicate
+                                  ,(lambda (x)
+                                     (string= "csv"
+                                              (pathname-type x))))))
+         (file-range (cl-ds.fs:find search-in))
          (vector-of-paths (cl-ds.alg:to-vector file-range)))
   vector-of-paths ; vector of paths is cl:vector of paths found by the cl-ds.fs:find function
        )
@@ -70,10 +74,12 @@ To obtain groups of CSV files We can simply combine functions already introduced
     (with-open-file (stream path)
       (read-line stream)))
 
-  (let* ((path-to-data-directory "~/Datasets/")
-         (file-range (cl-ds.fs:find `((:all-directories :path "/home/shka/Datasets/")
-                                      (:all-files :predicate ,(lambda (x)
-                                                                (string= "csv" (pathname-type x)))))))
+  (let* ((search-in `((:all-directories :path "/home/shka/Datasets/")
+                      (:all-files :predicate
+                                  ,(lambda (x)
+                                     (string= "csv"
+                                              (pathname-type x))))))
+         (file-range (cl-ds.fs:find search-in))
          (groups (cl-ds.alg:group-by file-range :key #'open-and-read-first-line :test 'equal))
          (grouped-paths (cl-ds.alg:to-vector #'+ groups))
          ;; btw, aggregating grouped range, also returns range. It contains dotted pairs of (key . value).
