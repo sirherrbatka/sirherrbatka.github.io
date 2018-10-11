@@ -1,0 +1,1 @@
+Hello! My name is Marek and I hail from Poland. I have strong interest in programming, especially Common Lisp, machine learning, knowledge representation and data structures.
