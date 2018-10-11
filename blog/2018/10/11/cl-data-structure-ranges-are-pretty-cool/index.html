@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    <title>cl-data-structure ranges are pretty cool - For more humane computing</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="" />
-        <meta name="description" content="How cl-data-structure provides universal stream-like interface, and why it is usefull." />
-        <meta name="keywords" content="Common Lisp, cl-data-structures" />
-    <link rel="stylesheet" href="/media/css/style.css">
-    <link rel="stylesheet" href="/media/css/highlight.css">
-    <style type="text/css"></style>
+  <title>cl-data-structure ranges are pretty cool - For more humane computing</title>
+  <meta charset="utf-8" />
+  <meta name="author" content="" />
+  <meta name="description" content="How cl-data-structure provides universal stream-like interface, and why it is usefull." />
+  <meta name="keywords" content="Common Lisp, cl-data-structures" />
+
+  <link rel="alternate" title="RSS Feed" href="/rss.xml" type="application/rss+xml">
+  <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+  <link rel="stylesheet" href="/media/css/posts.css" type="text/css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </head>
 
   <body class="container">
-    <nav class="main-nav">
-        <a href="/blog">Archive</a>
-        <a href="/tags">Tag</a>
-        <a href="/about/">About</a>
-        <a class="cta" href="http://github.com/sirherrbatka">GitHub</a>
-    </nav>
+<header id="header">
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" style="opacity: .9" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">For more humane computing</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                            <li class="active"><a href="/blog/">Blog</a></li>
+                            <li class="active"><a href="/cl-data-structures/">Cl-Data-Structures</a></li>
+                        <li><a href="/tags/">Tags</a></li>
+                        <li><a href="/about/">About</a></li>
+                        <li><a href="http://github.com/sirherrbatka">GitHub</a></li>
+                        <li><a href="/rss.xml">RSS</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </body>
+</header>
 
-<div>
-    <section id="wrapper">
-        <article class="post">
-            <header>
-                    <h1>cl-data-structure ranges are pretty cool</h1>
-            </header>
-            <br />
-            <section id="post-body">
-                <p>
+<section id="content" role="main">
+    <div id="outline-container-sec-" class="row" style="padding-top: 70px">
+        <div class="col-md-2"></div>
+            <h1>cl-data-structure ranges are pretty cool</h1>
+            <p>
 Before I decided to live in The Land Of Lisp I was living and slowly dying by the C++. Common Lisp is obviously much nicer, friendlier, better designed and more comfortable language but there is one aspect of C++ that appeared to be clearly lacking in the Common Lisp: iterators.
 </p>
 
@@ -96,38 +117,25 @@ And that's it! By using a dictionary of already provided functions it is possibl
 So yeah, ranges are rather cool.
 </p>
 
-            </section>
-    </section>
-</div>
-
-    <div>
-    <section id="wrapper">
-      <div class="post-meta">
-        <span title="post date" class="post-info">2018-10-11</span>
-        <span title="tags" class="post-info"><a href="/tags/lisp/">lisp</a>, <a href="/tags/cl-ds/">cl-ds</a></span>
-      </div>
-      <br />
-      <br />
-      <section>
-        <h1>Comments</h1>
-      </section>
-      <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
-      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script src="/media/js/main.js"></script>
-      <div align="center">
-      <footer id="footer">
-        <p class="small">
-          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:shka &lt;at&gt; tuxls"></a>
-          &nbsp;&nbsp;-&nbsp;&nbsp;
-          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
-          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
-        </p>
-        <br />
-      </footer>
-      </div>
-      </section>
     </div>
+</section>
+
+
+    <div class="post-meta">
+        <span title="post date" class="post-info">2018-10-11</span>
+        <span title="last modification date" class="post-info">2018-10-11</span>
+        <span title="tags" class="post-info"><a href="/tags/lisp/">lisp</a>, <a href="/tags/cl-ds/">cl-ds</a></span>
+        <span title="author" class="post-info"></span>
+    </div>
+<footer class="footer">
+    <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+    <p>
+        Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:shka &lt;at&gt; tuxls"></a>
+        &nbsp;&nbsp;-&nbsp;&nbsp;
+        Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+        <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+    </p>
+</footer>
 
   </body>
 </html>
