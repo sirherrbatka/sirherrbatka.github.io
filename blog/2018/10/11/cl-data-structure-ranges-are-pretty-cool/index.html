@@ -96,8 +96,9 @@ We obviously don't want to manually walk over the range in the loop, or, at leas
                                             (pathname-type x))))))
        (file-range (cl-ds.fs:find search-in))
        (vector-of-paths (cl-ds.alg:to-vector file-range)))
-vector-of-paths ; vector of paths is cl:vector of paths found by the cl-ds.fs:find function
-     )
+  ;; vector of paths is cl:vector of paths
+  ;; found by the cl-ds.fs:find function
+  vector-of-paths)
 </pre>
 </div>
 
@@ -109,8 +110,8 @@ Aggregation functions are not merely naive loops. In fact they are expressed ins
 <pre class="src src-common-lisp">(let* ((input #(0 1 2 3 4 5 6 7 8))
        (range (cl-ds.alg:group-by input :key #'evenp))
        (aggregation (cl-ds.alg:accumulate #'+ range))
-       (even-sum (cl-ds:at aggregation t)) ; sum for elements that are evenp
-       (odd-sum (cl-ds:at aggregation nil))) ; sum for elements that are not evenp
+       (even-sum (cl-ds:at aggregation t))
+       (odd-sum (cl-ds:at aggregation nil)))
 (print even-sum)
 (print odd-sum))
 </pre>
@@ -131,9 +132,12 @@ To obtain groups of CSV files We can simply combine functions already introduced
                                    (string= "csv"
                                             (pathname-type x))))))
        (file-range (cl-ds.fs:find search-in))
-       (groups (cl-ds.alg:group-by file-range :key #'open-and-read-first-line :test 'equal))
+       (groups (cl-ds.alg:group-by file-range
+                                   :key #'open-and-read-first-line
+                                   :test 'equal))
        (grouped-paths (cl-ds.alg:to-vector #'+ groups))
-       ;; btw, aggregating grouped range, also returns range. It contains dotted pairs of (key . value).
+       ;; btw, aggregating grouped range, also returns range.
+       ;; It contains dotted pairs of (key . value).
        ;; In this case that would be (csv-header . vector-of-pathnames).
        ;; This can be coverted into an alist in the following way.
        (cl-ds.alg:accumulate (lambda (prev next) (cons next prev))
