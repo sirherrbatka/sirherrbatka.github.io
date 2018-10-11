@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#161987375000320675">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3489153149077281077">Overview</a><ul><li><a href="l_1.html#4459003309977911177">Conventions</a></li><li><a href="l_1.html#2185279129238023977">Key concepts</a><ul><li><a href="l_1.html#978158797691058425">Signaling errors</a></li><li><a href="l_1.html#2957378740338483500">Modification Status</a></li><li><a href="l_1.html#3472517540281020731">Trait classes</a></li><li><a href="l_1.html#2344821264464079379">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#620687723345510600">API Reference</a><ul><li><a href="l_2.html#1181089993956805727">Common API</a><ul><li><a href="l_2.html#3253269928598814479">Generic Functions</a></li><li><a href="l_2.html#1438805628437833827">Macros</a></li><li><a href="l_2.html#4553055403708960531">Classes</a></li><li><a href="l_2.html#501664383715841125">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#3196654342886338754">Internal details</a><ul><li><a href="l_3.html#4025481679147993354">Lazy evaluation</a></li><li><a href="l_3.html#1299071670872238900">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_3.html#1475942776161855627">Generic Functions</a></li><li><a href="l_3.html#3785209222206000877">Classes</a></li></ul></li><li><a href="l_3.html#486104314188395825">Aggregation algorithms metaprotocol</a></li></ul></li><li><a href="l_4.html#2377749953045715954">Dictionary structures</a><ul><li><a href="l_4.html#4136782432422803154">API</a></li><li><a href="l_4.html#4389115305719567477">HAMT</a><ul><li><a href="l_4.html#4146566946679046831">Constructing</a></li><li><a href="l_4.html#1751002313234005327">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="620687723345510600"><h2>API Reference
-</h2><p>This section contains reference of all the functions, classes and macros provided by this library to the user.</p><div id="1181089993956805727"><h3>Common API
-</h3><div id="3253269928598814479"><h4>Generic Functions
-</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entieriety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="1154783084094846050"><h5>Query Functions
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2682401377801942879">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#22848501260268125">Overview</a><ul><li><a href="l_1.html#2538161985580004225">Conventions</a></li><li><a href="l_1.html#1168071458444233527">Key concepts</a><ul><li><a href="l_1.html#3520233844226230300">Signaling errors</a></li><li><a href="l_1.html#1068080289299453300">Modification Status</a></li><li><a href="l_1.html#1473835296911029650">Trait classes</a></li><li><a href="l_1.html#94493617443231175">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#4607109991688501377">API Reference</a><ul><li><a href="l_2.html#1557616697898635400">Common API</a><ul><li><a href="l_2.html#613854463657207175">Generic Functions</a></li><li><a href="l_2.html#2789559286149809554">Macros</a></li><li><a href="l_2.html#4445242130595754154">Classes</a></li><li><a href="l_2.html#1174442311215600700">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#914963149202548875">Internal details</a><ul><li><a href="l_3.html#1468767806727680550">Lazy evaluation</a></li><li><a href="l_3.html#1399782414543493827">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_3.html#3705089386068343977">Generic Functions</a></li><li><a href="l_3.html#4221630211513973054">Classes</a></li></ul></li><li><a href="l_3.html#2683253703325209625">Aggregation algorithms metaprotocol</a></li></ul></li><li><a href="l_4.html#2058326084897903277">Dictionary structures</a><ul><li><a href="l_4.html#4229740590466349731">API</a></li><li><a href="l_4.html#2522962815712326979">HAMT</a><ul><li><a href="l_4.html#295611395836797950">Constructing</a></li><li><a href="l_4.html#3423616199023166254">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="4607109991688501377"><h2>API Reference
+</h2><p>This section contains reference of all the functions, classes and macros provided by this library to the user.</p><div id="1557616697898635400"><h3>Common API
+</h3><div id="613854463657207175"><h4>Generic Functions
+</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entieriety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="4175226638554204677"><h5>Query Functions
 </h5><p>Following generic functions check state of the container and are not allowed to change it.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 AT
@@ -30,6 +30,22 @@ Obtain element stored at LOCATION in the CONTAINER.
 <br><b>Returns:</b>
 In case of associative containers, second value informs if LOCATION was found in the CONTAINER (first value is NIL if element was not found).
  In case of non-associtive containers (e.g. vectors), the function returns value under LOCATION if LOCATION is valid, otherwise condition of type ARGUMENT-OUT-OF-BOUNDS will be raised.
+<br></div><div class="generic-info"><div class="doc-name">
+NEAR
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(CONTAINER ITEM MAXIMAL-DISTANCE)
+</div><b>Arguments:</b>
+<ul><li>CONTAINER, Container searched for element.</li><li>ITEM, Item to search around.</li><li>MAXIMAL-DISTANCE, Don't yield elements longer </li></ul><br><b>Examples:</b>
+<pre><code>(LET* ((DATA #(10 20 40 5 11 12 50 30 20 1 6 7 8 18 21 51 52 80 78))
+       (SET
+        (CL-DATA-STRUCTURES:MAKE-FROM-TRAVERSABLE
+         &#039;CL-DATA-STRUCTURES.METRIC-SPACE.EGNAT:MUTABLE-EGNAT-METRIC-SET DATA
+         #&#039;= (ALEXANDRIA.0.DEV:COMPOSE #&#039;ABS #&#039;-) &#039;FIXNUM))
+       (NEAR
+        (CL-DATA-STRUCTURES.ALGORITHMS:TO-VECTOR
+         (CL-DATA-STRUCTURES:NEAR SET 10 7))))
+  (PROVE.TEST:OK (EVERY (LAMBDA (X) (&lt; 3 X 17)) NEAR)))</pre></code><br><b>Description:</b>
+Searches CONTAINER for elements that are at most MAXIMAL-DISTANCE away from item. Returns range of elements.
 <br></div><div class="generic-info"><div class="doc-name">
 SIZE
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
@@ -106,7 +122,7 @@ FUNCTIONALP
 T if CONTAINER exposes functional API and NIL if not.
 <br></div></div><p>Immutable and mutable containers are modified by separate sets of functions.</p><table><tr><td><b>Immutable
 </b></td><td><b>Mutable
-</b></td></tr><tr><td>INSERT</td><td>(SETF AT)</td></tr><tr><td>ADD</td><td>ADD!</td></tr><tr><td>UPDATE</td><td>UPDATE!</td></tr><tr><td>UPDATE-IF</td><td>UPDATE-IF!</td></tr><tr><td>ERASE</td><td>ERASE!</td></tr><tr><td>ERASE-IF</td><td>ERASE-IF!</td></tr></table><div id="3756572889584245900"><h5>Functional modification API
+</b></td></tr><tr><td>INSERT</td><td>(SETF AT)</td></tr><tr><td>ADD</td><td>ADD!</td></tr><tr><td>UPDATE</td><td>UPDATE!</td></tr><tr><td>UPDATE-IF</td><td>UPDATE-IF!</td></tr><tr><td>ERASE</td><td>ERASE!</td></tr><tr><td>ERASE-IF</td><td>ERASE-IF!</td></tr><tr><td>PUT</td><td>PUT!</td></tr><tr><td>TAKE-OUT</td><td>TAKE-OUT!</td></tr></table><div id="332990704554612000"><h5>Functional modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 INSERT
@@ -118,8 +134,8 @@ insert container location new-value =&gt; new-instance status
 <ul><li>container, Instance of container.</li><li>location, Designates place in returned instance that will be changed</li><li>new-value, Value that will be inserted into returned instance</li></ul><br><b>Examples:</b>
 <pre><code>(LET* ((TABLE
         (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-FUNCTIONAL-HAMT-DICTIONARY #&#039;SXHASH
-                                                                       #&#039;EQ)))
-  (NEXT-TABLE (CL-DATA-STRUCTURES:INSERT TABLE &#039;A 5))
+                                                                       #&#039;EQ))
+       (NEXT-TABLE (CL-DATA-STRUCTURES:INSERT TABLE &#039;A 5)))
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;A) 5)
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT TABLE &#039;A) 5 :TEST
                  (ALEXANDRIA.0.DEV:COMPOSE #&#039;NULL #&#039;EQL)))</pre></code><br><b>Description:</b>
@@ -131,40 +147,8 @@ This is the functional counterpart to the (SETF AT) function.
 ADD
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (CONTAINER LOCATION NEW-VALUE)
-</div><b>Syntax:</b>
-add dictionary key value =&gt; new-dictionary-instance status
-<br><b>Arguments:</b>
-<ul><li>CONTAINER, Instance that we want to modify.</li><li>LOCATION, Place where NEW-VALUE shall be added.</li><li>NEW-VALUE, Value that we intend to add into returned instance.</li></ul><br><b>Examples:</b>
-<pre><code>(LET ((TABLE
-       (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-FUNCTIONAL-HAMT-DICTIONARY #&#039;SXHASH
-                                                                      #&#039;EQ))
-      (PROVE.TEST:DIAG &quot;Testing example for add function.&quot;))
-  (MULTIPLE-VALUE-BIND (VALUE FOUND)
-      (CL-DATA-STRUCTURES:AT TABLE &#039;A)
-    (PROVE.TEST:IS VALUE NIL)
-    (PROVE.TEST:IS FOUND NIL))
-  (LET ((NEXT-TABLE (CL-DATA-STRUCTURES:ADD TABLE &#039;A 1)))
-    (MULTIPLE-VALUE-BIND (VALUE FOUND)
-        (CL-DATA-STRUCTURES:AT TABLE &#039;A)
-      (PROVE.TEST:IS VALUE NIL)
-      (PROVE.TEST:IS FOUND NIL))
-    (MULTIPLE-VALUE-BIND (VALUE FOUND)
-        (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;A)
-      (PROVE.TEST:IS VALUE 1)
-      (PROVE.TEST:IS FOUND T))
-    (CL-DATA-STRUCTURES:MOD-BIND (NEXT-NEXT-TABLE FOUND VALUE)
-        (CL-DATA-STRUCTURES:ADD NEXT-TABLE &#039;A 2)
-      (PROVE.TEST:OK FOUND)
-      (PROVE.TEST:IS VALUE 1)
-      (PROVE.TEST:IS NEXT-NEXT-TABLE NEXT-TABLE)
-      (MULTIPLE-VALUE-BIND (VALUE FOUND)
-          (CL-DATA-STRUCTURES:AT NEXT-NEXT-TABLE &#039;A)
-        (PROVE.TEST:OK FOUND)
-        (PROVE.TEST:IS VALUE 1)))))</pre></code><br><b>Description:</b>
-Functional API: attempts to non-destructively add NEW-VALUE into CONTAINER at LOCATION. Will not replace value at LOCATION if it was already occupied.
-<br><b>Returns:</b>
-<ul><li>Instance of the same type as CONTAINER. If add took place it shall contain NEW-VALUE at LOCATION.</li><li>Modification status object.</li></ul><br><b>Notes:</b>
-This is functional counterpart to the ADD! function.
+</div><b>Description:</b>
+Add NEW-VALUE into the CONTAINER at the LOCATION. Will not replace a value at LOCATION if it was already occupied.
 <br></div><div class="generic-info"><div class="doc-name">
 UPDATE
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
@@ -246,16 +230,37 @@ erase-if container location condition =&gt; new-instance status
       (CL-DATA-STRUCTURES:ERASE-IF NEXT-TABLE &#039;B
                                    (LAMBDA (LOCATION VALUE)
                                      (DECLARE (IGNORE LOCATION))
-                                     (EVENP VALUE))))
-  (PROVE.TEST:OK FOUND)
-  (PROVE.TEST:IS VALUE 6)
-  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT ERASED-TABLE &#039;B) NIL)
-  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;B) 6))</pre></code><br><b>Description:</b>
+                                     (EVENP VALUE)))
+    (PROVE.TEST:OK FOUND)
+    (PROVE.TEST:IS VALUE 6)
+    (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT ERASED-TABLE &#039;B) NIL)
+    (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;B) 6)))</pre></code><br><b>Description:</b>
 Functional API: non-destructively remove element at LOCATION from the CONTAINER, only when CONDITION function returns true. CONDITION will be called with location that matches according to comparsion function used to construct container, and with a value.
 <br><b>Returns:</b>
 <ul><li>Instance of the same type as CONTAINER, without value at LOCATION</li><li>Modification status object.</li></ul><br><b>Notes:</b>
 This is the functional counterpart to the ERASE-IF! function.
-<br></div></div><div id="2768759474627965000"><h5>Mutable modification API
+<br></div><div class="generic-info"><div class="doc-name">
+PUT
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(CONTAINER ITEM)
+</div><b>Arguments:</b>
+<ul><li>CONTAINER, A subclass of fundamental-container</li><li>ITEM, Object that should be added into CONTAINER</li></ul><br><b>Description:</b>
+Functional API. Inserts new the ITEM into a new version of the CONTAINER. Relevant to sets and sequences.
+<br><b>Returns:</b>
+Modified container.
+<br><b>Notes:</b>
+This is the functional counterpart to the PUT! function.
+<br></div><div class="generic-info"><div class="doc-name">
+TAKE-OUT
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(CONTAINER)
+</div><b>Arguments:</b>
+<ul><li>CONTAINER, Container that is about to be modified.</li></ul><br><b>Description:</b>
+Functional API. Removes one element from the CONTAINER. Relevant to sequences.
+<br><b>Returns:</b>
+<ul><li>New version of the container, without one element.</li><li>Modification status.</li></ul><br><b>Notes:</b>
+This is the functional counterpart to the TAKE-OUT! function.
+<br></div></div><div id="1704152903341144100"><h5>Mutable modification API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 (SETF AT)
@@ -356,7 +361,28 @@ Functional API: destructively remove element at LOCATION from the CONTAINER, onl
 <br><b>Returns:</b>
 <ul><li>CONTAINER</li><li>Modification status object.</li></ul><br><b>Notes:</b>
 This is the destructive counterpart to the ERASE-IF function.
-<br></div></div><div id="1955625941364317627"><h5>Variants API
+<br></div><div class="generic-info"><div class="doc-name">
+PUT!
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(CONTAINER ITEM)
+</div><b>Arguments:</b>
+<ul><li>CONTAINER, A subclass of fundamental-container</li><li>ITEM, Object that should be added into CONTAINER</li></ul><br><b>Description:</b>
+Destructive API. Inserts new the ITEM into the CONTAINER. Relevant to sets and sequences.
+<br><b>Returns:</b>
+CONTAINER
+<br><b>Notes:</b>
+This is the destructive counterpart to the PUT function.
+<br></div><div class="generic-info"><div class="doc-name">
+TAKE-OUT!
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(CONTAINER)
+</div><b>Arguments:</b>
+<ul><li>CONTAINER, Container that is about to be modified</li></ul><br><b>Description:</b>
+Destructive API: removes one element from the CONTAINER. Relevant to sequences.
+<br><b>Returns:</b>
+<ul><li>CONTAINER</li><li>Modification status.</li></ul><br><b>Notes:</b>
+This is the destructive counterpart to the TAKE-OUT function.
+<br></div></div><div id="4162613550102236131"><h5>Variants API
 </h5>Symbols in package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 BECOME-FUNCTIONAL
@@ -414,7 +440,7 @@ instance implementing functional, lazy API. Content of returned instance is iden
 <br><b>Side Effects:</b>
 May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both the CONTAINER and a returned instance. Side effects from the mutable CONTAINER may leak into the returned instance.
 <br><b>Notes:</b>
-<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul><br></div></div></div><div id="1438805628437833827"><h4>Macros
+<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul><br></div></div></div><div id="2789559286149809554"><h4>Macros
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="macro-info"><div class="doc-name">
 MOD-BIND
@@ -425,7 +451,7 @@ mod-bind (first &amp;optional found value) values-form body
 <br><b>Arguments:</b>
 <ul><li>FIRST, Symbol, will be bound to the first value returned by values-form.</li><li>FOUND, Symbol, this macro will construct symbol-macrolet that will expand to call (found status)</li><li>VALUE, Symbol, this macro will construct symbol-macrolet that will expand to call (value status)</li></ul><br><b>Description:</b>
 This macro attempts to mimic multiple-value-bind syntax for modification operations performed on containers. All of those operations will return secondary object representing operation status that shall be bound in lexical environment and. Next, symbol-macrolets will be established, that inline found and value function calls on operation status (like with-accessors).
-<br></div></div><div id="4553055403708960531"><h4>Classes
+<br></div></div><div id="4445242130595754154"><h4>Classes
 </h4>Symbols in package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 FUNDAMENTAL-CONTAINER
@@ -469,7 +495,7 @@ LAZY
 <br>
 <b>Description:</b>
 Functional object, with lazy implementation.
-<br></div></div><div id="501664383715841125"><h4>Conditions
+<br></div></div><div id="1174442311215600700"><h4>Conditions
 </h4><p>Cl-data-structures tries to signal only the well structured errors that are possible to interpret. In order to achieve this, the hierarchy of condition classes is introduced. Below there is documentation explaining it.</p>Symbols in package CL-DATA-STRUCTURES:
 <div class="error-info"><div class="doc-name">
 TEXTUAL-ERROR
@@ -492,6 +518,13 @@ INITIALIZATION-ERROR
 <br>
 <b>Description:</b>
 Error signaled when container can&#039;t be initialized.
+<br></div><div class="error-info"><div class="doc-name">
+UNEXPECTED-ARGUMENT
+</div>
+<img src="CL-DATA-STRUCTURES-UNEXPECTED-ARGUMENT.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Error signaled when passed argument was not expected.
 <br></div><div class="error-info"><div class="doc-name">
 OUT-OF-BOUNDS
 </div>

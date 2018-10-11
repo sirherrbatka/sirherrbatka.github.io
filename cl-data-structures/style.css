@@ -1,9 +1,9 @@
 h1,
- h2,
- h3,
- h4,
- h5,
- h6{
+h2,
+h3,
+h4,
+h5,
+h6{
     text-align: center;
     padding: 1px;
     margin-bottom: 0.5em;
@@ -35,8 +35,8 @@ h4{
 }
 
 h5,
- h6,
- h7{
+h6,
+h7{
     font-size: 120%;
     letter-spacing: 0.1em;
     font-weight: 500;
@@ -161,13 +161,13 @@ html{
 }
 
 table,
- th,
- td{
+th,
+td{
     border: 1px solid #c5c5c5;
 }
 
 th,
- td{
+td{
     padding: 3px;
 }
 
