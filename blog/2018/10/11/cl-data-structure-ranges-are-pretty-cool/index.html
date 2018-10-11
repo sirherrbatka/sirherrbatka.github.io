@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>cl-data-structure ranges are pretty cool - For more humane computing</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="description" content="How cl-data-structure provides universal stream-like interface, and why it is usefull." />
+    <meta name="keywords" content="Common Lisp, cl-data-structures" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/media/css/prettify.css" type="text/css">
+  </head>
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">For more humane computing</a></h1>
+        <p>sirherrbatka blog</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/cl-data-structures/">Cl-Data-Structures</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="http://github.com/sirherrbatka">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="sirherrbatka.github.io">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>cl-data-structure ranges are pretty cool</h1>
+<p>
+Before I decided to live in The Land Of Lisp I was living and slowly dying by the C++. Common Lisp is obviously much nicer, friendlier, better designed and more comfortable language but there is one aspect of C++ that appeared to be clearly lacking in the Common Lisp: iterators.
+</p>
+
+
+<p>
+C++ iterators at the time of introduction were quite an innovative thing. They provide a universal interface to all STD containers without runtime penalty and therefore allow the rich set of standard algorithms to work on all containers. It does not matter if you are using std::array or std::vector, std::lower_bound will work on both, without the explicit use of pointers. It is a huge improvement over the mess that C code can be.
+</p>
+
+
+<p>
+Obviously, the situation in Common Lisp is rather different. There is no such thing as a standard container. There is the sequence, and this can be either vector (simple or not) or list, but that's it. Hashtables, multidimensional arrays are completely separate beasts and cannot be easily tamed. This made sense in the late 80s status quo probably, just like C++ iterators seemed to be sufficient back in the late 90s. It is worth noting, however, that even in such a stagnant and conservative world as IT, things eventually progress.
+</p>
+
+
+<p>
+C++ iterators no longer seem to be revolutionary at all. In fact, they are not even that convenient when compared to the modern ranges, like those present in the D language. Streaming operations akin to those of Spark or Linq are all the rage now.
+</p>
+
+
+<p>
+Obviously, Common Lisp does not have anything like this in the standard. But should we suffer? Lisp is empowering, we can do amazing things with it. Therefore, I decided to start cl-data-structures project and see how what I can get done.
+</p>
+
+
+<p>
+Just like the name suggests, cl-data-structures intends to be a collection of containers for Common Lisp. I will not discuss design decisions I took regarding containers itself. Instead, I will focus on demonstrating what are cl-data-structure ranges, how they are useful, and proving my point: that they are, in fact, rather cool.
+</p>
+
+
+<p>
+A range is simply a protocol concept. By that, I mean that it should be considered to be low level, minimal interface. A stepping stone to build more complicated things and means of communications between different subsystems. In this regard, ranges are not that far from C++ iterators. Iterators, however, tend to come in pairs to describe the begin and end of the bounds. A range, on the other hand, is inherently bound and therefore can be used on its own. Obviously, this means one argument less everywhere which is handy, but much more significant are implications for the abstraction power of range: because a range is supposed to know on its own where it ends (or if it ends at all) it can be used as a decorator for the variety of other objects (like file streams) much more easily while still being suitable as a container interface. Having a common abstraction is extremely useful because it means that functions can be applied in a universal manner. To demonstrate this feature let us consider the following example.
+</p>
+
+
+<p>
+CSV format is absolutely horrible but at the same time ubiquitous. It is sadly, still commonly used to exchange data between databases and even data scientists. All due to its simplicity first line represents table header, every following line is a data row. You can even open it in the text editor and hope to see something human readable. Needless to say, I have a plenty of CSV files on my hard drive with database backups. Obviously, I am lazy, so it is a total mess and I have no idea which CSV files represent concrete table schema. Luckily, as already mentioned, CSV is a simplistic format, so I will assume that the first row in the CSV file represents my schema. Grouping those files according to the first stage should reduce the amount of work needed to order my files completely, which is obviously nice. Luckily, this is not a complex task, because I already have my basic building blocks.
+</p>
+
+
+<p>
+First of, cl-ds.fs package offers the find function. Find function acts similar to the POSIX find, that is: it allows to find files. Called find will return the find-range object. Find-range is mean to obtain paths to desired files. Calling cl-ds:consume-front on find-range will return two values, path and information if the end was reached. The content of the range is constructed lazily, after each call to consume-front, so obtaining a fixed number of top results is efficient. Let's find my CSV files!
+</p>
+
+
+<p>
+We obviously don't want to manually walk over the range in the loop, or, at least, not every time. Instead, It is preferred to use aggregation functions. Those include the cl-ds.alg:accumulate function (literally like reduce function but works on ranges and containers of cl-ds) as well as count-elements and various math related functions (average, median and others). In order to convert range into vector, we can use cl-ds.alg:to-vector function.
+</p>
+
+
+<p>
+Cl-ds.alg:group-by allows changing the behavior of aggregation functions, similarly to how SQL group by works. For instance, We can calculate the sum of numbers in the range depending on the parity in the following way.
+</p>
+
+
+<p>
+To obtain groups of CSV files We simply combine functions already introduced in a very obvious way.
+</p>
+
+
+<p>
+And that's it! By using a dictionary of already provided functions it is possible to write cleaner, shorter, easier to understand programs. The trick is to actually have those functions working together, and this is possible thanks to ranges that provide a basic protocol to build on.
+</p>
+
+
+<p>
+So yeah, ranges are rather cool.
+</p>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2018-10-11</span>
+        <span title="last modification date" class="post-info">2018-10-11</span>
+        <span title="tags" class="post-info"><a href="/tags/lisp/">lisp</a>, <a href="/tags/cl-ds/">cl-ds</a></span>
+        <span title="author" class="post-info"></span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+      </section>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:shka &lt;at&gt; tuxls"></a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
