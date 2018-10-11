@@ -74,9 +74,9 @@ First of, cl-ds.fs package offers the find function. Find function acts similar 
                                    (string= "csv"
                                             (pathname-type x))))))
        (file-range (cl-ds.fs:find search-in)))
-     (multiple-value-bind (path more) (cl-ds:consume-front file-range)
-       (print path) ; path is a pathname to csv file
-       ))
+  (multiple-value-bind (path more) (cl-ds:consume-front file-range)
+    (print path) ; path is a pathname to csv file
+    ))
 </pre>
 </div>
 
@@ -112,8 +112,8 @@ Aggregation functions are not merely naive loops. In fact they are expressed ins
        (aggregation (cl-ds.alg:accumulate #'+ range))
        (even-sum (cl-ds:at aggregation t))
        (odd-sum (cl-ds:at aggregation nil)))
-(print even-sum)
-(print odd-sum))
+  (print even-sum)
+  (print odd-sum))
 </pre>
 </div>
 
