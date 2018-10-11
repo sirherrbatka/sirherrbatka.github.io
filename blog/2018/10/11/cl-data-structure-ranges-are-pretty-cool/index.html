@@ -135,14 +135,14 @@ To obtain groups of CSV files We can simply combine functions already introduced
        (groups (cl-ds.alg:group-by file-range
                                    :key #'open-and-read-first-line
                                    :test 'equal))
-       (grouped-paths (cl-ds.alg:to-vector #'+ groups))
-       ;; btw, aggregating grouped range, also returns range.
-       ;; It contains dotted pairs of (key . value).
-       ;; In this case that would be (csv-header . vector-of-pathnames).
-       ;; This can be coverted into an alist in the following way.
-       (cl-ds.alg:accumulate (lambda (prev next) (cons next prev))
-                             grouped-paths
-                             :initial-value nil)))
+       (grouped-paths (cl-ds.alg:to-vector #'+ groups)))
+  ;; btw, aggregating grouped range, also returns range.
+  ;; It contains dotted pairs of (key . value).
+  ;; In this case that would be (csv-header . vector-of-pathnames).
+  ;; This can be coverted into an alist in the following way.
+  (cl-ds.alg:accumulate (lambda (prev next) (cons next prev))
+                        grouped-paths
+                        :initial-value nil))
 </pre>
 </div>
 
