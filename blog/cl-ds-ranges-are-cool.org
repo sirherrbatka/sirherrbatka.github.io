@@ -84,14 +84,14 @@ To obtain groups of CSV files We can simply combine functions already introduced
          (groups (cl-ds.alg:group-by file-range
                                      :key #'open-and-read-first-line
                                      :test 'equal))
-         (grouped-paths (cl-ds.alg:to-vector #'+ groups))
-         ;; btw, aggregating grouped range, also returns range.
-         ;; It contains dotted pairs of (key . value).
-         ;; In this case that would be (csv-header . vector-of-pathnames).
-         ;; This can be coverted into an alist in the following way.
-         (cl-ds.alg:accumulate (lambda (prev next) (cons next prev))
-                               grouped-paths
-                               :initial-value nil)))
+         (grouped-paths (cl-ds.alg:to-vector #'+ groups)))
+    ;; btw, aggregating grouped range, also returns range.
+    ;; It contains dotted pairs of (key . value).
+    ;; In this case that would be (csv-header . vector-of-pathnames).
+    ;; This can be coverted into an alist in the following way.
+    (cl-ds.alg:accumulate (lambda (prev next) (cons next prev))
+                          grouped-paths
+                          :initial-value nil))
 #+END_SRC
 
 And that's it! By using a dictionary of already provided functions it is possible to write shorter, easier to understand programs and all of that thanks to reusable functions. The trick is to actually have those functions working together, and this is possible thanks to ranges that provide a basic protocol to build on.
