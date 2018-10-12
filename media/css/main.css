@@ -39,8 +39,8 @@ body {
     font-family: Menlo, Monaco, monospace;
     font-size: 14px;
     line-height: 1.5;
-    color: #666;
-    background-color: #fff;
+    color: #5b4636;
+    background-color: #f4ecd8;
 }
 p {
     margin: 0 0 20px;
@@ -57,7 +57,7 @@ h1, h2, h3 {
 h1:before, h2:before, h3:before {
     position: absolute;
     top: auto;
-    color: #ccc;
+    color: #5b4636;
     display: none;
 }
 h1:before {
@@ -90,12 +90,7 @@ hr {
     margin: 0;
     border: 0;
 }
-hr:after {
-    display: block;
-    margin: 20px 0;
-    content: "----------------------------------------------------------------";
-    color: #ccc;
-}
+
 ul, ol {
     padding: 0;
     margin: 0 0 20px;
@@ -171,18 +166,13 @@ table th.right, table td.right {
 /* body */
 .container {
     margin: 0 auto;
-    max-width: 770px;
+    max-width: 900px;
 }
 /* head */
 .masthead {
-    color: #888;
+    color: #333;
 }
-.masthead:after {
-    display: block;
-    content: '----------------------------------------------------------------';
-    margin: 10px 0;
-    color: #ccc;
-}
+
 .masthead a {
     color: #333;
 }
@@ -240,11 +230,6 @@ table th.right, table td.right {
 /* post */
 .post {
     position: relative;
-}
-.post:after {
-    display: block;
-    content: "----------------------------------------------------------------";
-    color: #ccc;
 }
 .post img {
     max-width: 100%;
