@@ -170,6 +170,7 @@ table th.right, table td.right {
 }
 /* head */
 .masthead {
+    border-bottom: 3px solid #ccc;
     color: #333;
 }
 
@@ -271,7 +272,6 @@ table th.right, table td.right {
     content: "\2223 \00a0";
 }
 .post-meta:after {
-    content: "----------------------------------------------------------------";
     display: block;
     margin-top: -1px;
     color: #ccc;
