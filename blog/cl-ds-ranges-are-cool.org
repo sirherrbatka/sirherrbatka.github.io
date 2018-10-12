@@ -94,6 +94,6 @@ To obtain groups of CSV files We can simply combine functions already introduced
                           :initial-value nil))
 #+END_SRC
 
-And that's it! By using a dictionary of already provided functions it is possible to write shorter, easier to understand programs and all of that thanks to reusable functions. The trick is to actually have those functions working together, and this is possible thanks to ranges that provide a basic protocol to build on.
+And that's it! By using a dictionary of reusable functions it is possible to write shorter, easier to understand programs. Obviously, that's nothing new. The trick is to actually have those functions working together, and this is possible thanks to ranges that provide a basic protocol to build on.
 
 So yeah, ranges are rather cool.
