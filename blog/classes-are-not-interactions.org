@@ -20,7 +20,7 @@ This is clearly nothing new. Writing programs that are easy for a human to work 
 * Simpler elements are in general better than complex elements.
 * State of elements should be easy to inspect and manage. If immutability does not complicate the overall design, it is probably a good idea.
 
-It is worth noting that none of those rules dictates a particular technical choice, but it will help to judge system that we are coming up with it.
+It is worth noting that none of those rules dictates a particular technical choice, but it will help to judge system that we are coming up with it purely on how easy to understand it is.
 
 Let's get back to our message passing system. Let's start with something basic, like sending the message.
 
