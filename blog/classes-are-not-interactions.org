@@ -36,4 +36,4 @@ But here is the main point: interactions should not be represented as classes. A
 
 This burden is not that great though. Inheritance still works, so the programmer is free to implement the hierarchy of possible statuses if he needs to. If he just wants to use alists as his statuses, that's fine as well: simply cons symbol used to dispatch with eql method specializers and adjust handle-with-request implementation accordingly. At the very least, no additional classes for each message are required.
 
-What we did not sacrifice anything. The functionality of the system remains intact. However what is appealing to me on a more aesthetic level is how "alive" system seems to be. Instead of pulling wires, we let parts interact and magic to happen. It makes things more... fun.
+We did not sacrifice anything. The functionality of the system remains intact. However what is appealing to me on a more aesthetic level is how "alive" system seems to be. Instead of pulling wires, we let parts interact and magic to happen. It makes things more... fun.
