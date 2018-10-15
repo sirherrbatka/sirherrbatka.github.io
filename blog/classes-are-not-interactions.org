@@ -10,19 +10,23 @@
 #+DESCRIPTION: How multimethods allow to eleminate need for additional classes.
 Some time ago on #lisp at freenode phoe asked interesting design question. So interesting in fact, that I decided that It deserves a post on a blog as it highlights why multimethods are such a good idea.
 
-Let's consider the following: we want to design a message passing system, and we want to use a clean table approach. That is, we will do this from scratch, avoiding mimicking existing solutions hoping that this can result in an overall better design.
+Let's consider the following: we want to design a message passing system, and we want to use a clean table approach. That is, we will do this from scratch, avoiding mimicking existing solutions in hope that this can result in an overall better design.
 
-In our system messages are passed asynchronously, and they either succeed (in one way or another) or fail (again, in multiple ways). We would like to keep it extendable and structured, so it is general enough to be reusable and would be easy on our little brains.
+In our system messages are passed asynchronously, and they either succeed (in one way or another) or fail (again, in multiple ways). We would like to keep it extendable and structured, so it is general enough to be reusable and would be easy on our little, soft brains.
 
-This is clearly nothing new. Writing programs that are easy for a human to work with is a lot harder than simply writing programs that will run on a machine. Generations of programmers tackled this issue and each had their own sets of solutions. I would not dare to say that I have the definite answer, but I think we can agree upon general guidelines:
+This is clearly nothing new. Writing programs that are easy for a human to work with is a lot harder than simply writing programs that will just run on a machine. Generations of programmers tackled this issue and each had their own sets of solutions. I would not dare to say that I have the definite answer, but I think we can agree upon general guidelines:
 
 1. Given that functionality of the system remains the same, fewer elements is better than more elements.
 2. Simpler elements are in general better than complex elements.
 3. State of elements should be easy to inspect and manage. If immutability does not complicate the overall design, it is probably a good idea.
 
-It is worth noting that none of those rules dictates a particular technical choice, but it will help to judge system that we are coming up with it purely on how easy to understand it is.
+It is worth noting that none of those rules dictates a distinctive technical choice, but it will help to judge system that we are coming up with it purely on how easy to understand it is.
 
-Let's get back to our message passing system. Let's start with something basic, like sending the message.
+Let's get back to our message passing system. To start we will first consider something basic, like sending a message.
+
+#+BEGIN_SRC common-lisp
+todo
+#+END_SRC
 
 But now, how we will handle the response? It is not merely the question of how we will obtain the result, but also, how we will tie it with the rest of the system. It is possible for instance to pass callback along with the message itself, but that only solves issues with asynchronous nature of the system. We still need to dispatch logic of the response.
 
@@ -30,10 +34,18 @@ Phoe stumbled upon the same issue. What he imagined is API that will return an o
 
 Initial idea from phoe was to have a separate response class for each request class. The response would be returned just after calling send, and then it would be possible to call a blocking generic function handle. Concrete implementation of handle function will perform any changes needed in the system.
 
+#+BEGIN_SRC common-lisp
+todo
+#+END_SRC
+
 The issue here is that we would have to define not just each message class but also separate response classes. Clearly too much.
 
-But here is the main point: interactions should not be represented as classes. At least not always in Common Lisp. Instead, they can be functions. Multimethods to be exact. Instead of creating a separate response class for every possible request, we will create just one, containing a request slot and status slot. The implementation of the handle function is changed slightly. We still wait for the response to arrive, but this time we will delegate any further processing to yet another function called handle-with-request. Implementing this one is burden of our user.
+But here is the main point: interactions should not be represented as classes. At least not always in Common Lisp. Instead, they can be functions. Multimethods to be exact. We don't have to create a separate response class for every possible request, we will create just one, containing a request slot and status slot. The implementation of the handle function is changed slightly. We still wait for the response to arrive, but this time we will delegate any further processing to yet another function called handle-with-request. Burden of implementing this function is consequently moved to the higher level code.
 
-This burden is not that great though. Inheritance still works, so the programmer is free to implement the hierarchy of possible statuses if he needs to. If he just wants to use alists as his statuses, that's fine as well: simply cons symbol used to dispatch with eql method specializers and adjust handle-with-request implementation accordingly. At the very least, no additional classes for each message are required.
+#+BEGIN_SRC common-lisp
+todo
+#+END_SRC
 
-We did not sacrifice anything. The functionality of the system remains intact. However what is appealing to me on a more aesthetic level is how "alive" system seems to be. Instead of pulling wires, we let parts interact and magic to happen. It makes things more... fun.
+This burden is light though. The programmer is free to implement the hierarchy of possible statuses and lean on the inherited behavior. If he just wants to use alists as his statuses, that's fine as well: simply cons symbol used to dispatch with eql method specializers and adjust handle-with-request implementation accordingly.
+
+We did not sacrifice anything. According to the rules we have outlined, our design is sound. However what is appealing to me on a more aesthetic level is how "alive" system seems to be. Instead of pulling wires, we let parts interact and magic to happen. It makes things more... fun.
