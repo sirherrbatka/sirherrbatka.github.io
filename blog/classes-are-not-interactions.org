@@ -16,9 +16,9 @@ In our system messages are passed asynchronously, and they either succeed (in on
 
 This is clearly nothing new. Writing programs that are easy for a human to work with is a lot harder than simply writing programs that will run on a machine. Generations of programmers tackled this issue and each had their own sets of solutions. I would not dare to say that I have the definite answer, but I think we can agree upon general guidelines:
 
-* Given that functionality of the system remains the same, fewer elements is better than more elements.
-* Simpler elements are in general better than complex elements.
-* State of elements should be easy to inspect and manage. If immutability does not complicate the overall design, it is probably a good idea.
+1. Given that functionality of the system remains the same, fewer elements is better than more elements.
+2. Simpler elements are in general better than complex elements.
+3. State of elements should be easy to inspect and manage. If immutability does not complicate the overall design, it is probably a good idea.
 
 It is worth noting that none of those rules dictates a particular technical choice, but it will help to judge system that we are coming up with it purely on how easy to understand it is.
 
