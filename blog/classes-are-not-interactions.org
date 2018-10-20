@@ -154,6 +154,7 @@ It becomes quite clear that We don't have to create a separate response class fo
         (response-data (rest data)))
     (assert (null (eql response-type nil)))
     (bt:with-lock-held ((lock response))
+      (assert (null (response-type response)))
       (setf (response-type response) response-type
             (response-data response) response-data)
       (map nil (lambda (x) (funcall x response))
