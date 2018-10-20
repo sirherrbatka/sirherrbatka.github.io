@@ -4,10 +4,17 @@
     <title>For more humane computing</title>
     <link>https://sirherrbatka.github.io</link>
     <description>sirherrbatka blog</description>
-    <pubDate>pią, 12 paź 2018 21:57:30 CEST</pubDate>
-    <lastBuildDate>pią, 12 paź 2018 21:57:30 CEST</lastBuildDate>
+    <pubDate>sob, 20 paź 2018 12:32:50 CEST</pubDate>
+    <lastBuildDate>sob, 20 paź 2018 12:32:50 CEST</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>Classes are not interactions!</title>
+      <link>https://sirherrbatka.github.io/blog/2018/10/14/classes-are-not-interactions</link>
+      <description><![CDATA[How multimethods allow to eleminate need for additional classes.]]></description>
+      <pubDate>2018-10-20</pubDate>
+      <guid>https://sirherrbatka.github.io/blog/2018/10/14/classes-are-not-interactions</guid>
+    </item>
     <item>
       <title>cl-data-structure ranges are pretty cool</title>
       <link>https://sirherrbatka.github.io/blog/2018/10/11/cl-data-structure-ranges-are-pretty-cool</link>
