@@ -16,4 +16,6 @@ It is not so different from the SQL, really. Pretty much everything that is supp
 
 Statistical bootstraping is procedure of obtaining approximated estimator from distribution by sampling. Usual reason to do so is high (time and/or memory) complexity of calculation which would render procedure inpractical for large sets. Boostrapping procedure is usually somewhat independent from the specifics of the estimator, therefore it makes sense to have a way to establish boostrapping not in the aggregator itself, but allow boostrapping to use specific aggregator instead.
 
-Next, we need to consider specific situations where aggregation can be terminated early, for instance because FIND function found a specific value required number of times.
+Next, we need to consider specific situations where aggregation can be terminated early, for instance because FIND function has found a specific value required number of times.
+
+Finally, some aggregation functions require more then just one step. Examples can include statistical moments
