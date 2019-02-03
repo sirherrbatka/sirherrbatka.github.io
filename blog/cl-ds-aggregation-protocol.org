@@ -100,7 +100,7 @@ At this point system is composed out of three distinctive layers.
 
 Once again I want to point out that whole design boils down truely to separating and combining. Function, state of the function and iteration were separated from each other and combined together a more convienent way in the aggregator.
 
-We didn't yet arrived at the complete and final design but are the pieces are really there.
+We didn't yet arrived at the complete and final design but the pieces are really there.
 
 * Control in the GROUP-BY level
 Construct-aggregator accepts range for a reason. Although normally aggregator shouldn't care about range once it is constructed we still need a separate to the aggregation function way to control part of the aggregation. The answer is a proxy range, like the CL-DS:FORWARD-GROUP-BY-PROXY. This range does not effect in any way, shape or form data underneath, and exists purely to construct different aggregator.
