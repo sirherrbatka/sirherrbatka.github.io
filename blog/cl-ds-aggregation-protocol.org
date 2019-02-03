@@ -1,4 +1,4 @@
-#+TITLE:       design of cl-data-structures aggregation protocol
+#+TITLE:       Design of cl-data-structures aggregation protocol
 #+AUTHOR:
 #+EMAIL:       shka@tuxls
 #+DATE:        2019-02-02 sob
@@ -9,16 +9,14 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Mindset and reasoning behind cl-data-structures aggregation protocol.
 * Background
-The very first post I have published on this blog was describing what are cl-data-structures ranges. In this post I want to show how introduction of ranges allowed to build universal aggregation functions on top of them.
+The very first post I have published on this blog was describing what are cl-data-structures ranges. In this post I want to show how introduction of ranges allowed to build universal aggregation functions on top of them. Hopefully this short article can be beneficial as demonstration of my approach to design in general as well as particular choices in the cl-data-structures.
 
 * What is aggregation function?
 It is not so different from the SQL, really. Pretty much everything that is supposed to transform whole range of the values into single result can be considered to be any aggregation function so here comes your MAX, MIN, AVERAGE and so one. The usefullness of such functions shouldn't need explenation, but some of the design considerations are less obvious. First of it is important to note that aggregation functions don't have to work in the very same way on every data. SQL statement "select baz, MAX(foo) from bar GROUP BY baz" is a classical example demonstraiting this angle, but it is worth noting that idea can go further than that.
 
 Statistical bootstraping is procedure of obtaining approximated estimator from distribution by sampling. Usual reason to do so is high (time and/or memory) complexity of calculation which would render procedure inpractical for large sets. Boostrapping procedure is usually somewhat independent from the specifics of the estimator, therefore it makes sense to have a way to establish boostrapping not in the aggregator itself, but allow boostrapping to use specific aggregator instead.
 
-Next, we need to consider specific situations where aggregation can be terminated early, for instance because FIND function has found a specific value required number of times.
-
-Finally, some aggregation functions require more then just one step. Examples include everything that requires sorting, which naturally includes MEDIAN and everything that includes median as intermidiate step.
+Secondly, some aggregation functions require more then just one step. Examples include everything that requires sorting, which naturally includes MEDIAN and everything that includes median as intermidiate step.
 
 * Mindset: Solve et coagula
 Fundamentally any software architecture is just an excersise of skillfully dividing and combining parts of the problem in order to achieve various goals. Therefore since we have at least a vague understanding of goals and the problem itself, let's consider how to divide the problem in orderd to achieve the desired result.
@@ -28,7 +26,7 @@ Fundamentally any software architecture is just an excersise of skillfully divid
 3. W need a way to control aggregation as described in the first paragraph. This is the least obvious part, and therefore it probabbly should be divided into more subproblems. Let's focus on this specifc part for the moment.
 
 * Control flow
-As Alan Kay would point out, criticial part of the object oriented programming is communication, and since (as already pointed out) essence of all software architectures is combining and dividing it stands to reason that one should to think how to control the aggregation by the means of the messages. It is usually a good idea to lay down design constraints of the messaging before deciding to move forward. I have few rules of thumb guiding me.
+As Alan Kay would point out, criticial part of the object oriented programming is communication, and since (as already pointed out) essence of all software architectures is combining and dividing it stands to reason that one should to think how to control the aggregation by the means of the messages. It is usually a good idea to lay down design constraints of the messaging before deciding to move forward. I have few rules of thumb guiding me and i find them rather usefull.
 
 1. Don't mix asynchronous and synchronous. Pick one and stick with it.
 2. Keep low level operations separate from convenience functions that can be implemented using primitives.
@@ -54,11 +52,99 @@ Function multi-aggregation-stages called on the arguments on the aggregation-fun
 Differences in handling those two function classes are strongly pronounced. We don't like that, and therefore we will combine both into one. We will introduce new level masking differences between those two approaches. It will be built around new data type called aggregator and will consist of the following protocol:
 
 1. construct-aggregator
-2. expects-content-p
-3. pass-to-aggregation
-4. begin-aggregation
-5. end-aggregation
-6. extract-result
-7. aggregator-finished-p
+2. apply-aggregation-function-with-aggregator
+3. expects-content-p
+4. pass-to-aggregation
+5. begin-aggregation
+6. end-aggregation
+7. extract-result
+8. aggregator-finished-p
 
-Aggregator is mutable object that will hold both function and either stages or state. Construct-aggregator accepts function representing object and therefore it is possible to construct desired version of the aggregator based on the class of the aggregation function represeting object. Once constructed, aggregator becomes essentially a state machine, which me can modify by calls to begin-aggregation; end-aggregation; pass-to-aggregation, query by using functions expects-content-p and aggregator-finished-p. We will extract result of the aggregation by calling extract-result.
+Aggregator is mutable object that will hold both function and either stages or state. Construct-aggregator accepts function representing object and therefore it is possible to construct desired version of the aggregator based on the class of the aggregation function represeting object. Once constructed aggregator will be passed to apply-aggregation-function-with-aggregator function where it essentially becomes a state machine. We can modify it by calls to begin-aggregation; end-aggregation; pass-to-aggregation, query by using functions expects-content-p and aggregator-finished-p. We will extract result out of the aggregator by calling (wait for it…) extract-result, same function will be used to obtain intermidiate result out of the aggregation stage.
+
+Things starts to come together. Iterating over the data is missing but even so, we already see how aggregator will drive this process. We will simply keep passing all elements from the range into the aggregator with pass-to-aggregation until aggregator-finished-p will return T. We will also have to call begin-aggregation and end-aggregation around passing data to ensure that internal states of the aggregation algorithm can be initialized properly. Actual code is a very simple implementation of this idea.
+
+#+BEGIN_SRC common-lisp
+(defmethod apply-aggregation-function (range
+                                       (function aggregation-function)
+                                       &rest all &key key &allow-other-keys)
+  (let ((aggregator (construct-aggregator range key function nil all)))
+    (apply #'apply-aggregation-function-with-aggregator
+           aggregator range function all)))
+
+(defmethod apply-aggregation-function-with-aggregator
+    ((aggregator fundamental-aggregator)
+     range
+     (function aggregation-function)
+     &rest all &key &allow-other-keys)
+  (declare (ignore all))
+  (iterate
+    (until (aggregator-finished-p aggregator))
+    (begin-aggregation aggregator)
+    (until (aggregator-finished-p aggregator))
+    (block outer
+      (when (cl-ds.alg.meta:expects-content-p aggregator)
+        (cl-ds:across range
+                      (lambda (x)
+                        (pass-to-aggregation aggregator
+                                             x)))))
+    (end-aggregation aggregator))
+  (extract-result aggregator))
+#+END_SRC
+
+At this point system is composed out of three distinctive layers.
+
+1. Ranges and accross function.
+2. Aggregation functions and states.
+3. Aggregator.
+
+Once again I want to point out that whole design boils down truely to separating and combining. Function, state of the function and iteration were separated from each other and combined together a more convienent way in the aggregator.
+
+We didn't yet arrived at the complete and final design but are the pieces are really there.
+
+* Control in the GROUP-BY level
+Construct-aggregator accepts range for a reason. Although normally aggregator shouldn't care about range once it is constructed we still need a separate to the aggregation function way to control part of the aggregation. The answer is a proxy range, like the CL-DS:FORWARD-GROUP-BY-PROXY. This range does not effect in any way, shape or form data underneath, and exists purely to construct different aggregator.
+
+Group by aggregator will simply check at each element in the range if the grouping value was already seen. If it was not, new aggregator will be constructed just like it would be from the range beneath the proxy range and placed in the hash table. Next we will simply pass the value to the subaggregator. Extracting result boils down to calling extract-result for each created aggregator and then returning it in the form of the range.
+
+#+BEGIN_SRC common-lisp
+(defclass group-by-aggregator (cl-ds.alg.meta:fundamental-aggregator)
+  ((%groups :initarg :groups
+            :type hash-table
+            :reader read-groups)
+   (%outer-fn :initarg :outer-fn
+              :reader read-outer-fn)
+   (%group-by-key :initarg :group-by-key
+                  :reader read-key)))
+
+(defmethod cl-ds.alg.meta:pass-to-aggregation ((aggregator group-by-aggregator)
+                                               element)
+  (bind (((:slots %group-by-key %groups %outer-fn) aggregator)
+         (selected (~>> element (funcall %group-by-key)))
+         (group (gethash selected %groups)))
+    (when (null group)
+      (setf group (funcall %outer-fn)
+            (gethash selected %groups) group)
+      (cl-ds.alg.meta:begin-aggregation group))
+    (cl-ds.alg.meta:pass-to-aggregation group element)))
+
+
+(defmethod cl-ds.alg.meta:extract-result ((aggregator group-by-aggregator))
+  (bind (((:slots %key %groups %outer-fn) aggregator)
+         (groups (copy-hash-table %groups)))
+    (maphash (lambda (key aggregator)
+               (setf (gethash key groups) (cl-ds.alg.meta:extract-result aggregator)))
+             %groups)
+    (make-hash-table-range groups)))
+
+(defmethod cl-ds.alg.meta:begin-aggregation ((aggregator group-by-aggregator))
+  (iterate
+    (for (key value) in-hashtable (read-groups aggregator))
+    (begin-aggregation value)))
+
+
+(defmethod cl-ds.alg.meta:end-aggregation ((aggregator group-by-aggregator))
+  (iterate
+    (for (key value) in-hashtable (read-groups aggregator))
+    (end-aggregation value)))
+#+END_SRC
