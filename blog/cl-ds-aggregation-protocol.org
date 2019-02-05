@@ -16,9 +16,17 @@ It is not so different from the SQL, really. Pretty much everything that is supp
 
 First of it is important to note that aggregation functions don't have to work in the very same way on every data. In fact major fraction of usefullness of such functions in SQL stems from the fact that aggregation can be controled finely. SQL statement "select baz, MAX(foo) from bar GROUP BY baz" is a classical example demonstraiting this angle, but it is worth noting that idea can go further than that.
 
-Statistical bootstraping is procedure of obtaining approximated estimator from distribution by sampling. Usual reason to do so is high (time and/or memory) complexity of calculation which would render procedure inpractical for large sets. Boostrapping procedure is usually somewhat independent from the specifics of the estimator, therefore it makes sense to have a way to establish boostrapping not in the aggregator itself, but allow boostrapping to use specific aggregator instead. SQL obviously does not contain BOOTSTRAP statement, but library that would be used for any statistical computation would clearly benefit from such function.
+Let's consider for instance calculating Hodges-Lehmann estimator. To obtain value of this estimator we will have to:
 
-Secondly, some aggregation functions require more then just one step. Examples include everything that requires sorting, which naturally includes MEDIAN and everything that includes median as intermidiate step.
+1. Obtain series containing every possible pair of the observations in the data set.
+2. Calculate average for each of the pairs.
+3. Obtain median out of average.
+
+Hodges-Lehmann estimator is simple way to calculate the expected value of the parameter in the sample, even in the presence of outliers that would skew ordinary mean (mean for instance should not be used to describe expected salary in the country, but it is here and at this point I start to think that this mallicious and intentional act). But what is the algorithmic complexity of the algorithm? Well, the first step clearly needs both quadratic time and space. Next one is linear in time. Next we need to sort all values and find median: this would be log-linear by using optimal general purpose sorting algorithm or perhaps linear if we are feeling fancy enough for the bucket sort. If we want to just stick to the CL:SORT function we are ending up with worse then quadratic time. That is truly brutal for the large datasets.
+
+But there is a solution: just run all your calculations on a managable sample. Obtained value can obviously diverge from the value calculated on full sample. To counteract this, we can repeat the procedure multiple times and select (for instance) median of all sample values. This procedure is called bootstrapping, and it is crucial when trying to calculate statistical parameters by employing algorithms like the one before. Yet, we can't write code like "SELECT hodges-lehmann(foo) from bar BOOTSTRAP SAMPLES 1000 SIZE 10000" in the SQL. But wouldn't it be neat feature?
+
+Some aggregation functions require more then just one step. Examples include everything that requires sorting, which naturally includes MEDIAN and everything that includes median as intermidiate step.
 
 * Mindset: Solve et coagula
 Fundamentally any software architecture is just an excersise of skillfully dividing and combining parts of the problem in order to achieve various goals. Therefore since we have at least a vague understanding of goals and the problem itself, let's consider how to divide the problem in orderd to achieve the desired result.
@@ -44,7 +52,7 @@ Make-state function shall construct mutable state of otherwise inmutable functio
 
 It is important to keep in mind that this approach allows us to always construct fresh empty state for the aggregation function.
 
-Hower this is not sufficient for multipass aggregators. Here we have to additionally represent stages and therefore protocol becomes somewhat more complicated. In addition to the already listed we need additional function:
+Hower this is not sufficient for multipass aggregators. Here we have to additionally represent stages and therefore protocol becomes somewhat more complicated. We need to augment this already established set with the following functions:
 
 1. multi-aggregation-stages
 2. initialize-stage
@@ -62,7 +70,7 @@ Differences in handling those two function classes are strongly pronounced. We d
 7. extract-result
 8. aggregator-finished-p
 
-Aggregator is mutable object that will hold both function and either stages or state. Construct-aggregator accepts function representing object and therefore it is possible to construct desired version of the aggregator based on the class of the aggregation function represeting object. Once constructed aggregator will be passed to apply-aggregation-function-with-aggregator function where it essentially becomes a state machine. We can modify it by calls to begin-aggregation; end-aggregation; pass-to-aggregation, query by using functions expects-content-p and aggregator-finished-p. We will extract result out of the aggregator by calling (wait for it…) extract-result, same function will be used to obtain intermidiate result out of the aggregation stage.
+Aggregator is mutable object that will hold both function and either stages or state while presenting uniform interface. Construct-aggregator accepts function representing object and therefore it is possible to construct desired version of the aggregator based on the class of the aggregation function represeting object. Once constructed aggregator will be passed to apply-aggregation-function-with-aggregator function where it essentially becomes a state machine. We can modify it by calls to begin-aggregation; end-aggregation; pass-to-aggregation, query by using functions expects-content-p and aggregator-finished-p. We will extract result out of the aggregator by calling (wait for it…) extract-result, same function will be used to obtain intermidiate result out of the aggregation stage.
 
 Things starts to come together. Iterating over the data is missing but even so, we already see how aggregator will drive this process. We will simply keep passing all elements from the range into the aggregator with pass-to-aggregation until aggregator-finished-p will return T. We will also have to call begin-aggregation and end-aggregation around passing data to ensure that internal states of the aggregation algorithm can be initialized properly. Actual code is a very simple implementation of this idea.
 
