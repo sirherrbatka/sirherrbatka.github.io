@@ -89,15 +89,14 @@ Things starts to come together. Iterating over the data is missing but even so, 
      &rest all &key &allow-other-keys)
   (declare (ignore all))
   (iterate
-    (until (aggregator-finished-p aggregator))
+    (until (aggregator-finished-p aggregator)) ; calling begin-aggregation when aggregator-finished-p is any error, so we will check it here...
     (begin-aggregation aggregator)
-    (until (aggregator-finished-p aggregator))
-    (block outer
-      (when (cl-ds.alg.meta:expects-content-p aggregator)
-        (cl-ds:across range
-                      (lambda (x)
-                        (pass-to-aggregation aggregator
-                                             x)))))
+    (until (aggregator-finished-p aggregator)) ; and here, to ensure that begin-aggregation did not change aggregator-finished-p result.
+    (when (cl-ds.alg.meta:expects-content-p aggregator) ; sometimes the last stage just need call to end-aggregation
+       (cl-ds:across range
+                     (lambda (x)
+                       (pass-to-aggregation aggregator
+                                            x))))
     (end-aggregation aggregator))
   (extract-result aggregator))
 #+END_SRC
@@ -129,6 +128,9 @@ Group by aggregator will simply check at each element in the range if the groupi
 
 (defmethod cl-ds.alg.meta:pass-to-aggregation ((aggregator group-by-aggregator)
                                                element)
+;; this code uses metabang-bind that provides bind macro.
+;; This macro roles with-slots, with-accessors, destructuring-bind, multiple-value-bind
+;; flet and some into one macro. It is pretty dope.
   (bind (((:slots %group-by-key %groups %outer-fn) aggregator)
          (selected (~>> element (funcall %group-by-key)))
          (group (gethash selected %groups)))
@@ -154,6 +156,7 @@ Group by aggregator will simply check at each element in the range if the groupi
 
 
 (defmethod cl-ds.alg.meta:end-aggregation ((aggregator group-by-aggregator))
+;; iterate is just as dope as metabang-bind
   (iterate
     (for (key value) in-hashtable (read-groups aggregator))
     (end-aggregation value)))
