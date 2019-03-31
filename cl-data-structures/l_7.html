@@ -1,156 +1,262 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="index.html#3513507796585411300">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3094778375660335654">Overview</a><ul><li><a href="l_1.html#430591795263902675">Conventions</a></li><li><a href="l_1.html#2351051879036908779">Key concepts</a><ul><li><a href="l_1.html#4452747284231051331">Signaling errors</a></li><li><a href="l_1.html#3556725602246466654">Modification Status</a></li><li><a href="l_1.html#3691659970361533631">Trait classes</a></li><li><a href="l_1.html#2851191668546592479">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3134413157464715425">API Reference</a><ul><li><a href="l_2.html#1320297895337562050">Common API</a><ul><li><a href="l_2.html#3070032635946060200">Generic Functions</a></li><li><a href="l_2.html#1333768817608359600">Macros</a></li><li><a href="l_2.html#1515085372967266427">Classes</a></li><li><a href="l_2.html#3486855956825846800">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#1168184758607865700">Algorithms Reference</a><ul><li><a href="l_3.html#3851162960181875000">Aggregation Functions</a></li><li><a href="l_3.html#1300119822208323677">Layer Functions</a></li><li><a href="l_3.html#3837319699679647677">Other Functions</a></li></ul></li><li><a href="l_4.html#1674239920680493400">File System Reference</a></li><li><a href="l_5.html#1995023993161056000">Math Reference</a></li><li><a href="l_6.html#2071239091990172650">Internal details</a><ul><li><a href="l_6.html#1784175307071858677">Lazy evaluation</a></li><li><a href="l_6.html#764232334813455625">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_6.html#200651070066879575">Generic Functions</a></li><li><a href="l_6.html#814256497561389025">Classes</a></li></ul></li><li><a href="l_6.html#2522509616131540100">Aggregation algorithms metaprotocol</a></li></ul></li><li><a href="l_7.html#131241130028764275">Dictionary structures</a><ul><li><a href="l_7.html#4402802638507710131">API</a></li><li><a href="l_7.html#689140893919299575">HAMT</a><ul><li><a href="l_7.html#441074953597226325">Constructing</a></li><li><a href="l_7.html#599040885216305675">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="131241130028764275"><h2>Dictionary structures
-</h2><p>Dictionaries map values to unique keys.Common Lispstandard already contains such structures (hash tables, alists, plists) and therefore idea should not be alien to a Lisp programmer. CL-DATA-STRUCTURES offers both functional and mutable dictionaries, with HAMT being the prime example of complete, feature rich implementation of the protocol. In practice, containers present in this module are either ordered containers (for instance binary search trees) or some sort of unordered hash table (either classiscal hashtable or some sort of hashing tree). In each case, overview of data structure is present in this document.</p><div id="4402802638507710131"><h3>API
-</h3><p>To obtain value under key use following functions:</p><ul><li>AT</li>
-</ul><p>To change mapping use following purely functional functions:</p><ul><li>INSERT</li>
-<li>ADD</li>
-<li>UPDATE</li>
-<li>UPDATE-IF</li>
-<li>ERASE</li>
-<li>ERASE-IF</li>
-</ul><p>To change mapping in destructive way, use following functions:</p><ul><li>(SETF AT)</li>
-<li>ADD!</li>
-<li>UPDATE!</li>
-<li>UPDATE-IF!</li>
-<li>ERASE!</li>
-<li>ERASE-IF!</li>
-</ul><p>This package adds another set of trait classes, specific to dictionaries.</p><div class="class-info"><div class="doc-name">
-FUNDAMENTAL-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNDAMENTAL-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Container that provides location to value mapping. Either ordered or unordered.</div></div><div class="class-info"><div class="doc-name">
-FUNDAMENTAL-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNDAMENTAL-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Dictionary that uses hashing function. Hashing function is assumed to return fixnum.</div></div><div class="class-info"><div class="doc-name">
-FUNCTIONAL-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNCTIONAL-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Functional variant of a dictionary.</div></div><div class="class-info"><div class="doc-name">
-MUTABLE-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-MUTABLE-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Mutable variant of a dictionary.</div></div><div class="class-info"><div class="doc-name">
-TRANSACTIONAL-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-TRANSACTIONAL-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Transactional variant of a dictionary.</div></div><div class="class-info"><div class="doc-name">
-LAZY-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-LAZY-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Lazy variant of a dictionary.</div></div><div class="class-info"><div class="doc-name">
-FUNCTIONAL-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNCTIONAL-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Functional variant of hashing a dictionary.</div></div><div class="class-info"><div class="doc-name">
-MUTABLE-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-MUTABLE-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Mutable variant of hashing a dictionary.</div></div><div class="class-info"><div class="doc-name">
-TRANSACTIONAL-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-TRANSACTIONAL-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Transactional variant of hashing a dictionary.</div></div><div class="class-info"><div class="doc-name">
-LAZY-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-LAZY-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Lazy variant of a hashing dictionary.</div></div><p>In addition to this, on this level, few additional functions are defined.</p><div class="generic-info"><div class="doc-name">
-FIND-CONTENT
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="index.html#3042252375132799400">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#306062287154538525">Overview</a><ul><li><a href="l_1.html#2349847789249321079">Conventions</a></li><li><a href="l_1.html#1636951605139897150">Key concepts</a><ul><li><a href="l_1.html#1820084219775874000">Signaling errors</a></li><li><a href="l_1.html#2913393172765331100">Modification Status</a></li><li><a href="l_1.html#3628097006605851654">Trait classes</a></li><li><a href="l_1.html#3495852439071821077">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#1176500767709664477">API Reference</a><ul><li><a href="l_2.html#2249526210417635500">Common API</a><ul><li><a href="l_2.html#1132276966890315675">Generic Functions</a></li><li><a href="l_2.html#2419709128203182725">Macros</a></li><li><a href="l_2.html#2091360559597880677">Classes</a></li><li><a href="l_2.html#634619658816355550">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#4323545320924464700">Algorithms Reference</a><ul><li><a href="l_3.html#4243631519736897931">Aggregation Functions</a></li><li><a href="l_3.html#2187863406767466677">Layer Functions</a></li><li><a href="l_3.html#3770244304149832931">Other Functions</a></li></ul></li><li><a href="l_4.html#97842841533705775">File System Reference</a></li><li><a href="l_5.html#2627073045328884754">Math Reference</a></li><li><a href="l_6.html#2423402127918800279">Clustering Reference</a></li><li><a href="l_7.html#693449125152063800">Internal details</a><ul><li><a href="l_7.html#818380877350167625">Lazy evaluation</a></li><li><a href="l_7.html#516224331452775725">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_7.html#3766552143026580700">Generic Functions</a></li><li><a href="l_7.html#2171887652051116350">Classes</a></li></ul></li><li><a href="l_7.html#1630873324467264150">Aggregation algorithms metaprotocol</a></li></ul></li><li><a href="l_8.html#3426476975809964700">Dictionary structures</a><ul><li><a href="l_8.html#1218539451301788850">API</a></li><li><a href="l_8.html#4526797640084072931">HAMT</a><ul><li><a href="l_8.html#2845177234710357625">Constructing</a></li><li><a href="l_8.html#1362880479629914700">POSITION-MODIFICATION contracts</a></li></ul></li></ul></li></ul></li></ul></div><div class="content"><div id="693449125152063800"><h2>Internal details
+</h2><p>This section explains parts of system design and low-level elements that shouldn&#039;t bother user of the library. However, they are critical for contributors, and some people just want to know and so shall be delivered.</p><div id="818380877350167625"><h3>Lazy evaluation
+</h3><p>This system offers the lazy-evaluated containers. Lazy evaluation is useful primarily because eager functional data structures may have somewhat sluggish performance if multiple, full copy-on-write operations have to be performed when inserting or erasing a large number of records from the container. Lazy evaluation allows to hide destructive operations behind the functional interface, and therefore help to counter this issue. The effectiveness of this technique varies greatly, and depends on both internal structures of the container, as well it&#039;s current content. However, what remains constant is the approach used in the implementation of lazy evaluation in this library.</p><p>As already established in the Overview section, this library contains transactional variants of some of the data structures. Because transactional data structures form a wall isolating destructive changes, they can be used for the internal parts of the lazy evaluation style optimization. Now, the other part of the recipe is to build a functional interface around the transactional instance. This essentially requires us to use to proxy objects that will fully adapt mutable interface into the functional interface. Because of a symmetric design of the containers API, each destructive function has also functional counterpart. This makes the task fairly easy.</p><p>To translate functional API function calls into mutable calls, a new class called LAZY-BOX-CONTAINER is introduced. LAZY-BOX-CONTAINER is holding the transactional instance of container alongside the CHANGES instance. All functional variants of API functions applicable to the internal instance, are applicable to the LAZY-BOX-CONTAINER instance as well and return values consistent with the documentation. This is done by either manually implementing methods to work on LAZY-BOX-CONTAINER (this is the case for all query functions) or by intercepting internal low-level mechanisms of position modification metaprotocol (the case for all modification functions). In other words, the LAZY-BOX-CONTAINER is (according to the design patterns terminology) a proxy. By implementing this interface, it becomes possible to capture and enclose all modification calls in closures that can be executed later. Each time POSITION-MODIFICATION method for LAZY-BOX-CONTAINER is called a new instance of the LAZY-BOX-CONTAINER with an additional closure (as well as a reference to the previous closures) and the isolated transactional instance is getting created and passed to the user. Now, the question arises: when it is required to call closures on the internal container?</p><p>The answer to this question is simple: cl-data-structures will call the closures only when user will query the state of the container. This will in turn destructively change the internal container, however because of transactional semantics, changes will not leak outside. Finally, the query can be finished by forwarding call to the freshly transformed internal container. At this point closures in the LAZY-BOX-CONTAINER can be discarded, as changes have been fully transferred to the state of the internal container. This creates the illusion of a fully functional interface while minimizing the cost of the copy-on-write procedure.</p><p>To summarise: lazy evaluation of the data structures is taken care of as long as a transactional variant of the data structure is available.</p></div><div id="516224331452775725"><h3>POSITION-MODIFICATION metaprotocol
+</h3><p>The package defines its own internal object protocol that is used to build parts of user API responsible for container modifications. This concept is nicknamed position-modification metaprotocol and is described in this section.</p><p>As every object protocol, position-modification metaprotocol consists of classes and generic functions that are expected to be implemented for said classes. Those functions are designed to peform low level (that is: dependent on the internals structure) operations on containers. For instance, those operations include manipulations (and construction) of buckets (and &quot;bucket&quot; is obviously low level term used in description of data structure).</p><p>Layer as a whole, derive it&#039;s name from one particular generic function called POSITION-MODIFICATION. It acts as a point of implementation for all functionality releated to modification of containers and therefore is called directly by functions like INSERT. Methods implementing POSITION-MODIFICATION act by calling other functions of this protocol.</p><img src="1.svg" class="centered">
+<p>POSITION-MODIFICATION accepts OPERATION as a first argument. OPERATION is an object of one of protocol classes FUNCTIONAL-FUNCTION or DESTRUCTIVE-FUNCTION. Objects of those classes include generic functions defined as part of the API. This is made possible by the fact that Generic Functions inCommon Lispare in fact objects of their own classes. In addition to those fundamental classes, protocol contains additional trait classes like for instance the GROW-FUNCTION. Because of this, it is possible to query API functions for expected behavior. It also makes possible to write methods that dispatch on the behavior of the API functions. These include (as already established) bucket manipulation functions: SHRINK-BUCKET, GROW-BUCKET, MAKE-BUCKET.</p><p>Because all of those functions are generic; and just like POSITION-MODIFICATION they accept OPERATION argument, it is possible to dispatch bucket modification logic, based on the class of the API function. Employing this approach allows to remove code duplication between various types of modification functions, and therefore reduce the burden of supporting functions like ERASE-IF in the codebase. Furthermore, establishing this protocol allows to alter standard behavior of buckets, and by that, create nested data structures.</p><p>Nested data structures are a nontrivial problem when immutable behavior is expected. In most cases, immutability is achieved by using copy-on-write semantics. Because copying in nested structures has to happen on multiple levels, It is essential to be able to intercept logic at the lower level of the data structure. Luckily, as describedCommon Lispoffers tools that allowed us to build an elegant solution for such problem.</p><div id="3766552143026580700"><h4>Generic Functions
+</h4>Symbols in the package CL-DATA-STRUCTURES:
+<div class="generic-info"><div class="doc-name">
+POSITION-MODIFICATION
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-(CONTAINER BUCKET LOCATION &amp;KEY HASH &amp;ALLOW-OTHER-KEYS)
-</div><div class="doc-paragraph">Arguments:
- --CONTAINER, Container that owns bucket. Acts as passed interface for method dispatch.
- --BUCKET, Bucket that will be searched.
- --LOCATION, Location that will be searched.
-
-Description:
- Attempts to find element under LOCATION in the the bucket.
-
-Returns:
- --Element
- --Boolean. T if element was found, NIL otherwise.
-
-Notes:
- This function accepts additional key arguments. In case of hashing dictionaries, one will be :hash that is expected to be a fixnum.</div></div></div><div id="689140893919299575"><h3>HAMT
-</h3><p>HAMT stands from hash array mapped trie. This data structure is used most commonly as functional dictionary in standard libraries of few recent languages (including Clojure and Scala). Cl-data-structures implementation offers also mutable and transactional variant of this structure. Although this container is not optimized for destructive modification, it is still faster then copy-on-write whole path from root to the bottom (conflict) node.</p><p>Dictionary implementation of HAMT is present in the system as a class.</p><div class="class-info"><div class="doc-name">
-HAMT-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS.HAMT-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- Root HAMT dictionary class.</div></div><div class="class-info"><div class="doc-name">
-FUNCTIONAL-HAMT-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS.HAMT-FUNCTIONAL-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- HAMT dictionary that implements functional api.</div></div><div class="class-info"><div class="doc-name">
-MUTABLE-HAMT-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS.HAMT-MUTABLE-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<div class="doc-paragraph">Description:
- HAMT dictionary that implements mutable api.</div></div><p>As you can see, it inherits DICTIONARY trait class as well as lower level FUNDAMENTAL-HAMT-CONTAINER class. All instances of this class can be used with following functions:</p><div class="function-info"><div class="doc-name">
-HAMT-DICTIONARY-AT
-</div><div class="doc-lambda-list"><b>Lambda List:</b>
-()
-</div><div class="doc-paragraph">Implementation of AT</div></div><div class="function-info"><div class="doc-name">
-HAMT-DICTIONARY-SIZE
-</div><div class="doc-lambda-list"><b>Lambda List:</b>
-(CONTAINER)
-</div><div class="doc-paragraph">Implementation of SIZE</div></div><p>Functional dictionary is represented by the following class:</p><p>There is no lazy-hamt-dictionary class, because lazy hamt dictionary is nothing more then a TRANSACTIONAL-HAMT-DICTIONARY inside LAZY-BOX.</p><div id="441074953597226325"><h4>Constructing
-</h4><p>To construct HAMT dictionary, use following functions.</p>Symbols in the package CL-DATA-STRUCTURES.DICTS.HAMT:
-<div class="function-info"><div class="doc-name">
-MAKE-FUNCTIONAL-HAMT-DICTIONARY
-</div><div class="doc-lambda-list"><b>Lambda List:</b>
-(HASH-FN EQUAL-FN)
+(OPERATION STRUCTURE CONTAINER LOCATION &amp;REST ALL &amp;KEY VALUE &amp;ALLOW-OTHER-KEYS)
 </div><div class="doc-paragraph">Syntax:
- make-functional-hamt-dictionary hash-fn equal-fn &amp;key max-depth =&gt; functional-hamt-dictionary
+ position-modification operation container location more-args =&gt; container status
+
+Arguments:
+ --OPERATION, Instance of API function.
+ --CONTAINER, Instance of container class
+ --LOCATION, Where modification is supposed to happen?
 
 Description:
- Constructs and return new functional-hamt-dictionary
+ A low level function used as de facto implementation point of all API modification functions (INSERT, ADD, UPDATE).
 
 Returns:
- new instance of functional-hamt-dictionary.
+ --Container (new or the same instance)
+ --Modification status
 
 Notes:
- In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.</div></div><div class="function-info"><div class="doc-name">
-MAKE-MUTABLE-HAMT-DICTIONARY
+ Implementations of this generic function are multimethods dispatched on the class of the OPERATION and on the CONTAINER.</div></div><div class="generic-info"><div class="doc-name">
+MAKE-BUCKET
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-(HASH-FN EQUAL-FN)
-</div><div class="doc-paragraph">Syntax:
- make-mutable-hamt-dictionary hash-fn equal-fn &amp;key max-depth =&gt; mutable-hamt-dictionary
-
-Description:
- Constructs and returns a new mutable-hamt-dictionary
+(OPERATION CONTAINER LOCATION &amp;REST ALL &amp;KEY VALUE HASH &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">Description:
+ Constructs abstract bucket.
 
 Returns:
- new instance of mutable-hamt-dictionary.
+ --New or passed bucket. May return nil as empty bucket.
+ --Instance of position modification status.
+
+Side Effects:
+ Can modify bucket.</div></div><div class="generic-info"><div class="doc-name">
+GROW-BUCKET
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY VALUE CONDITION-FN HASH
+ &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">Description:
+ Generic, low level function used to grow all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.
+
+Returns:
+ --Bucket.
+ --Instance of modification-operation-status.
 
 Notes:
- In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.</div></div></div><div id="599040885216305675"><h4>POSITION-MODIFICATION contracts
-</h4><p>Since HAMT is hashing container, many of the functions accept additional hash key argument with fixnum produced by the hashing function.</p><p>SHRINK-BUCKET function must be defined in terms all functional shrink-functions and buckets. Will accept :hash.</p><p>GROW-BUCKET function must be defined in terms all functional grow-functions and buckets. Will accept :hash.</p><p>SHRINK-BUCKET! function must be defined in terms all mutable shrink-functions and buckets. Will accept :hash.</p><p>GROW-BUCKET! function must be defined in terms all mutable grow-functions and buckets. Will accept :hash.</p><p>MAKE-BUCKET function must be defined in terms of all grow-functions and will return list of hash-content-tuple as bucket. Will accept :hash</p><p>Bucket must be usable with cl-ds.dicts:find-content. FIND-CONTENT function will accept hash as key argument.</p></div></div></div></div></div>
+ This function is not allowed to perform any side effects. See grow-bucket! for function that is allowed to do so.</div></div><div class="generic-info"><div class="doc-name">
+SHRINK-BUCKET
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY HASH CONDITION-FN
+ &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">Description:
+ Generic, low level function used to shrink all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.
+
+Returns:
+ --Bucket. May also return nil to indicate empty bucket.
+ --Instance of modification-operation-status.
+
+Notes:
+ This function is not allowed to perform any side effects. See shrink-bucket! for function that is allowed to do so.</div></div><div class="generic-info"><div class="doc-name">
+GROW-BUCKET!
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY VALUE HASH
+ &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">Description:
+ Generic, low level function used to destructivly grow all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.
+
+Returns:
+ --New or passed bucket.
+ --Instance of position modification status.
+
+Side Effects:
+ Can modify bucket.</div></div><div class="generic-info"><div class="doc-name">
+SHRINK-BUCKET!
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY HASH CONDITION-FN
+ &amp;ALLOW-OTHER-KEYS)
+</div><div class="doc-paragraph">Description:
+ Generic, low level function used to shrink all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function. This is destructive function.
+
+Returns:
+ --Bucket. May also return nil to indicate empty bucket.
+ --Instance of modification-operation-status.</div></div><div class="generic-info"><div class="doc-name">
+FUNCTIONAL-COUNTERPART
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION)
+</div><div class="doc-paragraph">Syntax:
+ functional-counterpart operation =&gt; functional-operation
+
+Arguments:
+ --OPERATION, Instance of the modification API function.
+
+Description:
+ Low level function that returns an instance of the functional api modification function that serves the same purpose as the OPERATION. Will, for instance, return #&#039;UPDATE when OPERATION is #&#039;UPDATE! Will return original the OPERATION if OPERATION is already part of the functional API.
+
+Returns:
+ The instance of api function.
+
+Notes:
+ This function is low level, and therefore should be rarely (if ever) used by the user of this library.</div></div><div class="generic-info"><div class="doc-name">
+DESTRUCTIVE-COUNTERPART
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION)
+</div><div class="doc-paragraph">Syntax:
+ destructive-counterpart operation =&gt; destructive-operation
+
+Arguments:
+ --OPERATION, Instance of the modification API function.
+
+Description:
+ Low level function that returns an instance of the destrutive api modification function that serves the same purpose as the OPERATION. Will, for instance, return #&#039;UPDATE! when OPERATION is #&#039;UPDATE Will return original the OPERATION if OPERATION is already part of the functional API.
+
+Returns:
+ The instance of api function.
+
+Notes:
+ This function is low level, and therefore should be rarely (if ever) used by the user of this library.</div></div></div><div id="2171887652051116350"><h4>Classes
+</h4>Symbols in the package CL-DATA-STRUCTURES:
+<div class="class-info"><div class="doc-name">
+FUNCTIONAL-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Function that inherits this class is not allowed to perform any side effects.</div></div><div class="class-info"><div class="doc-name">
+DESTRUCTIVE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-DESTRUCTIVE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Function that inherits this class is expected to perform side effects.</div></div><div class="class-info"><div class="doc-name">
+SHRINK-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-SHRINK-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Function will attempt to remove element from container.</div></div><div class="class-info"><div class="doc-name">
+GROW-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-GROW-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Function will attempt to add new element to container.</div></div><div class="class-info"><div class="doc-name">
+INSERT-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-INSERT-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of INSERT and (SETF AT).</div></div><div class="class-info"><div class="doc-name">
+UPDATE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of UPDATE and UPDATE!.</div></div><div class="class-info"><div class="doc-name">
+UPDATE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of UPDATE-IF and UPDATE-IF!.</div></div><div class="class-info"><div class="doc-name">
+ADD-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ADD-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ADD and ADD!.</div></div><div class="class-info"><div class="doc-name">
+ERASE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ERASE and ERASE!.</div></div><div class="class-info"><div class="doc-name">
+ERASE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ERASE-IF and ERASE-IF!.</div></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-INSERT-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-INSERT-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of INSERT.</div></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-UPDATE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-UPDATE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of UPDATE.</div></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-UPDATE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-UPDATE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of UPDATE-IF.</div></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ADD-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-ADD-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ADD.</div></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ERASE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-ERASE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ERASE.</div></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ERASE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-ERASE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ERASE-IF.</div></div><div class="class-info"><div class="doc-name">
+INSERT!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-INSERT!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of INSERT.</div></div><div class="class-info"><div class="doc-name">
+UPDATE!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of UPDATE.</div></div><div class="class-info"><div class="doc-name">
+UPDATE-IF!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE-IF!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of UPDATE-IF!.</div></div><div class="class-info"><div class="doc-name">
+ADD!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ADD!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ADD.</div></div><div class="class-info"><div class="doc-name">
+ERASE!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ERASE.</div></div><div class="class-info"><div class="doc-name">
+ERASE-IF!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE-IF!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<div class="doc-paragraph">Description:
+ Class of ERASE-IF!.</div></div></div></div><div id="1630873324467264150"><h3>Aggregation algorithms metaprotocol
+</h3><p>Just like position-modification metaprotocol, there is set of functions and classes used to construct aggregation algorithms. Purpose of those is to separate algorithms from obtaining data, so it will become possible to aggregate per group, without any modifications or memory allocations. In future, I hope to implement SERIES style stream fusion compilation to inline aggregation logic whenever possible which should improve performance, but for now it simply uses generic functions dispatched at runtime.</p></div></div></div></div>
 </body>
 </html>
