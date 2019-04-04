@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#3907062757381550977">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3819146969331357631">Overview</a><ul><li><a href="l_1.html#884232151364907475">Conventions</a></li><li><a href="l_1.html#60845670015216450">Key concepts</a><ul><li><a href="l_1.html#218087818039867100">Signaling errors</a></li><li><a href="l_1.html#2845036640029533954">Modification Status</a></li><li><a href="l_1.html#1126722870870520300">Trait classes</a></li><li><a href="l_1.html#1156892233014209900">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#4052159891080521677">API Reference</a><ul><li><a href="l_2.html#2166880029416961950">Common API</a><ul><li><a href="l_2.html#3949558794861583154">Generic Functions</a></li><li><a href="l_2.html#2580740088073979325">Macros</a></li><li><a href="l_2.html#3578105900073742700">Classes</a></li><li><a href="l_2.html#1383984678705535727">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#260082996834467950">Algorithms Reference</a><ul><li><a href="l_3.html#3637505801417658631">Aggregation Functions</a></li><li><a href="l_3.html#729170337047650875">Layer Functions</a></li><li><a href="l_3.html#417207045069528675">Other Functions</a></li></ul></li><li><a href="l_4.html#1727191539582557750">File System Reference</a></li><li><a href="l_5.html#3324505155651243854">Math Reference</a></li><li><a href="l_6.html#2908380869690561525">Clustering Reference</a></li><li><a href="l_7.html#1390474091901735750">Threads Reference</a></li><li><a href="l_8.html#2506377281939817325">Streaming Algorihms Reference</a></li><li><a href="l_9.html#3469493847868340500">Dictionary structures</a><ul><li><a href="l_9.html#886573314417817325">API</a></li><li><a href="l_9.html#2385209832356962000">HAMT</a><ul><li><a href="l_9.html#526390505093232000">Constructing</a></li><li><a href="l_9.html#2006836976449674850">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_9.html#2284201393764725827">Sparse RRB Vector</a></li></ul></li><li><a href="l_10.html#1993913621707437950">Internal details</a><ul><li><a href="l_10.html#1776137682718060350">Lazy evaluation</a></li><li><a href="l_10.html#1262501018597668850">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_10.html#1462648087136795327">Generic Functions</a></li><li><a href="l_10.html#932063134158252525">Classes</a></li></ul></li><li><a href="l_10.html#3210699041649903379">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="1993913621707437950"><h2>Internal details
+</h2><p>This section explains parts of system design and low-level elements that shouldn&#039;t bother user of the library. However, they are critical for contributors, and some people just want to know and so shall be delivered.</p><div id="1776137682718060350"><h3>Lazy evaluation
+</h3><p>This system offers the lazy-evaluated containers. Lazy evaluation is useful primarily because eager functional data structures may have somewhat sluggish performance if multiple, full copy-on-write operations have to be performed when inserting or erasing a large number of records from the container. Lazy evaluation allows to hide destructive operations behind the functional interface, and therefore help to counter this issue. The effectiveness of this technique varies greatly, and depends on both internal structures of the container, as well it&#039;s current content. However, what remains constant is the approach used in the implementation of lazy evaluation in this library.</p><p>As already established in the Overview section, this library contains transactional variants of some of the data structures. Because transactional data structures form a wall isolating destructive changes, they can be used for the internal parts of the lazy evaluation style optimization. Now, the other part of the recipe is to build a functional interface around the transactional instance. This essentially requires us to use to proxy objects that will fully adapt mutable interface into the functional interface. Because of a symmetric design of the containers API, each destructive function has also functional counterpart. This makes the task fairly easy.</p><p>To translate functional API function calls into mutable calls, a new class called LAZY-BOX-CONTAINER is introduced. LAZY-BOX-CONTAINER is holding the transactional instance of container alongside the CHANGES instance. All functional variants of API functions applicable to the internal instance, are applicable to the LAZY-BOX-CONTAINER instance as well and return values consistent with the documentation. This is done by either manually implementing methods to work on LAZY-BOX-CONTAINER (this is the case for all query functions) or by intercepting internal low-level mechanisms of position modification metaprotocol (the case for all modification functions). In other words, the LAZY-BOX-CONTAINER is (according to the design patterns terminology) a proxy. By implementing this interface, it becomes possible to capture and enclose all modification calls in closures that can be executed later. Each time POSITION-MODIFICATION method for LAZY-BOX-CONTAINER is called a new instance of the LAZY-BOX-CONTAINER with an additional closure (as well as a reference to the previous closures) and the isolated transactional instance is getting created and passed to the user. Now, the question arises: when it is required to call closures on the internal container?</p><p>The answer to this question is simple: cl-data-structures will call the closures only when user will query the state of the container. This will in turn destructively change the internal container, however because of transactional semantics, changes will not leak outside. Finally, the query can be finished by forwarding call to the freshly transformed internal container. At this point closures in the LAZY-BOX-CONTAINER can be discarded, as changes have been fully transferred to the state of the internal container. This creates the illusion of a fully functional interface while minimizing the cost of the copy-on-write procedure.</p><p>To summarise: lazy evaluation of the data structures is taken care of as long as a transactional variant of the data structure is available.</p></div><div id="1262501018597668850"><h3>POSITION-MODIFICATION metaprotocol
+</h3><p>The package defines its own internal object protocol that is used to build parts of user API responsible for container modifications. This concept is nicknamed position-modification metaprotocol and is described in this section.</p><p>As every object protocol, position-modification metaprotocol consists of classes and generic functions that are expected to be implemented for said classes. Those functions are designed to peform low level (that is: dependent on the internals structure) operations on containers. For instance, those operations include manipulations (and construction) of buckets (and &quot;bucket&quot; is obviously low level term used in description of data structure).</p><p>Layer as a whole, derive it&#039;s name from one particular generic function called POSITION-MODIFICATION. It acts as a point of implementation for all functionality releated to modification of containers and therefore is called directly by functions like INSERT. Methods implementing POSITION-MODIFICATION act by calling other functions of this protocol.</p><img src="1.svg" class="centered">
+<p>POSITION-MODIFICATION accepts OPERATION as a first argument. OPERATION is an object of one of protocol classes FUNCTIONAL-FUNCTION or DESTRUCTIVE-FUNCTION. Objects of those classes include generic functions defined as part of the API. This is made possible by the fact that Generic Functions inCommon Lispare in fact objects of their own classes. In addition to those fundamental classes, protocol contains additional trait classes like for instance the GROW-FUNCTION. Because of this, it is possible to query API functions for expected behavior. It also makes possible to write methods that dispatch on the behavior of the API functions. These include (as already established) bucket manipulation functions: SHRINK-BUCKET, GROW-BUCKET, MAKE-BUCKET.</p><p>Because all of those functions are generic; and just like POSITION-MODIFICATION they accept OPERATION argument, it is possible to dispatch bucket modification logic, based on the class of the API function. Employing this approach allows to remove code duplication between various types of modification functions, and therefore reduce the burden of supporting functions like ERASE-IF in the codebase. Furthermore, establishing this protocol allows to alter standard behavior of buckets, and by that, create nested data structures.</p><p>Nested data structures are a nontrivial problem when immutable behavior is expected. In most cases, immutability is achieved by using copy-on-write semantics. Because copying in nested structures has to happen on multiple levels, It is essential to be able to intercept logic at the lower level of the data structure. Luckily, as describedCommon Lispoffers tools that allowed us to build an elegant solution for such problem.</p><div id="1462648087136795327"><h4>Generic Functions
+</h4>Symbols in the package CL-DATA-STRUCTURES:
+<div class="generic-info"><div class="doc-name">
+POSITION-MODIFICATION
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION STRUCTURE CONTAINER LOCATION &amp;REST ALL &amp;KEY VALUE &amp;ALLOW-OTHER-KEYS)
+</div><b>Syntax:</b>
+position-modification operation container location more-args =&gt; container status
+<br><b>Arguments:</b>
+<ul><li>OPERATION, Instance of API function.</li><li>CONTAINER, Instance of container class</li><li>LOCATION, Where modification is supposed to happen?</li></ul><br><b>Description:</b>
+A low level function used as de facto implementation point of all API modification functions (INSERT, ADD, UPDATE).
+<br><b>Returns:</b>
+<ul><li>Container (new or the same instance)</li><li>Modification status</li></ul><br><b>Notes:</b>
+Implementations of this generic function are multimethods dispatched on the class of the OPERATION and on the CONTAINER.
+<br></div><div class="generic-info"><div class="doc-name">
+MAKE-BUCKET
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER LOCATION &amp;REST ALL &amp;KEY VALUE HASH &amp;ALLOW-OTHER-KEYS)
+</div><b>Description:</b>
+Constructs abstract bucket.
+<br><b>Returns:</b>
+<ul><li>New or passed bucket. May return nil as empty bucket.</li><li>Instance of position modification status.</li></ul><br><b>Side Effects:</b>
+Can modify bucket.
+<br></div><div class="generic-info"><div class="doc-name">
+GROW-BUCKET
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY VALUE CONDITION-FN HASH
+ &amp;ALLOW-OTHER-KEYS)
+</div><b>Description:</b>
+Generic, low level function used to grow all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.
+<br><b>Returns:</b>
+<ul><li>Bucket.</li><li>Instance of modification-operation-status.</li></ul><br><b>Notes:</b>
+This function is not allowed to perform any side effects. See grow-bucket! for function that is allowed to do so.
+<br></div><div class="generic-info"><div class="doc-name">
+SHRINK-BUCKET
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY HASH CONDITION-FN
+ &amp;ALLOW-OTHER-KEYS)
+</div><b>Description:</b>
+Generic, low level function used to shrink all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.
+<br><b>Returns:</b>
+<ul><li>Bucket. May also return nil to indicate empty bucket.</li><li>Instance of modification-operation-status.</li></ul><br><b>Notes:</b>
+This function is not allowed to perform any side effects. See shrink-bucket! for function that is allowed to do so.
+<br></div><div class="generic-info"><div class="doc-name">
+GROW-BUCKET!
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY VALUE HASH
+ &amp;ALLOW-OTHER-KEYS)
+</div><b>Description:</b>
+Generic, low level function used to destructivly grow all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function.
+<br><b>Returns:</b>
+<ul><li>New or passed bucket.</li><li>Instance of position modification status.</li></ul><br><b>Side Effects:</b>
+Can modify bucket.
+<br></div><div class="generic-info"><div class="doc-name">
+SHRINK-BUCKET!
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION CONTAINER BUCKET LOCATION &amp;REST ALL &amp;KEY HASH CONDITION-FN
+ &amp;ALLOW-OTHER-KEYS)
+</div><b>Description:</b>
+Generic, low level function used to shrink all sorts of buckets (like those in dictionaries). Buckets are created by make-bucket function. This is destructive function.
+<br><b>Returns:</b>
+<ul><li>Bucket. May also return nil to indicate empty bucket.</li><li>Instance of modification-operation-status.</li></ul><br></div><div class="generic-info"><div class="doc-name">
+FUNCTIONAL-COUNTERPART
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION)
+</div><b>Syntax:</b>
+functional-counterpart operation =&gt; functional-operation
+<br><b>Arguments:</b>
+<ul><li>OPERATION, Instance of the modification API function.</li></ul><br><b>Description:</b>
+Low level function that returns an instance of the functional api modification function that serves the same purpose as the OPERATION. Will, for instance, return #&#039;UPDATE when OPERATION is #&#039;UPDATE! Will return original the OPERATION if OPERATION is already part of the functional API.
+<br><b>Returns:</b>
+The instance of api function.
+<br><b>Notes:</b>
+This function is low level, and therefore should be rarely (if ever) used by the user of this library.
+<br></div><div class="generic-info"><div class="doc-name">
+DESTRUCTIVE-COUNTERPART
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(OPERATION)
+</div><b>Syntax:</b>
+destructive-counterpart operation =&gt; destructive-operation
+<br><b>Arguments:</b>
+<ul><li>OPERATION, Instance of the modification API function.</li></ul><br><b>Description:</b>
+Low level function that returns an instance of the destrutive api modification function that serves the same purpose as the OPERATION. Will, for instance, return #&#039;UPDATE! when OPERATION is #&#039;UPDATE Will return original the OPERATION if OPERATION is already part of the functional API.
+<br><b>Returns:</b>
+The instance of api function.
+<br><b>Notes:</b>
+This function is low level, and therefore should be rarely (if ever) used by the user of this library.
+<br></div></div><div id="932063134158252525"><h4>Classes
+</h4>Symbols in the package CL-DATA-STRUCTURES:
+<div class="class-info"><div class="doc-name">
+FUNCTIONAL-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function that inherits this class is not allowed to perform any side effects.
+<br></div><div class="class-info"><div class="doc-name">
+DESTRUCTIVE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-DESTRUCTIVE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function that inherits this class is expected to perform side effects.
+<br></div><div class="class-info"><div class="doc-name">
+SHRINK-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-SHRINK-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function will attempt to remove element from container.
+<br></div><div class="class-info"><div class="doc-name">
+GROW-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-GROW-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Function will attempt to add new element to container.
+<br></div><div class="class-info"><div class="doc-name">
+INSERT-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-INSERT-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of INSERT and (SETF AT).
+<br></div><div class="class-info"><div class="doc-name">
+UPDATE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE and UPDATE!.
+<br></div><div class="class-info"><div class="doc-name">
+UPDATE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE-IF and UPDATE-IF!.
+<br></div><div class="class-info"><div class="doc-name">
+ADD-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ADD-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ADD and ADD!.
+<br></div><div class="class-info"><div class="doc-name">
+ERASE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE and ERASE!.
+<br></div><div class="class-info"><div class="doc-name">
+ERASE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE-IF and ERASE-IF!.
+<br></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-INSERT-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-INSERT-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of INSERT.
+<br></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-UPDATE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-UPDATE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE.
+<br></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-UPDATE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-UPDATE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE-IF.
+<br></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ADD-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-ADD-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ADD.
+<br></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ERASE-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-ERASE-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE.
+<br></div><div class="class-info"><div class="doc-name">
+FUNCTIONAL-ERASE-IF-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-FUNCTIONAL-ERASE-IF-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE-IF.
+<br></div><div class="class-info"><div class="doc-name">
+INSERT!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-INSERT!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of INSERT.
+<br></div><div class="class-info"><div class="doc-name">
+UPDATE!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE.
+<br></div><div class="class-info"><div class="doc-name">
+UPDATE-IF!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-UPDATE-IF!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of UPDATE-IF!.
+<br></div><div class="class-info"><div class="doc-name">
+ADD!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ADD!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ADD.
+<br></div><div class="class-info"><div class="doc-name">
+ERASE!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE.
+<br></div><div class="class-info"><div class="doc-name">
+ERASE-IF!-FUNCTION
+</div>
+<img src="CL-DATA-STRUCTURES.META-ERASE-IF!-FUNCTION.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Class of ERASE-IF!.
+<br></div></div></div><div id="3210699041649903379"><h3>Aggregation algorithms metaprotocol
+</h3><p>Just like position-modification metaprotocol, there is set of functions and classes used to construct aggregation algorithms. Purpose of those is to separate algorithms from obtaining data, so it will become possible to aggregate per group, without any modifications or memory allocations. In future, I hope to implement SERIES style stream fusion compilation to inline aggregation logic whenever possible which should improve performance, but for now it simply uses generic functions dispatched at runtime.</p></div></div></div></div>
+</body>
+</html>

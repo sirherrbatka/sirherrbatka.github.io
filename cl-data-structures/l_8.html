@@ -1,159 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2164944239336469827">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#2110114503174817750">Overview</a><ul><li><a href="l_1.html#1442070548762660377">Conventions</a></li><li><a href="l_1.html#2140300147539541650">Key concepts</a><ul><li><a href="l_1.html#2520355095177619054">Signaling errors</a></li><li><a href="l_1.html#4359471169758285754">Modification Status</a></li><li><a href="l_1.html#3402986416666794100">Trait classes</a></li><li><a href="l_1.html#2463927819085186354">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3732208478541700954">API Reference</a><ul><li><a href="l_2.html#2295006950597198500">Common API</a><ul><li><a href="l_2.html#1336781294787677700">Generic Functions</a></li><li><a href="l_2.html#347502376859094600">Macros</a></li><li><a href="l_2.html#4442238837130265277">Classes</a></li><li><a href="l_2.html#2732540409450314779">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#2255456811860883477">Algorithms Reference</a><ul><li><a href="l_3.html#4016773979765852831">Aggregation Functions</a></li><li><a href="l_3.html#2864954068773204525">Layer Functions</a></li><li><a href="l_3.html#4554036342028025777">Other Functions</a></li></ul></li><li><a href="l_4.html#3055774854191066154">File System Reference</a></li><li><a href="l_5.html#3236287235978848354">Math Reference</a></li><li><a href="l_6.html#2354930013317992825">Clustering Reference</a></li><li><a href="l_7.html#2251469985916080150">Threads Reference</a></li><li><a href="l_8.html#1603355473271131450">Dictionary structures</a><ul><li><a href="l_8.html#1466232957829409900">API</a></li><li><a href="l_8.html#2685224032458986525">HAMT</a><ul><li><a href="l_8.html#3678605274445520900">Constructing</a></li><li><a href="l_8.html#2841187167138984625">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_8.html#634853667962212400">Sparse RRB Vector</a></li></ul></li><li><a href="l_9.html#1941910969387857650">Internal details</a><ul><li><a href="l_9.html#120788419792372150">Lazy evaluation</a></li><li><a href="l_9.html#192088683387141775">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_9.html#2151603468533506000">Generic Functions</a></li><li><a href="l_9.html#586403468995808100">Classes</a></li></ul></li><li><a href="l_9.html#3734405006423299654">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="1603355473271131450"><h2>Dictionary structures
-</h2><p>Dictionaries map values to unique keys.Common Lispstandard already contains such structures (hash tables, alists, plists) and therefore idea should not be alien to a Lisp programmer. CL-DATA-STRUCTURES offers both functional and mutable dictionaries, with HAMT being the prime example of complete, feature rich implementation of the protocol. In practice, containers present in this module are either ordered containers (for instance binary search trees) or some sort of unordered hash table (either classiscal hashtable or some sort of hashing tree). In each case, overview of data structure is present in this document.</p><div id="1466232957829409900"><h3>API
-</h3><p>To obtain value under key use following functions:</p><ul><li>AT</li>
-</ul><p>To change mapping use following purely functional functions:</p><ul><li>INSERT</li>
-<li>ADD</li>
-<li>UPDATE</li>
-<li>UPDATE-IF</li>
-<li>ERASE</li>
-<li>ERASE-IF</li>
-</ul><p>To change mapping in destructive way, use following functions:</p><ul><li>(SETF AT)</li>
-<li>ADD!</li>
-<li>UPDATE!</li>
-<li>UPDATE-IF!</li>
-<li>ERASE!</li>
-<li>ERASE-IF!</li>
-</ul><p>This package adds another set of trait classes, specific to dictionaries.</p><div class="class-info"><div class="doc-name">
-FUNDAMENTAL-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNDAMENTAL-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Container that provides location to value mapping. Either ordered or unordered.
-<br></div><div class="class-info"><div class="doc-name">
-FUNDAMENTAL-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNDAMENTAL-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Dictionary that uses hashing function. Hashing function is assumed to return fixnum.
-<br></div><div class="class-info"><div class="doc-name">
-FUNCTIONAL-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNCTIONAL-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Functional variant of a dictionary.
-<br></div><div class="class-info"><div class="doc-name">
-MUTABLE-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-MUTABLE-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Mutable variant of a dictionary.
-<br></div><div class="class-info"><div class="doc-name">
-TRANSACTIONAL-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-TRANSACTIONAL-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Transactional variant of a dictionary.
-<br></div><div class="class-info"><div class="doc-name">
-LAZY-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-LAZY-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Lazy variant of a dictionary.
-<br></div><div class="class-info"><div class="doc-name">
-FUNCTIONAL-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-FUNCTIONAL-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Functional variant of hashing a dictionary.
-<br></div><div class="class-info"><div class="doc-name">
-MUTABLE-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-MUTABLE-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Mutable variant of hashing a dictionary.
-<br></div><div class="class-info"><div class="doc-name">
-TRANSACTIONAL-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-TRANSACTIONAL-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Transactional variant of hashing a dictionary.
-<br></div><div class="class-info"><div class="doc-name">
-LAZY-HASHING-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS-LAZY-HASHING-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Lazy variant of a hashing dictionary.
-<br></div><p>In addition to this, on this level, few additional functions are defined.</p><div class="generic-info"><div class="doc-name">
-FIND-CONTENT
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#3907062757381550977">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3819146969331357631">Overview</a><ul><li><a href="l_1.html#884232151364907475">Conventions</a></li><li><a href="l_1.html#60845670015216450">Key concepts</a><ul><li><a href="l_1.html#218087818039867100">Signaling errors</a></li><li><a href="l_1.html#2845036640029533954">Modification Status</a></li><li><a href="l_1.html#1126722870870520300">Trait classes</a></li><li><a href="l_1.html#1156892233014209900">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#4052159891080521677">API Reference</a><ul><li><a href="l_2.html#2166880029416961950">Common API</a><ul><li><a href="l_2.html#3949558794861583154">Generic Functions</a></li><li><a href="l_2.html#2580740088073979325">Macros</a></li><li><a href="l_2.html#3578105900073742700">Classes</a></li><li><a href="l_2.html#1383984678705535727">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#260082996834467950">Algorithms Reference</a><ul><li><a href="l_3.html#3637505801417658631">Aggregation Functions</a></li><li><a href="l_3.html#729170337047650875">Layer Functions</a></li><li><a href="l_3.html#417207045069528675">Other Functions</a></li></ul></li><li><a href="l_4.html#1727191539582557750">File System Reference</a></li><li><a href="l_5.html#3324505155651243854">Math Reference</a></li><li><a href="l_6.html#2908380869690561525">Clustering Reference</a></li><li><a href="l_7.html#1390474091901735750">Threads Reference</a></li><li><a href="l_8.html#2506377281939817325">Streaming Algorihms Reference</a></li><li><a href="l_9.html#3469493847868340500">Dictionary structures</a><ul><li><a href="l_9.html#886573314417817325">API</a></li><li><a href="l_9.html#2385209832356962000">HAMT</a><ul><li><a href="l_9.html#526390505093232000">Constructing</a></li><li><a href="l_9.html#2006836976449674850">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_9.html#2284201393764725827">Sparse RRB Vector</a></li></ul></li><li><a href="l_10.html#1993913621707437950">Internal details</a><ul><li><a href="l_10.html#1776137682718060350">Lazy evaluation</a></li><li><a href="l_10.html#1262501018597668850">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_10.html#1462648087136795327">Generic Functions</a></li><li><a href="l_10.html#932063134158252525">Classes</a></li></ul></li><li><a href="l_10.html#3210699041649903379">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="2506377281939817325"><h2>Streaming Algorihms Reference
+</h2><p>This section contains reference of the data sketches.</p>Symbols in the package CL-DATA-STRUCTURES.STREAMING-ALGORITHMS:
+<div class="generic-info"><div class="doc-name">
+BLOOM-FILTER
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-(CONTAINER BUCKET LOCATION &amp;KEY HASH &amp;ALLOW-OTHER-KEYS)
+(RANGE &amp;KEY HASH-FN SPACE COUNT KEY HASHES DATA-SKETCH)
 </div><b>Arguments:</b>
-<ul><li>CONTAINER, Container that owns bucket. Acts as passed interface for method dispatch.</li><li>BUCKET, Bucket that will be searched.</li><li>LOCATION, Location that will be searched.</li></ul><br><b>Description:</b>
-Attempts to find element under LOCATION in the the bucket.
+<ul><li>RANGE, Input for the creation of the bloom filter.</li><li>SPACE, Positive-fixnum. What is the bloom vector size?</li><li>COUNT, How many bits are used for each item?</li><li>KEY, Function used to extract value for to hashing.</li><li>HASHES, Optional hashes vector. Needs to be supplied in order to ensure that the same hash values are generated between different filters.</li><li>DATA-SKETCH, Instead of the bits and the hash-fn, the user can pass a data-sketch argument.</li></ul><br><b>Description:</b>
+Creates bloom filter out of elements in the range. Bloom filter is memory efficient data structures allowing to check if an item is absent from the range (if AT returns nil, the item is certainly absent, if at returns T item either present or not).
 <br><b>Returns:</b>
-<ul><li>Element</li><li>Boolean. T if element was found, NIL otherwise.</li></ul><br><b>Notes:</b>
-This function accepts additional key arguments. In case of hashing dictionaries, one will be :hash that is expected to be a fixnum.
-<br></div></div><div id="2685224032458986525"><h3>HAMT
-</h3><p>HAMT stands from hash array mapped trie. This data structure is used the most commonly as functional dictionary in standard libraries of few recent languages (including Clojure and Scala). Cl-data-structures implementation offers also mutable and transactional variant of this structure. Although this container is not optimized for destructive modification, it is still faster then copy-on-write whole path from root to the bottom (conflict) node.</p><p>Dictionary implementation of HAMT is present in the system as a class.</p><div class="class-info"><div class="doc-name">
-HAMT-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS.HAMT-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-Root HAMT dictionary class.
-<br></div><div class="class-info"><div class="doc-name">
-FUNCTIONAL-HAMT-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS.HAMT-FUNCTIONAL-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-HAMT dictionary that implements functional api.
-<br></div><div class="class-info"><div class="doc-name">
-MUTABLE-HAMT-DICTIONARY
-</div>
-<img src="CL-DATA-STRUCTURES.DICTS.HAMT-MUTABLE-HAMT-DICTIONARY.svg" alt="Inheritance" class="centered">
-<br>
-<b>Description:</b>
-HAMT dictionary that implements mutable api.
-<br></div><p>As you can see, it inherits DICTIONARY trait class as well as lower level FUNDAMENTAL-HAMT-CONTAINER class. All instances of this class can be used with following functions:</p><div class="function-info"><div class="doc-name">
-HAMT-DICTIONARY-AT
+Instance of the fundamental-data-sketch class. Use cl-ds:at to check if element is present. False positives are possible, false negatives are not possible.
+<br></div><div class="generic-info"><div class="doc-name">
+APPROXIMATED-COUNTS
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-()
-</div><div class="doc-paragraph">Implementation of AT</div></div><div class="function-info"><div class="doc-name">
-HAMT-DICTIONARY-SIZE
-</div><div class="doc-lambda-list"><b>Lambda List:</b>
-(CONTAINER)
-</div><div class="doc-paragraph">Implementation of SIZE</div></div><p>Functional dictionary is represented by the following class:</p><p>There is no lazy-hamt-dictionary class, because lazy hamt dictionary is nothing more then a TRANSACTIONAL-HAMT-DICTIONARY inside LAZY-BOX.</p><div id="3678605274445520900"><h4>Constructing
-</h4><p>To construct HAMT dictionary, use following functions.</p>Symbols in the package CL-DATA-STRUCTURES.DICTS.HAMT:
-<div class="function-info"><div class="doc-name">
-MAKE-FUNCTIONAL-HAMT-DICTIONARY
-</div><div class="doc-lambda-list"><b>Lambda List:</b>
-(HASH-FN EQUAL-FN)
-</div><b>Syntax:</b>
-make-functional-hamt-dictionary hash-fn equal-fn &amp;key max-depth =&gt; functional-hamt-dictionary
-<br><b>Description:</b>
-Constructs and return new functional-hamt-dictionary
+(RANGE &amp;KEY HASH-FN SPACE COUNT KEY HASHES DATA-SKETCH)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate.</li><li>HASH-FN, Hashing function. SXHASH will do for strings.</li><li>SPACE, Positive integer. Size of the counters array</li><li>COUNT, Number of hashing functions used.</li><li>DATA-SKETCH, Instead of the bits and the hash-fn, the user can pass a data-sketch argument.</li></ul><br><b>Description:</b>
+Calculates estimated counts using Min-Count sketch algorithm. This requires only a constant amount of memory.
 <br><b>Returns:</b>
-new instance of functional-hamt-dictionary.
+Instance of the fundamental-data-sketch class. Use CL-DS:AT to extract count estimate for element from it. CL-DS:SIZE can be used to extract the total size of range that was aggregated.
 <br><b>Notes:</b>
-In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.
-<br></div><div class="function-info"><div class="doc-name">
-MAKE-MUTABLE-HAMT-DICTIONARY
+<ul><li>Quality of the estimate directly depends on DEPTH and WIDTH.</li><li>Sensitive to a hash function. Large avalanche factor is very helpful.</li></ul><br></div><div class="generic-info"><div class="doc-name">
+APPROXIMATED-SET-CARDINALITY
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-(HASH-FN EQUAL-FN)
-</div><b>Syntax:</b>
-make-mutable-hamt-dictionary hash-fn equal-fn &amp;key max-depth =&gt; mutable-hamt-dictionary
-<br><b>Description:</b>
-Constructs and returns a new mutable-hamt-dictionary
+(RANGE &amp;KEY BITS HASH-FN KEY DATA-SKETCH)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate.</li><li>BITS, How many bits per register should be used? Should be at least 4, and 20 at most. Large values are beneficial for high accuracy of the result but will require more memory.</li><li>HASH-FN, Hashing function. SXHASH will do for strings.</li><li>DATA-SKETCH, Instead of the bits and the hash-fn, the user can pass a data-sketch argument.</li><li>KEY, A function used to extract value from each element.</li></ul><br><b>Examples:</b>
+<pre><code>(LET ((DATA
+       (CL-DATA-STRUCTURES:XPR (:I 0)
+         (WHEN (&lt; I 500000)
+           (CL-DATA-STRUCTURES:SEND-RECUR (RANDOM 99999999999) :I (1+ I))))))
+  (PROVE.TEST:OK
+   (&lt; 490000
+      (CL-DATA-STRUCTURES:VALUE
+       (CL-DATA-STRUCTURES.STREAMING-ALGORITHMS:APPROXIMATED-SET-CARDINALITY
+        DATA :BITS 20 :HASH-FN #&#039;SXHASH))
+      510000)))</pre></code><br><b>Description:</b>
+Calculates the estimated set cardinality using the HyperLogLog algorithm. This requires only a constant (and modest) amount of memory.
 <br><b>Returns:</b>
-new instance of mutable-hamt-dictionary.
+Instance of the fundamental-data-sketch class. Use CL-DS:VALUE to extract estimate from it.
 <br><b>Notes:</b>
-In theory HAMT can use infinite length of hash but this implementation uses 60 oldest bits at most.
-<br></div></div><div id="2841187167138984625"><h4>POSITION-MODIFICATION contracts
-</h4><p>Since HAMT is hashing container, many of the functions accept additional hash key argument with fixnum produced by the hashing function.</p><p>SHRINK-BUCKET function must be defined in terms all functional shrink-functions and buckets. Will accept :hash.</p><p>GROW-BUCKET function must be defined in terms all functional grow-functions and buckets. Will accept :hash.</p><p>SHRINK-BUCKET! function must be defined in terms all mutable shrink-functions and buckets. Will accept :hash.</p><p>GROW-BUCKET! function must be defined in terms all mutable grow-functions and buckets. Will accept :hash.</p><p>MAKE-BUCKET function must be defined in terms of all grow-functions and will return list of hash-content-tuple as bucket. Will accept :hash</p><p>Bucket must be usable with cl-ds.dicts:find-content. FIND-CONTENT function will accept hash as key argument.</p></div></div><div id="634853667962212400"><h3>Sparse RRB Vector
-</h3><p>Sparse variant of the RRB vector. Unlike the cl:hash-table, this container will guarantee that the content is stored in the ascending order.</p></div></div></div></div>
+<ul><li>This algorithm gives a solid estimate for large sets, not so good for small sets.</li><li>Fairly sensitive to a hash function. Large avalanche factor is very helpful.</li><li>Can be used to (for instance) estimate number of keys before creating a hash table. A good estimate of size minimizes rehashing and therefore reduces both memory allocation and time required to fill the hash table.</li></ul><br></div><div class="generic-info"><div class="doc-name">
+UNION
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FIRST-SKETCH &amp;REST MORE-SKETCHES)
+</div><b>Description:</b>
+Creates new data-sketch from the provided. Can be used to join sketches build on different data chunks.
+<br></div><div class="generic-info"><div class="doc-name">
+CLEAN-SKETCH
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FUNCTION &amp;REST ARGUMENTS &amp;KEY HASHES HASH-FN SPACE COUNT BITS)
+</div><b>Description:</b>
+Creates a new, empty data-sketch that would be produced by the function. New data-sketch can be cloned and passed as :data-sketch. This allows to keep compatibility between results of call to the streaming function.
+<br></div><div class="class-info"><div class="doc-name">
+FUNDAMENTAL-DATA-SKETCH
+</div>
+<img src="CL-DATA-STRUCTURES.STREAMING-ALGORITHMS-FUNDAMENTAL-DATA-SKETCH.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+The base class of all data sketches. Instances of this class can be passed to streaming algorihms as initial states, cloned and combined into unions.
+<br></div></div></div></div>
 </body>
 </html>
