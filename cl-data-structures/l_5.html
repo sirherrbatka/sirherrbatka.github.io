@@ -1,139 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#1503410024053259727">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#4061737434083803831">Overview</a><ul><li><a href="l_1.html#1458180674752216677">Conventions</a></li><li><a href="l_1.html#2043886027951922700">Key concepts</a><ul><li><a href="l_1.html#4436260845017829100">Signaling errors</a></li><li><a href="l_1.html#2025489304321519400">Modification Status</a></li><li><a href="l_1.html#1741749048851807777">Trait classes</a></li><li><a href="l_1.html#1105787623997321200">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#1725734609364986350">API Reference</a><ul><li><a href="l_2.html#2682181940406393100">Common API</a><ul><li><a href="l_2.html#3326694428259331025">Generic Functions</a></li><li><a href="l_2.html#4557399027619760400">Macros</a></li><li><a href="l_2.html#2775785563315652879">Classes</a></li><li><a href="l_2.html#3085199441087648300">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#2823426008474668025">Algorithms Reference</a><ul><li><a href="l_3.html#1768619729006467350">Aggregation Functions</a></li><li><a href="l_3.html#1386195837393241877">Layer Functions</a></li><li><a href="l_3.html#3089062636398721125">Other Functions</a></li></ul></li><li><a href="l_4.html#4138934074674891377">File System Reference</a></li><li><a href="l_5.html#4315402600868319031">Math Reference</a></li><li><a href="l_6.html#3029344193436291579">Clustering Reference</a></li><li><a href="l_7.html#3393923180965301400">Threads Reference</a></li><li><a href="l_8.html#92228291701679250">Streaming Algorithms Reference</a></li><li><a href="l_9.html#3926533812321216200">Dictionary structures</a><ul><li><a href="l_9.html#4471097175538015431">API</a></li><li><a href="l_9.html#21270614026110475">HAMT</a><ul><li><a href="l_9.html#4233493381495492400">Constructing</a></li><li><a href="l_9.html#1375522940289506127">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_9.html#2999850735665312100">Sparse RRB Vector</a></li></ul></li><li><a href="l_10.html#3571769152563963000">Internal details</a><ul><li><a href="l_10.html#3090019743017980500">Lazy evaluation</a></li><li><a href="l_10.html#4522144046235748400">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_10.html#3890274177956192000">Generic Functions</a></li><li><a href="l_10.html#1746583554239001077">Classes</a></li></ul></li><li><a href="l_10.html#3835297338090773100">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="4315402600868319031"><h2>Math Reference
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#231115073409800125">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#112023878665499775">Overview</a><ul><li><a href="l_1.html#2687274752643201179">Conventions</a></li><li><a href="l_1.html#237651510055484200">Key concepts</a><ul><li><a href="l_1.html#3301469142561108679">Signaling errors</a></li><li><a href="l_1.html#3031333497735599879">Modification Status</a></li><li><a href="l_1.html#4027115508331233500">Trait classes</a></li><li><a href="l_1.html#891879991330103425">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#721751104233190200">API Reference</a><ul><li><a href="l_2.html#646784088541715150">Common API</a><ul><li><a href="l_2.html#1822159527574139327">Generic Functions</a></li><li><a href="l_2.html#2017138681004508100">Macros</a></li><li><a href="l_2.html#1067779786543599675">Classes</a></li><li><a href="l_2.html#1472829846139841477">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#370872421367310850">Algorithms Reference</a><ul><li><a href="l_3.html#4150739249712958831">Aggregation Functions</a></li><li><a href="l_3.html#4333555820253907000">Layer Functions</a></li><li><a href="l_3.html#2013935631831121700">Other Functions</a></li></ul></li><li><a href="l_4.html#1332556672609600750">File System Reference</a></li><li><a href="l_5.html#2017843476548503500">Math Reference</a></li><li><a href="l_6.html#2027063813563895600">Clustering Reference</a></li><li><a href="l_7.html#777097054662112925">Threads Reference</a></li><li><a href="l_8.html#2979685429326372979">Streaming Algorithms Reference</a></li><li><a href="l_9.html#3255085577706507354">Dictionary structures</a><ul><li><a href="l_9.html#3499138564723949554">API</a></li><li><a href="l_9.html#3680427816975730277">HAMT</a><ul><li><a href="l_9.html#2006262977692350">Constructing</a></li><li><a href="l_9.html#2889943950534939354">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_9.html#468633595171548950">Sparse RRB Vector</a></li></ul></li><li><a href="l_10.html#3366293391110170625">Internal details</a><ul><li><a href="l_10.html#1622026736580059877">Lazy evaluation</a></li><li><a href="l_10.html#747130038091602750">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_10.html#769487493592978225">Generic Functions</a></li><li><a href="l_10.html#3097338573455610900">Classes</a></li></ul></li><li><a href="l_10.html#1946423370481161977">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="2017843476548503500"><h2>Math Reference
 </h2><p>This section contains reference of all the functions in the CL-DS.MATH package.</p>Symbols in the package CL-DATA-STRUCTURES.MATH:
 <div class="generic-info"><div class="doc-name">
 AVERAGE
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE &amp;KEY KEY)
-</div><div class="doc-paragraph">Arguments:
- --RANGE, Object to aggregate.
- --KEY, Function used to extract value from element that shall be passed to average function.
-
-Description:
- Calculate average of elements in the range.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate.</li><li>KEY, Function used to extract value from element that shall be passed to average function.</li></ul><br><b>Description:</b>
+Calculate average of elements in the range.
+<br></div><div class="generic-info"><div class="doc-name">
 BOOTSTRAP
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE SAMPLE-SIZE SAMPLES-COUNT &amp;KEY CONFIDENCE KEY COMPARE PARALLEL
  CONTEXT-FUNCTION)
-</div><div class="doc-paragraph">Arguments:
- --RANGE, Data for aggregation.
- --SAMPLE-SIZE, Size of the single sample.
- --SAMPLES-COUNT, Total number of samples drawn.
- --CONFIDENCE, Confidence value. High confidence results in wide estimate bounds.
- --KEY, Key passed to SORT function.
- --COMPARE, Function passed to SORT function.
- --PARALLEL, Will use lparallel to evaluate samples if T. Defaults to T.
-
-Description:
- Changes aggregation into bootstrapping schema using percentail method. Reduces the ammount of resources needed to obtain the value.
-
-Thread Safety:
- Will process each sample in the lparallel task if PARALLEL is T.
-
-Notes:
- Don&#039;t attempt to mix lparallel used in bootstrap with lparallel used in the aggregation function.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Arguments:</b>
+<ul><li>RANGE, Data for aggregation.</li><li>SAMPLE-SIZE, Size of the single sample.</li><li>SAMPLES-COUNT, Total number of samples drawn.</li><li>CONFIDENCE, Confidence value. High confidence results in wide estimate bounds.</li><li>KEY, Key passed to SORT function.</li><li>COMPARE, Function passed to SORT function.</li><li>PARALLEL, Will use lparallel to evaluate samples if T. Defaults to T.</li></ul><br><b>Description:</b>
+Changes aggregation into bootstrapping schema using percentail method. Reduces the ammount of resources needed to obtain the value.
+<br><b>Thread Safety:</b>
+Will process each sample in the lparallel task if PARALLEL is T.
+<br><b>Notes:</b>
+Don&#039;t attempt to mix lparallel used in bootstrap with lparallel used in the aggregation function.
+<br></div><div class="generic-info"><div class="doc-name">
 CHI-SQUARED
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE CELL-VALUE FIELDS &amp;KEY KEY)
-</div><div class="doc-paragraph">Description:
- Performs chi-squared test on range. Programmer is expected to provide information about expected classes as fields passed to the algorithm. The combination of classes is then passed to the KEY function with each element of the range. Returned value is expected to be the count of elements of class. This, in practice allows to use this function with classes being integers and input being cooccurrence table.
-
-Returns:
- P-Value of chi-squared test.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Description:</b>
+Performs chi-squared test on range. Programmer is expected to provide information about expected classes as fields passed to the algorithm. The combination of classes is then passed to the KEY function with each element of the range. Returned value is expected to be the count of elements of class. This, in practice allows to use this function with classes being integers and input being cooccurrence table.
+<br><b>Returns:</b>
+P-Value of chi-squared test.
+<br></div><div class="generic-info"><div class="doc-name">
 HODGES-LEHMANN-ESTIMATOR
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE &amp;KEY KEY PARALLEL)
-</div><div class="doc-paragraph">Arguments:
- --RANGE, Object to aggregate
- --KEY, Function used to extract value from element.
- --PARALLEL, Will use lparallel for calculations if T.
-
-Description:
- Calculates Hodges-Lehman estimator for range.
-
-Thread Safety:
- Will ues lparallel if PARALLEL is T.
-
-See also:
- --BOOTSTRAP
-
-Notes:
- --This estimator has high breakdown point.
- --Roboost expected value estimator.
- --Time complexity greater then cubic. Memory complexity quadratic.
- --Use bootstrapping for more scalable solution.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate</li><li>KEY, Function used to extract value from element.</li><li>PARALLEL, Will use lparallel for calculations if T.</li></ul><br><b>Description:</b>
+Calculates Hodges-Lehman estimator for range.
+<br><b>Thread Safety:</b>
+Will ues lparallel if PARALLEL is T.
+<br><b>See also:</b>
+<ul><li>BOOTSTRAP</li></ul><br><b>Notes:</b>
+<ul><li>This estimator has high breakdown point.</li><li>Roboost expected value estimator.</li><li>Time complexity greater then cubic. Memory complexity quadratic.</li><li>Use bootstrapping for more scalable solution.</li></ul><br></div><div class="generic-info"><div class="doc-name">
 MOMENTS
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE FROM COUNT ABOUT &amp;KEY KEY)
-</div><div class="doc-paragraph">Arguments:
- --RANGE, Object to aggregate.
- --FROM, Positive number. Lowest moment to calculate.
- --COUNT, Positive number. How many moments to calculate.
- --ABOUT, Number. Value around which moments are calculated.
- --KEY, Function used to extract values from elements.
-
-Description:
- Calculate statistical moments in the range.
-
-Returns:
- Range. Query it with CL-DS:AT function passing rank of moment that you want to obtain.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate.</li><li>FROM, Positive number. Lowest moment to calculate.</li><li>COUNT, Positive number. How many moments to calculate.</li><li>ABOUT, Number. Value around which moments are calculated.</li><li>KEY, Function used to extract values from elements.</li></ul><br><b>Description:</b>
+Calculate statistical moments in the range.
+<br><b>Returns:</b>
+Range. Query it with CL-DS:AT function passing rank of moment that you want to obtain.
+<br></div><div class="generic-info"><div class="doc-name">
 MOVING-AVERAGE
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE &amp;KEY KEY)
-</div><div class="doc-paragraph">Arguments:
- --RANGE, Object to process.
- --KEY, Function used to extract values from the RANGE.
-
-Description:
- Calculates moving-average for elements in the RANGE.
-
-Returns:
- Range of all moving-averages.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to process.</li><li>KEY, Function used to extract values from the RANGE.</li></ul><br><b>Description:</b>
+Calculates moving-average for elements in the RANGE.
+<br><b>Returns:</b>
+Range of all moving-averages.
+<br></div><div class="generic-info"><div class="doc-name">
 MUTUAL-INFORMATION
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE FIELD &amp;REST COMPARATIVE-FIELDS)
-</div><div class="doc-paragraph">Description:
- Calculates mutual-information between FIELD and COMPARATIVE-FIELDS. Elements in each FIELD should be EQUAL comparable.
-
-Returns:
- Range. Provides access to values for each field by quering cl-ds:at with label of field.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Description:</b>
+Calculates mutual-information between FIELD and COMPARATIVE-FIELDS. Elements in each FIELD should be EQUAL comparable.
+<br><b>Returns:</b>
+Range. Provides access to values for each field by quering cl-ds:at with label of field.
+<br></div><div class="generic-info"><div class="doc-name">
 SIMPLE-LINEAR-REGRESSION
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE X-KEY Y-KEY)
-</div><div class="doc-paragraph">Arguments:
- --X-KEY, Function used to extract argument from range.
- --Y-KEY, Function used to extract result from range.
-
-Description:
- Matches linear function to RANGE using least squares method.
-
-Returns:
- Function object. Call with argument to obtain expected result. Pass to beta0 function to obtain beta0 value. Pass to beta1 to obtain beta1 value.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Arguments:</b>
+<ul><li>X-KEY, Function used to extract argument from range.</li><li>Y-KEY, Function used to extract result from range.</li></ul><br><b>Description:</b>
+Matches linear function to RANGE using least squares method.
+<br><b>Returns:</b>
+Function object. Call with argument to obtain expected result. Pass to beta0 function to obtain beta0 value. Pass to beta1 to obtain beta1 value.
+<br></div><div class="generic-info"><div class="doc-name">
 STATISTICAL-SUMMARY
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE &amp;KEY KEY)
-</div><div class="doc-paragraph">Description:
- Calculates classical statistical values (average, variance, skewness, kurtosis).
-
-Returns:
- Range. use :AVERAGE :VARIANCE :SKEWNESS :KURTOSIS as locations in the cl-ds:at to obtain (in order) average, variance, skewness and kurtosis.</div></div><div class="generic-info"><div class="doc-name">
+</div><b>Description:</b>
+Calculates classical statistical values (average, variance, skewness, kurtosis).
+<br><b>Returns:</b>
+Range. use :AVERAGE :VARIANCE :SKEWNESS :KURTOSIS as locations in the cl-ds:at to obtain (in order) average, variance, skewness and kurtosis.
+<br></div><div class="generic-info"><div class="doc-name">
 VARIANCE
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (RANGE &amp;KEY KEY BIASED)
-</div><div class="doc-paragraph">Arguments:
- --RANGE, Data to aggregate.
- --KEY, Function used to extract values from elements.
- --BIASED, Boolean. Should result be biased?
-
-Description:
- Calculates variance.
-
-Returns:
- Number representing variance.
-
-Notes:
- Name conflict with alexandria:variance.</div></div></div></div></div>
+</div><b>Arguments:</b>
+<ul><li>RANGE, Data to aggregate.</li><li>KEY, Function used to extract values from elements.</li><li>BIASED, Boolean. Should result be biased?</li></ul><br><b>Description:</b>
+Calculates variance.
+<br><b>Returns:</b>
+Number representing variance.
+<br><b>Notes:</b>
+Name conflict with alexandria:variance.
+<br></div></div></div></div>
 </body>
 </html>
