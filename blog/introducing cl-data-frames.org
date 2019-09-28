@@ -23,6 +23,8 @@ You may be wondering: how does this even work? There is no lambda form to be fou
 Unfortunately, R is not ideal. Even after the initial learning curve while acquainting with the essential packages you may find yourself limited. For instance: you may ask yourself "where are the input/output streams?" and the answer is "there are none". R is an highly specialized language and lacks many of the general-purpose features that you may take for granted. This may seem to be a not a practical issue initially, but eventually, you will find yourself attempting to represent sets of boolean flags as a bit-set. You will then realize that you won't be able to force any of the libraries you are using for such important tasks like clustering to work with your new data representation.
 
 Python's pandas library is not nearly as nice to use. Spark's data frames even less so. Also, neither of those is lisp. Perhaps Julia is the right answer, but I am already in a deep romantic relationship with the Common Lisp. And not only that: there is a lot of practical merit in using Common Lisp in all sorts of interactive data processing tasks. Hover, as already established, I would prefer to do so using a data frames library, and so I decided to write one that would be pleasant to use.
+
+This blog post describes this new library of the excelent name "cl-data-structures".
 * Design goals
 What "pleasant to use" means though? Such vague statement is not a proper goal statement. So what are the exact things I am looking for?
 1. I work with a sparse datasets. Data frames should be sparse to not waste memory when represeting mostly null columns.
@@ -33,8 +35,10 @@ What "pleasant to use" means though? Such vague statement is not a proper goal s
 * Decissions, decissions…
 With having in mind those goals, I could move forward and instantly the new questions have risen. What layers should be distinguished in the library and what are the concepts expressed by each layer? How data representation is structured? What basic operations are supplied? Which data structures should be used?
 * General architecture
+Cl-data-structures is composed of layers connected by sets of protocol functions. Those layers are, from the lowest level to the highest level:
+todo
 * Key concepts
-* Column data structure
+* Data structures
 Sparsity requirement combined with the need for both destructive and non-destructive operations convinced me to use column representation based around the sparse variation of the RRB vector data structure. Sparsity was achieved by adding a bitmask into every RRB tree node to mark occupied node (just like in the HAMT data structure). This increases memory requirements for each non-leaf node in the trie, but only by a 32 bits extra for each node. In fact I consider this be good enough to not even bother with a dense variant of the column. Luckly I had those already in the cl-data-structures, but theres was still plenty of code extra required for an efficient implementation of data frames.
 * High level API
 * Use cases
