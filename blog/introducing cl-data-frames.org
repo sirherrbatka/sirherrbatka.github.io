@@ -43,12 +43,36 @@ Cl-data-structures is composed of layers connected by sets of protocol functions
 * Key concepts
 Column layer provides basic data structure used to represent column as well as means to change content of it, either directly or by the use of the iterator. Iterator also provides means to alter multiple columns at once which is needed for building and modyfing whole data frames. Columns are mutable and they are using copy on write mechanism to save time and memory when multiple column instances share parts or the whole of the content.
 
-Immutable headers represent the information on columns forming the data frame. This includes types stored in the columns; column aliases and predicates for the content, or in other words, data schema. To simplify access to those informations many functions assume that relevant header is implicitly passed as a dynamic (also 'called' special) variable. This also means that quite frequently calls to cl-data-frame functions are placed within a with-header (or with-table) form that establishes such binding. The same layer also establishes concept of the *current-row* which is an object bound to the dynamic variable during row wise operations, granting read and write access to the content of the currently processing data frame row. This features allow easier integration with the cl-data-structures library by separting content of the current row from returned and accepted arguments in the lambda forms. This is demonstrated in the *Use cases* section of this post.
+Immutable headers represent the information on columns forming the data frame. This includes types stored in the columns; column aliases and predicates for the content, or in other words, data schema. To simplify access to those informations many functions assume that relevant header is implicitly passed as a dynamic (also 'called' special) variable. This also means that quite frequently calls to cl-data-frame functions are placed within a with-header (or with-table) form that establishes such binding. This may appear to be inconvinient, hovewer this allows to maintain separation between header and actual content, and therefore operating on a file streams to a CSV file, therefore allowing for aggregation without need for the actual data frame to be constructed. This is extreamly useful when input file is larger then RAM available on the machine.
 
-Table itself is a mutable object composed of header and sequence of columns. AT generic function allows to access value in the individual cell of the table, but it is strongly advised to not loop over the table, and instead use TRANSFORM function for any transforming changes and a relevant aggregation function from the cl-data-structures package for aggregation (calculating sum of all elements in the column, finding minimum or maximum and so one).
+The same layer also establishes concept of the *current-row* which is an object bound to the dynamic variable during row wise operations, granting read and write access to the content of the currently processing data frame row. This features allow easier integration with the cl-data-structures library by separting content of the current row from returned and accepted arguments in the lambda forms. This is demonstrated in the *Use cases* section of this post.
+
+Table itself is a mutable object composed of header and sequence of columns. AT generic function allows to access value in the individual cell of the table, but it is strongly advised to not loop over the table, and instead use TRANSFORM function for row wise changes and a relevant aggregation function from the cl-data-structures package for aggregation (calculating sum of all elements in the column, finding minimum or maximum, and so one).
 * Data structures
 Sparsity requirement combined with the need for both destructive and non-destructive operations convinced me to use column representation based around the sparse variation of the RRB vector data structure. Sparsity was achieved by adding a bitmask into every RRB tree node to mark occupied node (just like in the HAMT data structure). This increases memory requirements for each non-leaf node in the trie, but only by a 32 bits extra for each node. In fact I consider this be good enough to not even bother with a dense variant of the column. Luckly I had those already in the cl-data-structures, but theres was still plenty of code extra required for an efficient implementation of operations needed by data frames.
 * High level API
-For the most typical tasks user is expected to simply stick to the high level API and do not dwell in the low level details described above. Therefore I've added separate package gathering relevant symbols from the layers below and rexport those from it. In addition, this package provides few extra generic functions defining basic serialization and deserialization protocol, as well as plain old functions for printing table in a human redable format to an output-stream.
+For the most typical tasks user is expected to simply stick to the high level API and do not dwell in the low level details described above. Therefore I've added separate package gathering relevant symbols from the layers below and rexport those from it. This API is composed of the following symbols:
+
+1. EMPTY-TABLE
+2. WITH-TABLE
+3. WITH-HEADER
+4. STANDARD-HEADER
+5. MAKE-HEADER
+6. AT
+7. COLUMN-COUNT
+8. ROW-COUNT
+9. BODY
+10. RR
+11. BRR
+12. MAKE-HEADER
+13. TO-TABLE
+14. VMASK
+15. VSELECT
+16. VSTACK
+17. REPLICA
+18. REMOVE-NULLS
+19. PRINT-TABLE
+
+I am not completly happy with shape of this API right now, but at least I am not bothered by backward compatibility. It is nice to have a fresh start.
 * Use cases
 * The future
