@@ -79,4 +79,13 @@ For the most typical tasks user is expected to simply stick to the high level AP
 I am not completly happy with shape of this API right now, but at least I am not bothered by backward compatibility. It is nice to have a fresh start but it is not easy to get everything right. Regardless: right now It is not even a horrible system to use, as the below examples should demonstrate.
 * Use cases
 This may seem to all nice, but I bet you wonder how this allows to solve practical problems you may encounter. Let me take you on a journey trough my own work and how I use this software to make my life easier.
+
+ICD10 is the international coding standard for the medical diagnosis. Each code describes the individual medical condition with sometimes amusing level of details. For instance code W6152XA corresponds to description "Struck by goose, initial encounter". Codes have hierarchical structure and prefix W61 designates "Contact with birds". "Bird" is clearly a superset of "Goose" and so is the prefix W61 of W6152XA. It happens that I work with a very large dataset containing medical records. Patients usually have multiple diagnosis, in the form of a string composed of comma separated diagnosis. Whole data set is distributed in the form of the CSV file with the following columns:
+
+1. patient_id
+2. date
+3. diagnosis
+4. drg
+
+This schema can be easily represented as a cl-df header.
 * The future
