@@ -121,7 +121,7 @@ We won't represent diagnosis as a string, we are afterall interested in list of 
 
 This method vastly reduces memory requirements.
 
-Once table is constructed analysis can be peformed. In this example we will count what is the number of diagnosis grouped around the diagnosis prefix and DRG. For instance, it wonders me if gooses are responsible for more hospitalizations compared to aggressive parrots (in some of the DRGs)!
+Once table is constructed analysis can be peformed. In this example we will count what is the number of diagnosis grouped around the diagnosis prefix and DRG. For instance, it wonders me if gooses are responsible for more hospitalizations compared to aggressive parrots (W61.01XA).
 
 #+BEGIN_SRC CL
 (cl-df:with-table (*table*)
