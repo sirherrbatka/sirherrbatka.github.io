@@ -97,7 +97,7 @@ This schema can be easily represented as a cl-df header.
                                           '(:alias drg :type integer)))
 #+END_SRC
 
-We won't represent diagnosis as a string, we are afterall interested in list of ICD diagnosis. We are going to split strings representing diagnosis into individual codes during loading and also ensure that only a single instance of string is assigned to each code that needs to be represented. That's quite simple to do.
+We won't represent diagnosis as a string, we are afterall interested in list of ICD diagnosis. We are going to split strings representing diagnosis into individual codes during loading and also ensure that only a single instance of string is assigned to each code that needs to be represented. It is quite easy to do, as demonstrated below.
 
 #+BEGIN_SRC CL
 (let ((table (make-hash-table :test 'equal)))
