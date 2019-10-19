@@ -106,7 +106,7 @@ We won't represent diagnosis as a string, we are afterall interested in list of 
 
 (defun split-and-unique (string)
   (if (eq :null string)
-      nil
+      '()
       (cl-ppcre:split "," string)))
 
 (cl-df:with-header (*header*)
