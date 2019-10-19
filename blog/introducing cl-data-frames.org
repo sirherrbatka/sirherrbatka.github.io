@@ -88,4 +88,54 @@ ICD10 is the international coding standard for the medical diagnosis. Each code 
 4. drg
 
 This schema can be easily represented as a cl-df header.
+
+#+BEGIN_SRC CL
+(defparameter *header* (cl-df:make-header 'cl-df:standard-header
+                                          '(:alias patient_id :type integer)
+                                          '(:alias date :type local-time:timestamp)
+                                          '(:alias diagnosis :type t)
+                                          '(:alias drg :type integer)))
+#+END_SRC
+
+We won't represent diagnosis as a string, we are afterall interested in list of ICD diagnosis. We are going to split strings representing diagnosis into individual codes during loading and also ensure that only a single instance of string is assigned to each code that needs to be represented. That's quite simple to do.
+
+#+BEGIN_SRC CL
+(let ((table (make-hash-table :test 'equal)))
+  (defun unique (x)
+    (serapeum:ensure (gethash x table) x)))
+
+(defun split-and-unique (string)
+  (if (eq :null string)
+      nil
+      (cl-ppcre:split "," string)))
+
+(cl-df:with-header (*header*)
+  (defparameter *table*
+    (serapeum:~> (cl-df:copy-from :csv #P"/path/to/data.csv")
+                 (cl-ds.alg:on-each
+                    (cl-df:body (diagnosis)
+                       (setf diagnosis (split-and-unique diagnosis))
+                       (cl-df.header:row)))
+                 cl-df:to-table))
+#+END_SRC
+
+This method vastly reduces memory requirements.
+
+Once table is constructed analysis can be peformed. In this example we will count what is the number of diagnosis grouped around the diagnosis prefix and DRG. For instance, it wonders me if gooses are responsible for more hospitalizations then aggressive parrots (in some of the DRGs)!
+
+#+BEGIN_SRC CL
+(cl-df:with-table (*table*)
+  (defparameter *diagnosis-count-by-drg-by-prefix*
+    (serapeum:~> *table*
+                 (cl-ds.alg:flatten-lists :key (cl-df:brr diagnosis))
+                 (cl-ds.alg:group-by :test 'eql
+                                     :key (cl-df:brr drg))
+                 (cl-ds.alg:group-by :test 'equal
+                                     :key (lambda (diagnosis)
+                                            (serapeum:take 3 diagnosis)))
+                 cl-ds.alg:count-elements)))
+#+END_SRC CL
+
+Notice how CL-DF:BRR can be used to create function extracting data from the row, while ordinary lambda form in the second group-by can operate independly on the data extracted by the CL-DS.ALG:FLATTEN-LISTS.
+
 * The future
