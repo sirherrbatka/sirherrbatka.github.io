@@ -134,7 +134,6 @@ Once table is constructed analysis can be peformed. In this example we will coun
                  (cl-ds.alg:group-by :test 'equal
                                      :key (lambda (diagnosis)
                                             (serapeum:take 3 diagnosis)))
-                 (cl-ds.alg:group-by :test 'equal)
                  (cl-ds.alg:frequency :test 'equal)
                  (cl-df:to-table :columns '((:alias drg)
                                             (:alias icd-prefix)
