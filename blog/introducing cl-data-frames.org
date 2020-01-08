@@ -55,27 +55,28 @@ For the most typical tasks user is expected to simply stick to the high level AP
 
 1. EMPTY-TABLE
 2. SAMPLE
-3. COPY-FROM
-4. COPY-TO
-5. WITH-TABLE
-6. WITH-HEADER
-7. STANDARD-HEADER
-8. MAKE-HEADER
-9. AT
-10. COLUMN-COUNT
-11. ROW-COUNT
-12. BODY
-13. RR
-14. BRR
-15. MAKE-HEADER
-16. TO-TABLE
-17. VMASK
-18. VSELECT
-19. VSTACK
-20. REPLICA
-21. REMOVE-NULLS
-22. SHOW
-23. ORDER-BY
+3. NEW-COLUMNS
+4. COPY-FROM
+5. COPY-TO
+6. WITH-TABLE
+7. WITH-HEADER
+8. STANDARD-HEADER
+9. MAKE-HEADER
+10. AT
+11. COLUMN-COUNT
+12. ROW-COUNT
+13. BODY
+14. RR
+15. BRR
+16. MAKE-HEADER
+17. TO-TABLE
+18. VMASK
+19. VSELECT
+20. VSTACK
+21. REPLICA
+22. REMOVE-NULLS
+23. SHOW
+24. ORDER-BY
 
 I am not completly happy with shape of this API right now, but at least I am not bothered by backward compatibility. It is nice to have a fresh start but it is not easy to get everything right. Regardless: right now It is not even a horrible system to use.
 * Use cases
@@ -120,7 +121,7 @@ We are going to split strings representing diagnosis into individual codes durin
                     (cl-df:body (diagnosis)
                        (setf diagnosis (split-and-unique diagnosis))
                        (cl-df.header:row)))
-                 cl-df:to-table))
+                 (cl-df:to-table :header *header*)))
 #+END_SRC
 
 Once table is constructed analysis can be peformed. In this example we will count what is the frequency of diagnosis grouped around the DRG and diagnosis prefix.
