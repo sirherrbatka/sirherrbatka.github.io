@@ -103,10 +103,10 @@ We are going to split strings representing diagnosis into individual codes durin
 #+BEGIN_SRC CL
 (let ((table (make-hash-table :test 'equal)))
   (defun unique (x)
-    (let ((result (gethash x table)))
-       (if (null result)
-          (setf (gethash x table) x)
-          result))))
+    (multiple-value-bind (result found) (gethash x table)
+       (if found
+           result
+           (setf (gethash x table) x)))))
 
 (defun split-and-unique (string)
   (if (eq :null string)
