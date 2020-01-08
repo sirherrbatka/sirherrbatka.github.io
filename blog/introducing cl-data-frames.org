@@ -117,11 +117,9 @@ We are going to split strings representing diagnosis into individual codes durin
 (cl-df:with-header (*header*)
   (defparameter *table*
     (serapeum:~> (cl-df:copy-from :csv #P"/path/to/data.csv")
-                 (cl-ds.alg:on-each
-                    (cl-df:body (diagnosis)
-                       (setf diagnosis (split-and-unique diagnosis))
-                       (cl-df.header:row)))
-                 (cl-df:to-table :header *header*)))
+                 (cl-df:to-table :header *header*
+                                 :body (cl-df:body (diagnosis)
+                                         (setf diagnosis (split-and-unique diagnosis))))))
 #+END_SRC
 
 Once table is constructed analysis can be peformed. In this example we will count what is the frequency of diagnosis grouped around the DRG and diagnosis prefix.
