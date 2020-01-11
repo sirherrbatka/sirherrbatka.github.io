@@ -32,18 +32,18 @@
 <div>
 <div class="post">
 <h1>Design of cl-data-structures aggregation protocol</h1>
-<div id="outline-container-orgcfaf350" class="outline-2">
-<h2 id="orgcfaf350">Background</h2>
-<div class="outline-text-2" id="text-orgcfaf350">
+<div id="outline-container-org8107e1c" class="outline-2">
+<h2 id="org8107e1c">Background</h2>
+<div class="outline-text-2" id="text-org8107e1c">
 <p>
 The very first post I have published on this blog was describing what are cl-data-structures ranges. In this post, I want to show how the introduction of ranges allowed to build universal aggregation functions on top of them. Hopefully, this short article can be beneficial as a demonstration of my approach to design and particular choices in the cl-data-structures.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org075a029" class="outline-2">
-<h2 id="org075a029">What is aggregation function?</h2>
-<div class="outline-text-2" id="text-org075a029">
+<div id="outline-container-org53523a2" class="outline-2">
+<h2 id="org53523a2">What is aggregation function?</h2>
+<div class="outline-text-2" id="text-org53523a2">
 <p>
 It is not so different from the SQL, really. Pretty much everything that is supposed to transform the whole range of the values into a single value can be considered to be an aggregation function. Yup, that's right, here comes your MAX, MIN, AVERAGE, and so other functions. The usefulness of such functions shouldn't need explanation, but some of the design considerations are less obvious.
 </p>
@@ -75,9 +75,9 @@ Also, let's not forget that some aggregation functions require more than just on
 </p>
 </div>
 </div>
-<div id="outline-container-org417e3d6" class="outline-2">
-<h2 id="org417e3d6">Mindset: Solve et coagula</h2>
-<div class="outline-text-2" id="text-org417e3d6">
+<div id="outline-container-orga2dc5be" class="outline-2">
+<h2 id="orga2dc5be">Mindset: Solve et coagula</h2>
+<div class="outline-text-2" id="text-orga2dc5be">
 <p>
 Fundamentally any software architecture is just an exercise of skillfully dividing and combining parts of the problem in order to realize various goals. Therefore since we have at least a vague understanding of goals and the problem itself, let's consider how to divide the problem in order to achieve the desired result.
 </p>
@@ -90,9 +90,9 @@ Fundamentally any software architecture is just an exercise of skillfully dividi
 </div>
 </div>
 
-<div id="outline-container-org5f517be" class="outline-2">
-<h2 id="org5f517be">Control flow</h2>
-<div class="outline-text-2" id="text-org5f517be">
+<div id="outline-container-org3f9738c" class="outline-2">
+<h2 id="org3f9738c">Control flow</h2>
+<div class="outline-text-2" id="text-org3f9738c">
 <p>
 As Alan Kay would like to point out, the critical part of the object-oriented programming is communication, and since (as already pointed out) essence of all software architectures is combining and dividing it stands to reason that one should think how to control the aggregation by the means of the messages.
 </p>
@@ -210,9 +210,9 @@ We didn't yet arrive at the complete and final design but the pieces are really 
 </div>
 </div>
 
-<div id="outline-container-org5f431ba" class="outline-2">
-<h2 id="org5f431ba">Control in the GROUP-BY level</h2>
-<div class="outline-text-2" id="text-org5f431ba">
+<div id="outline-container-orgc5591bb" class="outline-2">
+<h2 id="orgc5591bb">Control in the GROUP-BY level</h2>
+<div class="outline-text-2" id="text-orgc5591bb">
 <p>
 Construct-aggregator accepts range for a reason. Although normally aggregator shouldn't care about range once it is constructed we still need a separate to the aggregation function way to control part of the aggregation. The answer is a proxy range, like the CL-DS:FORWARD-GROUP-BY-PROXY. This range does not affect in any way, shape or form data underneath, and exists purely to construct different aggregator.
 </p>
