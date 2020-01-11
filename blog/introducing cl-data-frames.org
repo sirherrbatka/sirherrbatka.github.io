@@ -140,7 +140,7 @@ Once the table is constructed analysis can be performed. In this example, we wil
                  (cl-df:to-table :columns '((:alias drg)
                                             (:alias icd-prefix)
                                             (:alias frequency-prefix)))))
-#+END_SRC CL
+#+END_SRC
 
 Notice how CL-DF:BRR can be used to create function extracting data from the row, while ordinary lambda form in the second group-by can operate independently on the data extracted by the CL-DS.ALG:FLATTEN-LISTS. This is because iterating over data frame with the usage of CL-DS:ACROSS and CL-DS:TRAVERSE functions also manipulates state established in the CL-DF:WITH-TABLE macro. Even while walking over individual diagnoses flattened We still have access to the original row, because it is stored in the dynamic environment. I picked this approach because it plays nicely with already existing algorithms in the cl-data-structures, for example, grouping by DRG code can be moved down; below the grouping by the prefix (order of columns in the to-table function would have to be changed, obviously).
 
