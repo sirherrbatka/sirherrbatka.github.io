@@ -1,29 +1,325 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2885394971092152172">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#812753871995231275">Overview</a><ul><li><a href="l_1.html#2436776232413288458">Conventions</a></li><li><a href="l_1.html#2878784340172631982">Key concepts</a><ul><li><a href="l_1.html#4336814835907759076">Signaling errors</a></li><li><a href="l_1.html#1605317245712627589">Modification Status</a></li><li><a href="l_1.html#2599554734535805627">Trait classes</a></li><li><a href="l_1.html#2238738116852490553">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#1581600787680622294">API Reference</a><ul><li><a href="l_2.html#3363622178538174967">Common API</a><ul><li><a href="l_2.html#2785374646806639568">Generic Functions</a></li><li><a href="l_2.html#3557145111401028982">Macros</a></li><li><a href="l_2.html#3669780626279036064">Classes</a></li><li><a href="l_2.html#4442384425280351216">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#2708958110314668667">Algorithms Reference</a><ul><li><a href="l_3.html#3675101082256835561">Aggregation Functions</a></li><li><a href="l_3.html#780377380519326912">Layer Functions</a></li><li><a href="l_3.html#3800524852962942903">Other Functions</a></li></ul></li><li><a href="l_4.html#4102145520785499036">File System Reference</a></li><li><a href="l_5.html#3471892797402257196">Math Reference</a></li><li><a href="l_6.html#522392850103323481">Clustering Reference</a></li><li><a href="l_7.html#522034410945257018">Threads Reference</a></li><li><a href="l_8.html#1341001799727563409">Streaming Algorithms Reference</a></li><li><a href="l_9.html#3187238243030941186">Dictionary structures</a><ul><li><a href="l_9.html#1833595706359312576">API</a></li><li><a href="l_9.html#1419392941936114649">HAMT</a><ul><li><a href="l_9.html#3020333305817813044">Constructing</a></li><li><a href="l_9.html#849745580020636352">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_9.html#2951161399776833165">Sparse RRB Vector</a><ul><li><a href="l_9.html#3239647419289216804">Constructing</a></li></ul></li></ul></li><li><a href="l_10.html#1740852819153812852">Internal details</a><ul><li><a href="l_10.html#3916841551363055231">Lazy evaluation</a></li><li><a href="l_10.html#1831239787081093187">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_10.html#2646832941797154664">Generic Functions</a></li><li><a href="l_10.html#328480054067440506">Classes</a></li></ul></li><li><a href="l_10.html#3084153525324647143">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="522034410945257018"><h2>Threads Reference
-</h2><p>This section contains reference of the multithreading utilities.</p>Symbols in the package CL-DATA-STRUCTURES.THREADS:
-<div class="generic-info"><div class="doc-name">
-THREAD-BUFFER
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#3628533424809427599">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3910157148690515165">Overview</a><ul><li><a href="l_1.html#3455230952716915584">Conventions</a></li><li><a href="l_1.html#1078482564254963307">Key concepts</a><ul><li><a href="l_1.html#1058413383474972857">Signaling errors</a></li><li><a href="l_1.html#457998759701910961">Modification Status</a></li><li><a href="l_1.html#2189348947690640549">Trait classes</a></li><li><a href="l_1.html#1903259452612688361">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3181618838449500759">API Reference</a><ul><li><a href="l_2.html#598362327823401186">Common API</a><ul><li><a href="l_2.html#2008347494956924127">Generic Functions</a></li><li><a href="l_2.html#1658900759708926388">Macros</a></li><li><a href="l_2.html#3947312080053749104">Classes</a></li><li><a href="l_2.html#674825684962933313">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#664575659752596401">Dictionary structures</a><ul><li><a href="l_3.html#4502165871795213242">API</a></li><li><a href="l_3.html#3740607883198444714">HAMT</a><ul><li><a href="l_3.html#3589006359076266172">Constructing</a></li><li><a href="l_3.html#2999005582520038190">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_3.html#4478082561675546441">Sparse RRB Vector</a><ul><li><a href="l_3.html#2578899763391768306">Constructing</a></li></ul></li></ul></li><li><a href="l_4.html#3074249294444910715">Set structures</a><ul><li><a href="l_4.html#2090899491181750946">API</a></li><li><a href="l_4.html#1519458414136946816">QP-Trie set</a></li><li><a href="l_4.html#4248122472482935269">Skip-list set</a></li></ul></li><li><a href="l_5.html#2845144125356678132">Queue structures</a><ul><li><a href="l_5.html#2278324602947907792">API</a></li><li><a href="l_5.html#3356521289317317257">2-3-tree</a></li></ul></li><li><a href="l_6.html#2995423862382315203">Sequence structures</a><ul><li><a href="l_6.html#1065923900802694642">API</a></li><li><a href="l_6.html#2042377829145115153">RRB vector</a></li></ul></li><li><a href="l_7.html#3148238365653541796">Algorithms Reference</a><ul><li><a href="l_7.html#1769354496586927425">Aggregation Functions</a></li><li><a href="l_7.html#2808668683678612475">Layer Functions</a></li><li><a href="l_7.html#2402784684954070832">Other Functions</a></li></ul></li><li><a href="l_8.html#3959081551812121331">File System Reference</a></li><li><a href="l_9.html#2973809704321109611">Math Reference</a></li><li><a href="l_10.html#3026096314359506145">Clustering Reference</a></li><li><a href="l_11.html#27675359217434810">Threads Reference</a></li><li><a href="l_12.html#4504239721074351028">Streaming Algorithms Reference</a></li><li><a href="l_13.html#319119312880004768">Internal details</a><ul><li><a href="l_13.html#3118662307939772965">Lazy evaluation</a></li><li><a href="l_13.html#156752553204504888">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_13.html#4588213663853461861">Generic Functions</a></li><li><a href="l_13.html#160895578271477435">Classes</a></li></ul></li><li><a href="l_13.html#900167745552121855">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="3148238365653541796"><h2>Algorithms Reference
+</h2><p>This section contains reference of all the functions in the CL-DS.ALG package.</p><div id="1769354496586927425"><h3>Aggregation Functions
+</h3><p>Aggregation functions transform range into a singular value, akin to the SQL aggergation functions.</p>Symbols in the package CL-DATA-STRUCTURES.ALGORITHMS:
+<div class="function-info"><div class="doc-name">
+ACCUMULATE
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-(RANGE &amp;KEY MAXIMUM-QUEUE-SIZE CHUNK-SIZE)
+(RANGE FN &amp;KEY KEY INITIAL-VALUE)
 </div><b>Description:</b>
-Creates a proxy range that will present exactly the same content as the original range. However, when calling an aggregation function internal thread with queue will created. This allows operations performed before and after thread-buffer to run in parallel.
-<br><b>Returns:</b>
-Instance of BUFFER-RANGE subclass. Depending on the class of the RANGE it may be a FORWARD-BUFFER-RANGE, BIDIRECTIONAL-BUFFER-RANGE or RANDOM-ACCESS-BUFFER-RANGE.
-<br><b>Exceptional situations:</b>
-<ul><li>Will raise a TYPE-ERROR when MAXIMAL-QUEUE-SIZE is not integer.</li><li>Will raise a TYPE-ERROR when CHUNK-SIZE is not integer.</li><li>Will raise CL-DS:ARGUMENT-VALUE-OUT-OF-BOUNDS when CHUNK-SIZE is not at least 1.</li><li>Will raise CL-DS:ARGUMENT-VALUE-OUT-OF-BOUNDS when MAXIMAL-QUEUE-SIZE is not at least 16.</li><li>Exceptions raised during aggregation will be transfered to the original thread.</li></ul><br><b>Notes:</b>
-<ul><li>Thread buffer only changes the aggregation process.</li><li>For optimal performance results, operations performed before and after THREAD-BUFFER should take approximately the same ammount of time.</li><li>Unlike PARALLEL-ON-EACH or PARALLEL-MULTIPLEX, THREAD-BUFFER does not use lparallel workers.</li></ul><br></div><div class="generic-info"><div class="doc-name">
-PARALLEL-MULTIPLEX
+Like CL:REDUCE but works on all traversable objects.
+<br><b>See also:</b>
+<ul><li>CUMULATIVE-ACCUMULATE</li></ul><br></div><div class="function-info"><div class="doc-name">
+CUMULATIVE-ACCUMULATE
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-(RANGE &amp;KEY KEY FUNCTION CHUNK-SIZE MAXIMUM-QUEUE-SIZE)
+(RANGE FUNCTION &amp;KEY KEY RESULT INITIAL-VALUE)
 </div><b>Description:</b>
-Like CL-DS.ALG:MULTIPLEX but when aggregation is performed, multiplexing function is applied in parallel. Obtained results are then passed with a queue into the original thread.
+Like ACCUMULATE, but produces range with all intermediate accumulation states.
+<br><b>See also:</b>
+<ul><li>ACCUMULATE</li></ul><br><b>Notes:</b>
+<ul><li>Can be considered to be lazy version of SERAPEUM:SCAN.</li></ul><br></div><div class="function-info"><div class="doc-name">
+COUNT-ELEMENTS
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li></ul><br><b>Examples:</b>
+<pre><code>(LET ((DATA #(1 2 3 4 5)))
+  (PROVE.TEST:IS (LENGTH DATA)
+                 (CL-DATA-STRUCTURES.ALGORITHMS:COUNT-ELEMENTS DATA))
+  (PROVE.TEST:IS 3
+                 (CL-DATA-STRUCTURES:AT
+                  (CL-DATA-STRUCTURES.ALGORITHMS:COUNT-ELEMENTS
+                   (CL-DATA-STRUCTURES.ALGORITHMS:GROUP-BY DATA :KEY #&#039;EVENP))
+                  NIL)))</pre></code><br><b>Description:</b>
+Counts the number of elements. Useful mostly in conjunction with a GROUP-BY.
 <br><b>Returns:</b>
-Instance of PARALLEL-FORWARD-MULTIPLEX-PROXY.
+Integer.
+<br><b>See also:</b>
+<ul><li>GROUP-BY</li></ul><br></div><div class="function-info"><div class="doc-name">
+EXTREMA
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE FN &amp;KEY KEY VALUE-KEY)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li><li>FN, Comparsion function.</li><li>KEY, Function used to extract values from the elements in the RANGE.</li><li>VALUE-KEY, Like KEY, but using this instead will preserve the complete element in the result. This argument can be used in combination with KEY, in which case KEY is applied before the VALUE-KEY.</li></ul><br><b>Description:</b>
+An aggregation function. Finds extrema (both minimum and maximum) in the RANGE, according to the FN comparsion function.
+<br><b>Returns:</b>
+Dotted pair. The first value is the extremum that would occur as the first element in the sequence sorted according to the FN, second value is an element that would occur as the last.
 <br><b>Exceptional situations:</b>
-<ul><li>Will raise a TYPE-ERROR when MAXIMAL-QUEUE-SIZE is not integer.</li><li>Will raise CL-DS:ARGUMENT-VALUE-OUT-OF-BOUNDS when MAXIMAL-QUEUE-SIZE is not at least 16.</li><li>Will raise a TYPE-ERROR when FUNCTION is not funcallable.</li><li>Will raise a TYPE-ERROR when FUNCTION is not key.</li></ul><br><b>See also:</b>
+Will signal a TYPE-ERROR if either FN, KEY or VALUE-KEY is not funcallable.
+<br><b>Notes:</b>
+<ul><li>Shadows SERAPEUM:EXTREMA.</li></ul><br></div><div class="function-info"><div class="doc-name">
+EXTREMUM
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE FN &amp;KEY KEY VALUE-KEY)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li><li>FN, Comparsion function.</li><li>KEY, Function used to extract values from the elements in the RANGE.</li><li>VALUE-KEY, Like KEY, but using this instead will preserve the complete element in the result. This argument can be used in combination with KEY, in which case KEY is applied before the VALUE-KEY.</li></ul><br><b>Description:</b>
+An aggregation function. Finds the extremum (the first value that would occur if the whole range was sorted according to the FN). This can be used to find either the maximum or the minimum.
+<br><b>Returns:</b>
+Single extremum value.
+<br><b>Exceptional situations:</b>
+Will signal a TYPE-ERROR if either FN, KEY or VALUE-KEY is not funcallable.
+<br><b>Notes:</b>
+<ul><li>Shadows ALEXANDRIA:EXTREMUM.</li></ul><br></div><div class="function-info"><div class="doc-name">
+TO-VECTOR
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY KEY ELEMENT-TYPE SIZE)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate.</li><li>KEY, Key function used to extract value to the result vector.</li><li>ELEMENT-TYPE, :ELEMENT-TYPE for the result vector.</li><li>SIZE, Initial size of the internal vector. Supplie to minimize memory allocations count.</li><li>FORCE-COPY, When false, TO-VECTOR called with CL:VECTOR is allowed to return the input.</li></ul><br><b>Description:</b>
+Collects all elements into a CL:VECTOR.
+<br><b>Returns:</b>
+CL:VECTOR with the content of the RANGE.
+<br><b>Exceptional situations:</b>
+<ul><li>Will signal a TYPE-ERROR if KEY is not funcallable.</li><li>Will signal same conditions as make-array would when ELEMENT-TYPE or SIZE are invalid.</li></ul><br><b>Notes:</b>
+<ul><li>There is no way to know ahead of time how large vector will be created, and therefore multiple reallocations may be performed during aggregation. A user can supply :SIZE to mitigate that.</li><li>To avoid copying in the case when RANGE is also a vector, pass NIL as :FORCE-COPY.</li></ul><br></div><div class="function-info"><div class="doc-name">
+TO-HASH-TABLE
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY KEY TEST SIZE HASH-TABLE-KEY HASH-TABLE-VALUE)
+</div><b>Arguments:</b>
+<ul><li>KEY, Key function used to extract value to the result vector.</li><li>TEST, Test fo the MAKE-HASH-TABLE.</li><li>SIZE, Size for the MAKE-HASH-TABLE.</li><li>TABLE, Optional, initial HASH-TABLE.</li><li>HASH-TABLE-KEY, Function used to extract key for the HASH-TABLE. Defaults to IDENTITY.</li><li>HASH-TABLE-VALUE, Function used to extract value for the HASH-TABLE. Defaults to IDENTITY.</li></ul><br><b>Description:</b>
+Collects all elements into a CL:HASH-TABLE.
+<br><b>Returns:</b>
+CL:HASH-TABLE with the content of the RANGE.
+<br><b>Exceptional situations:</b>
+<ul><li>Will signal a TYPE-ERROR if either KEY, HASH-TABLE-VALUE, HASH-TABLE-KEY is not funcallable.</li><li>Will signal a TYPE-ERROR if TABLE is not of type CL:HASH-TABLE.</li><li>Will signal conditions just like MAKE-HASH-TABLE would if either SIZE or TEST is invalid.</li></ul><br></div></div><div id="2808668683678612475"><h3>Layer Functions
+</h3><p>Layer functions decorate the input range to add a new behavior to it.</p>Symbols in the package CL-DATA-STRUCTURES.ALGORITHMS:
+<div class="function-info"><div class="doc-name">
+DISTINCT
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY KEY TEST HASH-FUNCTION)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li><li>TEST, Function used to compare elements. Defaults to EQL.</li><li>HASH-FUNCTION, Function used for hashing. Defaults to #'sxhash.</li><li>KEY, Key function, used to extract values for test.</li></ul><br><b>Description:</b>
+Returns forward range that skips elements that were already seen.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+Will signal a TYPE-ERROR if either TEST, HASH-FUNCTION or KEY is not funcallable.
+<br></div><div class="function-info"><div class="doc-name">
+CUMULATIVE-ACCUMULATE
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE FUNCTION &amp;KEY KEY RESULT INITIAL-VALUE)
+</div><b>Description:</b>
+Like ACCUMULATE, but produces range with all intermediate accumulation states.
+<br><b>See also:</b>
+<ul><li>ACCUMULATE</li></ul><br><b>Notes:</b>
+<ul><li>Can be considered to be lazy version of SERAPEUM:SCAN.</li></ul><br></div><div class="function-info"><div class="doc-name">
+FLATTEN-LISTS
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY KEY)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li><li>KEY, Function used to extract lists from elements of the RANGE. Defaults to CL:IDENTITY.</li></ul><br><b>Description:</b>
+A layer function. Flattens each list in the input range to the atoms.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+Will signal a TYPE-ERROR if KEY is not funcallable.
+<br><b>See also:</b>
 <ul><li>MULTIPLEX</li></ul><br><b>Notes:</b>
-<ul><li>Outside of aggregation behaves exactly like MULTIPLEX.</li></ul><br></div></div></div></div>
+<ul><li>Pretty much the same purpose as for ALEXANDRIA:FLATTEN, but FLATTEN-LISTS is lazy.</li></ul><br></div><div class="function-info"><div class="doc-name">
+GROUP-BY
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY TEST KEY GROUPS)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Range that is supposed to be groupped.</li><li>KEY, Key function, used to extract value for TEST.</li><li>TEST, Test for inner hashtable (either eq, eql or equal).</li></ul><br><b>Examples:</b>
+<pre><code>(LET* ((DATA #(1 2 3 4 5 6 7 8 9 10))
+       (SUMS
+        (ITERATE:ACCUMULATE
+         (CL-DATA-STRUCTURES.ALGORITHMS:GROUP-BY DATA :KEY #&#039;EVENP) #&#039;+)))
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:SIZE SUMS) 2)
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT SUMS T) 30)
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT SUMS NIL) 25))</pre></code><br><b>Description:</b>
+Groups RANGE into partitions according to the TEST. This does not change the content of the RANGE, but will force aggregation to be performed on every group independently.
+<br><b>Returns:</b>
+GROUP-BY-RANGE instance (either forward, bidirectional or random access, based on the class of the RANGE).
+<br><b>Exceptional situations:</b>
+<ul><li>Will signal a TYPE-ERROR if KEY is not funcallable.</li><li>Will pass TEST to MAKE-HASH-TABLE and therefore will signal same conditions as MAKE-HASH-TABLE.</li></ul><br></div><div class="function-info"><div class="doc-name">
+ON-EACH
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE FUNCTION &amp;KEY KEY)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li><li>FUNCTION, Function called on the RANGE content.</li><li>KEY, Function used to extract content for the FUNCTION. Defaults to the CL:IDENTITY.</li></ul><br><b>Description:</b>
+Creates a new range by applying the FUNCTION to each element of the RANGE.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+Will signal a TYPE-ERROR if KEY or FUNCTION is not funcallable.
+<br><b>Notes:</b>
+Works almost like cl:map-and-friends, but lazily evaluates content.
+<br></div><div class="function-info"><div class="doc-name">
+ONLY
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE PREDICATE &amp;KEY KEY)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li><li>PREDICATE, Test used to check if element should be skipped.</li><li>KEY, Key function used to extract a value for predicate.</li></ul><br><b>Description:</b>
+A layer function. Creates a range that skips elements that PREDICATE (KEY element) =&gt; NIL.
+<br><b>Returns:</b>
+Either forward, bidirectional or random-access range, depending on the RANGE.
+<br><b>Exceptional situations:</b>
+Will signal a TYPE-ERROR if either PREDICATE or KEY is not funcallable.
+<br></div><div class="function-info"><div class="doc-name">
+WITHOUT
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE PREDICATE &amp;KEY KEY)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range.</li><li>PREDICATE, Test used to check if an element should be skipped.</li><li>KEY, Key function used to extract a value for the predicate.</li></ul><br><b>Description:</b>
+A layer function. Creates a range that skips elements that PREDICATE (KEY element) =&gt; T.
+<br><b>Returns:</b>
+Either forward, bidirectional or random-access range, depending on the RANGE.
+<br><b>Exceptional situations:</b>
+Will signal a TYPE-ERROR if either PREDICATE or KEY is not funcallable.
+<br></div><div class="function-info"><div class="doc-name">
+PARTITION-IF
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE TEST &amp;KEY KEY ON-FIRST)
+</div><b>Arguments:</b>
+<ul><li>RANGE, An input range.</li><li>TEST, A function of two arguments used to check if elements belong to the same partition.</li></ul><br><b>Examples:</b>
+<pre><code>(LET* ((DATA
+        &#039;((1 &quot;w&quot;) (1 &quot;o&quot;) (1 &quot;r&quot;) (1 &quot;d&quot;) (2 &quot;a&quot;) (2 &quot;s&quot;) (3 &quot;l&quot;) (3 &quot;a&quot;)
+          (3 &quot;w&quot;)))
+       (PARTITIONED
+        (CL-DATA-STRUCTURES.ALGORITHMS:PARTITION-IF DATA
+                                                    (LAMBDA (PREV NEXT)
+                                                      (= (FIRST PREV)
+                                                         (FIRST NEXT)))))
+       (AGGREGATED
+        (CL-DATA-STRUCTURES.ALGORITHMS:TO-VECTOR PARTITIONED :ELEMENT-TYPE
+                                                 &#039;CHARACTER :KEY
+                                                 (ALEXANDRIA:COMPOSE
+                                                  #&#039;ALEXANDRIA:FIRST-ELT
+                                                  #&#039;SECOND))))
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES.ALGORITHMS:TO-VECTOR AGGREGATED)
+                 #(&quot;word&quot; &quot;as&quot; &quot;law&quot;) :TEST #&#039;EQUALP))</pre></code><br><b>Description:</b>
+Groups consecutive elements in the range into a partition if TEST called on the previous value in the range and the current value in the range returns non-NIL, creates new partition otherwise. This does not change the content of the RANGE, but it will force aggregation to be performed on every group independently. Order of the groups is preserved in the aggregation result.
+<br><b>Returns:</b>
+ABSTRACT-PARTITION-IF-PROXY instance.
+<br><b>Notes:</b>
+<ul><li>Aggregation on the returned range is performed eagerly.</li><li>Can be considered to be alternative to the GROUP-BY, suitable for the ordered data.</li></ul><br></div><div class="function-info"><div class="doc-name">
+REPEAT
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE TIMES)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range used to construct the result.</li><li>TIMES, How many times the range will be repeated? Unlimited by default.</li></ul><br><b>Description:</b>
+A layer function. Constructs new range from the RANGE. The new range is cyclic and will reset to initial position once the end is reached when calling the CONSUME-FRONT function or after calling TRAVERSE. This happens always by default, and can be limited to a number of times by supplying optional TIMES argument. This function can be therefore used to go over the same range multiple times in a aggregation function.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+<ul><li>Will raise the TYPE-ERROR when TIMES is not of the type (OR NULL POSITIVE-INTEGER).</li></ul><br></div><div class="function-info"><div class="doc-name">
+LATCH
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE LATCH &amp;REST MORE-LATCHES)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Primary input range.</li><li>LATCH, Range with boolean values.</li><li>MORE-LATCHES, Ranges with boolean values.</li></ul><br><b>Description:</b>
+Combines primary range with multiple latch ranges. The returned range contains elements picked from the primary range, where, on corresponding positions, each of the latch ranges contains a non-nil value.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br></div><div class="function-info"><div class="doc-name">
+RESTRAIN-SIZE
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE SIZE)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input range used to construct the result.</li><li>SIZE, What should be the limit on the new range?</li></ul><br><b>Description:</b>
+A layer function. Constructs new range from the RANGE. New range contains a limit on how many times consume-front can be called on it before returning (values nil nil), effectively reducing size of the RANGE.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+<ul><li>Will raise a TYPE-ERROR when the SIZE is not of the type INTEGER.</li><li>Will raise ARGUMENT-VALUE-OUT-OF-BOUNDS when the SIZE is negative.</li></ul><br></div><div class="function-info"><div class="doc-name">
+SPLIT-INTO-CHUNKS
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE CHUNK-SIZE)
+</div><b>Examples:</b>
+<pre><code>(LET ((DATA
+       (CL-DATA-STRUCTURES.ALGORITHMS:TO-VECTOR
+        (CL-DATA-STRUCTURES.ALGORITHMS:SPLIT-INTO-CHUNKS #(1 2 3 4 5 6) 2))))
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:SIZE DATA) 3)
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT DATA 0) #(1 2) :TEST &#039;EQUALP)
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT DATA 1) #(3 4) :TEST &#039;EQUALP)
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT DATA 2) #(5 6) :TEST &#039;EQUALP))</pre></code><br><b>Description:</b>
+Divides aggregation process into partitions up to size.
+<br><b>Returns:</b>
+Instance of SPLIT-INTO-CHUNKS-PROXY range subclass.
+<br><b>Exceptional situations:</b>
+<ul><li>Will signal type error if CHUNK-SIZE is not INTEGER.</li><li>Will signal ARGUMENT-VALUE-OUT-OF-BOUNDS if CHUNK-SIZE is not above 0.</li></ul><br></div></div><div id="2402784684954070832"><h3>Other Functions
+</h3>Symbols in the package CL-DATA-STRUCTURES.ALGORITHMS:
+<div class="function-info"><div class="doc-name">
+CARTESIAN
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FUNCTION RANGE &amp;REST MORE-RANGES)
+</div><b>Arguments:</b>
+<ul><li>FUNCTION, Function used to combine input ranges.</li><li>RANGE, First input range.</li><li>MORE-RANGES, All other ranges.</li></ul><br><b>Description:</b>
+Combines RANGES into a singular range that contains results of FUNCTION application on cartesian combination of all elements in the input RANGES.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+Will raise a TYPE-ERROR if any of the RANGES is of a wrong type.
+<br></div><div class="function-info"><div class="doc-name">
+CHAIN
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(&amp;REST RANGES)
+</div><b>Examples:</b>
+<pre><code>(PROVE.TEST:IS
+ (CL-DATA-STRUCTURES.ALGORITHMS:TO-VECTOR
+  (CL-DATA-STRUCTURES.ALGORITHMS:CHAIN &#039;(1 2 3) &#039;(4 5 6)))
+ #(1 2 3 4 5 6) :TEST #&#039;EQUALP)</pre></code><br><b>Description:</b>
+Concatenate multiple ranges into one.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+<ul><li>Raises TYPE-ERROR if any of the input ranges is not (OR CL:SEQUENCE FUNDAMENTAL-FORWARD-RANGE).</li></ul><br></div><div class="function-info"><div class="doc-name">
+SHUFFLED-RANGE
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FROM TO)
+</div><b>Arguments:</b>
+<ul><li>FROM, The lowest integer.</li><li>TO, The highest integer.</li></ul><br><b>Description:</b>
+Creates a range of shuffled integers from FROM, to TO.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+<ul><li>Raises TYPE-ERROR if FROM or TO is not an integer.</li><li>TO must be equal or greater than FROM, otherwise the incompatible-arguments error is signaled.</li></ul><br></div><div class="function-info"><div class="doc-name">
+ZIP
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FUNCTION RANGE &amp;REST RANGES)
+</div><b>Arguments:</b>
+<ul><li>FUNCTION, Function used to join contents of the RANGES.</li><li>RANGES, Input.</li></ul><br><b>Examples:</b>
+<pre><code>(PROVE.TEST:IS
+ (CL-DATA-STRUCTURES.ALGORITHMS:TO-VECTOR
+  (CL-DATA-STRUCTURES.ALGORITHMS:ZIP #&#039;LIST &#039;(1 2 3) &#039;(4 5 6)))
+ #((1 4) (2 5) (3 6)) :TEST #&#039;EQUALP)</pre></code><br><b>Description:</b>
+Combines multiple ranges into a single range by applying FUNCTION elementwise.
+<br><b>Returns:</b>
+New fundamental-forward-range instance.
+<br><b>Exceptional situations:</b>
+<ul><li>Raises TYPE-ERROR if any of the input ranges is not (OR CL:SEQUENCE FUNDAMENTAL-FORWARD-RANGE).</li><li>Will raise TYPE-ERROR if FUNCTION is not FUNCALLABLE.</li></ul><br><b>Notes:</b>
+Can be considered to be lazy variant of CL:MAP function called on multiple sequences.
+<br></div><div class="macro-info"><div class="doc-name">
+SUMMARY
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;BODY FUNCTIONS)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Range to aggregate.</li><li>FORMS, Description of function invocation in the form of the plist. Key is a label used to identify value in the result range, a value is an aggregation function form (function and the function arguments). The range will be inserted as the first argument in the aggregation function call by default, or in the place of any symbol with name '_' if such symbol is present.</li></ul><br><b>Examples:</b>
+<pre><code>(LET ((RESULT
+       (CL-DATA-STRUCTURES.ALGORITHMS:SUMMARY (CL-DATA-STRUCTURES:IOTA-RANGE
+                                               :TO 250)
+         :MIN
+         (ITERATE:ACCUMULATE #&#039;MIN)
+         :MAX
+         (ITERATE:ACCUMULATE #&#039;MAX))))
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT RESULT :MIN) 0)
+  (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT RESULT :MAX) 249))</pre></code><br><b>Description:</b>
+The summary is a macro allowing performance of multiple aggregations in one function call.
+<br><b>Returns:</b>
+Range of results. Use cl-ds:at with label to extract result of each individual aggregation form.
+<br><b>Notes:</b>
+<ul><li>Currently, this macro does support only the single stage aggregation functions.</li><li>This macro expands to %SUMMARY call. Programmer may opt to write %SUMMARY call directly despite extra boilerplate required.</li><li>Particularly useful when the iteration over the range requires considerable time alone and therefore repeating it should be avoided for efficiency sake.</li></ul><br></div><div class="function-info"><div class="doc-name">
+SHUFFLED-RANGE
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FROM TO)
+</div><b>Arguments:</b>
+<ul><li>FROM, The lowest integer.</li><li>TO, The highest integer.</li></ul><br><b>Description:</b>
+Creates a range of shuffled integers from FROM, to TO.
+<br><b>Returns:</b>
+FUNDAMENTAL-FORWARD-RANGE instance.
+<br><b>Exceptional situations:</b>
+<ul><li>Raises TYPE-ERROR if FROM or TO is not an integer.</li><li>TO must be equal or greater than FROM, otherwise the incompatible-arguments error is signaled.</li></ul><br></div></div></div></div></div>
 </body>
 </html>

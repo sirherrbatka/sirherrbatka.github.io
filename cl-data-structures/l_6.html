@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2885394971092152172">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#812753871995231275">Overview</a><ul><li><a href="l_1.html#2436776232413288458">Conventions</a></li><li><a href="l_1.html#2878784340172631982">Key concepts</a><ul><li><a href="l_1.html#4336814835907759076">Signaling errors</a></li><li><a href="l_1.html#1605317245712627589">Modification Status</a></li><li><a href="l_1.html#2599554734535805627">Trait classes</a></li><li><a href="l_1.html#2238738116852490553">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#1581600787680622294">API Reference</a><ul><li><a href="l_2.html#3363622178538174967">Common API</a><ul><li><a href="l_2.html#2785374646806639568">Generic Functions</a></li><li><a href="l_2.html#3557145111401028982">Macros</a></li><li><a href="l_2.html#3669780626279036064">Classes</a></li><li><a href="l_2.html#4442384425280351216">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#2708958110314668667">Algorithms Reference</a><ul><li><a href="l_3.html#3675101082256835561">Aggregation Functions</a></li><li><a href="l_3.html#780377380519326912">Layer Functions</a></li><li><a href="l_3.html#3800524852962942903">Other Functions</a></li></ul></li><li><a href="l_4.html#4102145520785499036">File System Reference</a></li><li><a href="l_5.html#3471892797402257196">Math Reference</a></li><li><a href="l_6.html#522392850103323481">Clustering Reference</a></li><li><a href="l_7.html#522034410945257018">Threads Reference</a></li><li><a href="l_8.html#1341001799727563409">Streaming Algorithms Reference</a></li><li><a href="l_9.html#3187238243030941186">Dictionary structures</a><ul><li><a href="l_9.html#1833595706359312576">API</a></li><li><a href="l_9.html#1419392941936114649">HAMT</a><ul><li><a href="l_9.html#3020333305817813044">Constructing</a></li><li><a href="l_9.html#849745580020636352">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_9.html#2951161399776833165">Sparse RRB Vector</a><ul><li><a href="l_9.html#3239647419289216804">Constructing</a></li></ul></li></ul></li><li><a href="l_10.html#1740852819153812852">Internal details</a><ul><li><a href="l_10.html#3916841551363055231">Lazy evaluation</a></li><li><a href="l_10.html#1831239787081093187">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_10.html#2646832941797154664">Generic Functions</a></li><li><a href="l_10.html#328480054067440506">Classes</a></li></ul></li><li><a href="l_10.html#3084153525324647143">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="522392850103323481"><h2>Clustering Reference
-</h2><p>This section contains reference of all functions and classes in the CL-DS.CLUSTER package.</p>Symbols in the package CL-DATA-STRUCTURES.CLUSTERING:
-<div class="generic-info"><div class="doc-name">
-CLARA
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#3628533424809427599">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3910157148690515165">Overview</a><ul><li><a href="l_1.html#3455230952716915584">Conventions</a></li><li><a href="l_1.html#1078482564254963307">Key concepts</a><ul><li><a href="l_1.html#1058413383474972857">Signaling errors</a></li><li><a href="l_1.html#457998759701910961">Modification Status</a></li><li><a href="l_1.html#2189348947690640549">Trait classes</a></li><li><a href="l_1.html#1903259452612688361">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3181618838449500759">API Reference</a><ul><li><a href="l_2.html#598362327823401186">Common API</a><ul><li><a href="l_2.html#2008347494956924127">Generic Functions</a></li><li><a href="l_2.html#1658900759708926388">Macros</a></li><li><a href="l_2.html#3947312080053749104">Classes</a></li><li><a href="l_2.html#674825684962933313">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#664575659752596401">Dictionary structures</a><ul><li><a href="l_3.html#4502165871795213242">API</a></li><li><a href="l_3.html#3740607883198444714">HAMT</a><ul><li><a href="l_3.html#3589006359076266172">Constructing</a></li><li><a href="l_3.html#2999005582520038190">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_3.html#4478082561675546441">Sparse RRB Vector</a><ul><li><a href="l_3.html#2578899763391768306">Constructing</a></li></ul></li></ul></li><li><a href="l_4.html#3074249294444910715">Set structures</a><ul><li><a href="l_4.html#2090899491181750946">API</a></li><li><a href="l_4.html#1519458414136946816">QP-Trie set</a></li><li><a href="l_4.html#4248122472482935269">Skip-list set</a></li></ul></li><li><a href="l_5.html#2845144125356678132">Queue structures</a><ul><li><a href="l_5.html#2278324602947907792">API</a></li><li><a href="l_5.html#3356521289317317257">2-3-tree</a></li></ul></li><li><a href="l_6.html#2995423862382315203">Sequence structures</a><ul><li><a href="l_6.html#1065923900802694642">API</a></li><li><a href="l_6.html#2042377829145115153">RRB vector</a></li></ul></li><li><a href="l_7.html#3148238365653541796">Algorithms Reference</a><ul><li><a href="l_7.html#1769354496586927425">Aggregation Functions</a></li><li><a href="l_7.html#2808668683678612475">Layer Functions</a></li><li><a href="l_7.html#2402784684954070832">Other Functions</a></li></ul></li><li><a href="l_8.html#3959081551812121331">File System Reference</a></li><li><a href="l_9.html#2973809704321109611">Math Reference</a></li><li><a href="l_10.html#3026096314359506145">Clustering Reference</a></li><li><a href="l_11.html#27675359217434810">Threads Reference</a></li><li><a href="l_12.html#4504239721074351028">Streaming Algorithms Reference</a></li><li><a href="l_13.html#319119312880004768">Internal details</a><ul><li><a href="l_13.html#3118662307939772965">Lazy evaluation</a></li><li><a href="l_13.html#156752553204504888">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_13.html#4588213663853461861">Generic Functions</a></li><li><a href="l_13.html#160895578271477435">Classes</a></li></ul></li><li><a href="l_13.html#900167745552121855">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="2995423862382315203"><h2>Sequence structures
+</h2><p>Sequences are collections storing elements under numeric index, in consecutive numeric range starting from 0. Those semantics are very much like those of CL:SEQUENCE.</p><div id="1065923900802694642"><h3>API
+</h3><p>To obtain value under index use the AT function. To modify content of the sequence use the following function.</p><ul><li>PUT</li>
+<li>PUT!</li>
+<li>TAKE-OUT!</li>
+<li>TAKE-OUT!</li>
+</ul></div><div id="2042377829145115153"><h3>RRB vector
+</h3><p>RRB stands for &quot;Relaxed Radix Trie&quot;. Elements are indexed using the successive 5 bit fragments of the index as the keys in the trees. This data structure is commonly seen in the new generation of functional languages (scala, clojure).</p><div class="class-info"><div class="doc-name">
+FUNCTIONAL-RRB-VECTOR
+</div>
+<img src="CL-DATA-STRUCTURES.SEQUENCES.RRB-VECTOR-FUNCTIONAL-RRB-VECTOR.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Functional variant of the RRB vector.
+<br></div><div class="class-info"><div class="doc-name">
+MUTABLE-RRB-VECTOR
+</div>
+<img src="CL-DATA-STRUCTURES.SEQUENCES.RRB-VECTOR-MUTABLE-RRB-VECTOR.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Mutable variant of the RRB vector.
+<br></div><div class="class-info"><div class="doc-name">
+TRANSACTIONAL-RRB-VECTOR
+</div>
+<img src="CL-DATA-STRUCTURES.SEQUENCES.RRB-VECTOR-TRANSACTIONAL-RRB-VECTOR.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+Transactional variant of the RRB vector.
+<br></div><div class="function-info"><div class="doc-name">
+MAKE-FUNCTIONAL-RRB-VECTOR
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
-(RANGE NUMBER-OF-MEDOIDS SAMPLE-SIZE SAMPLE-COUNT METRIC-FN &amp;KEY KEY
- SELECT-MEDOIDS-ATTEMPTS-COUNT ATTEMPTS SPLIT MERGE)
-</div><b>Arguments:</b>
-<ul><li>RANGE, Data to cluster.</li><li>NUMBER-OF-MEDOIDS, How many clusters should be created?</li><li>SAMPLE-SIZE, Size of sample used to cluster data.</li><li>SAMPLE-COUNT, Number of samples that will be drawn.</li><li>METRIC-FN, Distance function used for clustering.</li><li>METRIC-TYPE, Type returned by METRIC-FN.</li><li>KEY, Function used to extract value for metric-fn.</li><li>SELECT-MEDOIDS-ATTEMPTS-COUNT, How many times PAM should attempt to select medoids before accepting suboptimal medoids?</li><li>ATTEMPTS, How many times clusters should be splitted and merged before accepting suboptimal cluster sizes.</li><li>SPLIT, Threshold size of clusters. Function will attempt to split clusters above this size.</li><li>MERGE, Threshold size of clusters. Function will attempt to merge clusters below this size.</li></ul><br><b>Description:</b>
-Clusters data set using CLARA algorithm. This algorithm attempts to cluster random subset, picking the best set of clusters.
-<br><b>Returns:</b>
-Clusters object. Clusters itself are represented as a vector of vectors and can be read using CLUSTER-CONTENTS function. Additionally, silhouette values can be read with SILHOUETTE function.
-<br><b>Thread Safety:</b>
-Uses lparallel underneath.
-<br><b>Notes:</b>
-<ul><li>Useful for clustering large data sets, as required memory is linear to the size of the data set and quadratic to the size of the sample.</li><li>Algorithm initially described in the Clustering Large Applications article.</li></ul><br></div><div class="generic-info"><div class="doc-name">
-K-MEANS
-</div><div class="doc-lambda-list"><b>Lambda List:</b>
-(RANGE NUMBER-OF-MEDOIDS DISTORTION-EPSILON &amp;KEY KEY SILHOUETTE-SAMPLE-SIZE
- ITERATIONS SILHOUETTE-SAMPLE-COUNT)
+(&amp;REST ALL &amp;KEY ELEMENT-TYPE)
 </div><b>Description:</b>
-Clusters data set using k-means algorithm. Data points must be represented as one dimensional SIMPLE-ARRAYS specialized for SINGLE-FLOATS.
-<br><b>Returns:</b>
-Clusters object. Clusters itself are represented as a vector of vectors and can be read using CLUSTER-CONTENTS function. Additionally, silhouette values can be read with SILHOUETTE function.
-<br><b>Exceptional situations:</b>
-<ul><li>Will signal a TYPE-ERROR when key does not return (SIMPLE-ARRAY 'SINGLE-FLOAT (*)).</li><li>Will signal a TYPE-ERROR when KEY is not funcallable.</li><li>Will signal a TYPE-ERROR when DISTORTION-EPSILON is not SINGLE-FLOAT.</li><li>Will signal a TYPE-ERROR when SILHOUETTE-SAMPLE-SIZE or SILHOUETTE-SAMPLE-COUNT is not of the INTEGER type.</li><li>sILHOUETTE-SAMPLE-SIZE and SILHOUETTE-SAMPLE-COUNT are supposed to have positive value. Otherwise ARGUMENT-VALUE-OUT-OF-BOUNDS will be signalled.</li></ul><br><b>Thread Safety:</b>
-Uses lparallel underneath.
-<br><b>Notes:</b>
-This algorithm does not calculate silhouette during it&#039;s operation and because of that calling silhouette on the result will take extra time.
-<br></div></div></div></div>
+Creates and returns a new instance of functiona-rrb-vector
+<br></div><div class="function-info"><div class="doc-name">
+MAKE-MUTABLE-RRB-VECTOR
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(&amp;REST ALL &amp;KEY ELEMENT-TYPE)
+</div><b>Description:</b>
+Creates and returns a new instance of mutable-rrb-vector.
+<br></div><div class="function-info"><div class="doc-name">
+MAKE-TRANSACTIONAL-RRB-VECTOR
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(&amp;REST ALL &amp;KEY ELEMENT-TYPE)
+</div><b>Description:</b>
+Creates and returns a new instance of transactional-rrb-vector
+<br></div></div></div></div></div>
 </body>
 </html>

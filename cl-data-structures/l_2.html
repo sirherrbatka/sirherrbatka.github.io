@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2885394971092152172">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#812753871995231275">Overview</a><ul><li><a href="l_1.html#2436776232413288458">Conventions</a></li><li><a href="l_1.html#2878784340172631982">Key concepts</a><ul><li><a href="l_1.html#4336814835907759076">Signaling errors</a></li><li><a href="l_1.html#1605317245712627589">Modification Status</a></li><li><a href="l_1.html#2599554734535805627">Trait classes</a></li><li><a href="l_1.html#2238738116852490553">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#1581600787680622294">API Reference</a><ul><li><a href="l_2.html#3363622178538174967">Common API</a><ul><li><a href="l_2.html#2785374646806639568">Generic Functions</a></li><li><a href="l_2.html#3557145111401028982">Macros</a></li><li><a href="l_2.html#3669780626279036064">Classes</a></li><li><a href="l_2.html#4442384425280351216">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#2708958110314668667">Algorithms Reference</a><ul><li><a href="l_3.html#3675101082256835561">Aggregation Functions</a></li><li><a href="l_3.html#780377380519326912">Layer Functions</a></li><li><a href="l_3.html#3800524852962942903">Other Functions</a></li></ul></li><li><a href="l_4.html#4102145520785499036">File System Reference</a></li><li><a href="l_5.html#3471892797402257196">Math Reference</a></li><li><a href="l_6.html#522392850103323481">Clustering Reference</a></li><li><a href="l_7.html#522034410945257018">Threads Reference</a></li><li><a href="l_8.html#1341001799727563409">Streaming Algorithms Reference</a></li><li><a href="l_9.html#3187238243030941186">Dictionary structures</a><ul><li><a href="l_9.html#1833595706359312576">API</a></li><li><a href="l_9.html#1419392941936114649">HAMT</a><ul><li><a href="l_9.html#3020333305817813044">Constructing</a></li><li><a href="l_9.html#849745580020636352">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_9.html#2951161399776833165">Sparse RRB Vector</a><ul><li><a href="l_9.html#3239647419289216804">Constructing</a></li></ul></li></ul></li><li><a href="l_10.html#1740852819153812852">Internal details</a><ul><li><a href="l_10.html#3916841551363055231">Lazy evaluation</a></li><li><a href="l_10.html#1831239787081093187">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_10.html#2646832941797154664">Generic Functions</a></li><li><a href="l_10.html#328480054067440506">Classes</a></li></ul></li><li><a href="l_10.html#3084153525324647143">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="1581600787680622294"><h2>API Reference
-</h2><p>This section contains reference of all the basic functions, classes and macros provided by this library to the user.</p><div id="3363622178538174967"><h3>Common API
-</h3><div id="2785374646806639568"><h4>Generic Functions
-</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entieriety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="3988056814952778844"><h5>Query Functions
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#3628533424809427599">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3910157148690515165">Overview</a><ul><li><a href="l_1.html#3455230952716915584">Conventions</a></li><li><a href="l_1.html#1078482564254963307">Key concepts</a><ul><li><a href="l_1.html#1058413383474972857">Signaling errors</a></li><li><a href="l_1.html#457998759701910961">Modification Status</a></li><li><a href="l_1.html#2189348947690640549">Trait classes</a></li><li><a href="l_1.html#1903259452612688361">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3181618838449500759">API Reference</a><ul><li><a href="l_2.html#598362327823401186">Common API</a><ul><li><a href="l_2.html#2008347494956924127">Generic Functions</a></li><li><a href="l_2.html#1658900759708926388">Macros</a></li><li><a href="l_2.html#3947312080053749104">Classes</a></li><li><a href="l_2.html#674825684962933313">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#664575659752596401">Dictionary structures</a><ul><li><a href="l_3.html#4502165871795213242">API</a></li><li><a href="l_3.html#3740607883198444714">HAMT</a><ul><li><a href="l_3.html#3589006359076266172">Constructing</a></li><li><a href="l_3.html#2999005582520038190">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_3.html#4478082561675546441">Sparse RRB Vector</a><ul><li><a href="l_3.html#2578899763391768306">Constructing</a></li></ul></li></ul></li><li><a href="l_4.html#3074249294444910715">Set structures</a><ul><li><a href="l_4.html#2090899491181750946">API</a></li><li><a href="l_4.html#1519458414136946816">QP-Trie set</a></li><li><a href="l_4.html#4248122472482935269">Skip-list set</a></li></ul></li><li><a href="l_5.html#2845144125356678132">Queue structures</a><ul><li><a href="l_5.html#2278324602947907792">API</a></li><li><a href="l_5.html#3356521289317317257">2-3-tree</a></li></ul></li><li><a href="l_6.html#2995423862382315203">Sequence structures</a><ul><li><a href="l_6.html#1065923900802694642">API</a></li><li><a href="l_6.html#2042377829145115153">RRB vector</a></li></ul></li><li><a href="l_7.html#3148238365653541796">Algorithms Reference</a><ul><li><a href="l_7.html#1769354496586927425">Aggregation Functions</a></li><li><a href="l_7.html#2808668683678612475">Layer Functions</a></li><li><a href="l_7.html#2402784684954070832">Other Functions</a></li></ul></li><li><a href="l_8.html#3959081551812121331">File System Reference</a></li><li><a href="l_9.html#2973809704321109611">Math Reference</a></li><li><a href="l_10.html#3026096314359506145">Clustering Reference</a></li><li><a href="l_11.html#27675359217434810">Threads Reference</a></li><li><a href="l_12.html#4504239721074351028">Streaming Algorithms Reference</a></li><li><a href="l_13.html#319119312880004768">Internal details</a><ul><li><a href="l_13.html#3118662307939772965">Lazy evaluation</a></li><li><a href="l_13.html#156752553204504888">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_13.html#4588213663853461861">Generic Functions</a></li><li><a href="l_13.html#160895578271477435">Classes</a></li></ul></li><li><a href="l_13.html#900167745552121855">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="3181618838449500759"><h2>API Reference
+</h2><p>This section contains reference of all the basic functions, classes and macros provided by this library to the user.</p><div id="598362327823401186"><h3>Common API
+</h3><div id="2008347494956924127"><h4>Generic Functions
+</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entieriety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="2805561564765824322"><h5>Query Functions
 </h5><p>Following generic functions check state of the container and are not allowed to change it.</p>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 AT
@@ -125,7 +125,7 @@ FUNCTIONALP
 T if CONTAINER exposes functional API and NIL if not.
 <br></div></div><p>Immutable and mutable containers are modified by separate sets of functions.</p><table><tr><td><b>Immutable
 </b></td><td><b>Mutable
-</b></td></tr><tr><td>INSERT</td><td>(SETF AT)</td></tr><tr><td>ADD</td><td>ADD!</td></tr><tr><td>UPDATE</td><td>UPDATE!</td></tr><tr><td>UPDATE-IF</td><td>UPDATE-IF!</td></tr><tr><td>ERASE</td><td>ERASE!</td></tr><tr><td>ERASE-IF</td><td>ERASE-IF!</td></tr><tr><td>PUT</td><td>PUT!</td></tr><tr><td>TAKE-OUT</td><td>TAKE-OUT!</td></tr></table><div id="2971861026974281327"><h5>Functional modification API
+</b></td></tr><tr><td>INSERT</td><td>(SETF AT)</td></tr><tr><td>ADD</td><td>ADD!</td></tr><tr><td>UPDATE</td><td>UPDATE!</td></tr><tr><td>UPDATE-IF</td><td>UPDATE-IF!</td></tr><tr><td>ERASE</td><td>ERASE!</td></tr><tr><td>ERASE-IF</td><td>ERASE-IF!</td></tr><tr><td>PUT</td><td>PUT!</td></tr><tr><td>TAKE-OUT</td><td>TAKE-OUT!</td></tr></table><div id="1894393297918570709"><h5>Functional modification API
 </h5>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 INSERT
@@ -263,7 +263,7 @@ Functional API. Removes one element from the CONTAINER. Relevant to sequences.
 <br><b>Returns:</b>
 <ul><li>New version of the container, without one element.</li><li>Modification status.</li></ul><br><b>Notes:</b>
 This is the functional counterpart to the TAKE-OUT! function.
-<br></div></div><div id="1101248055678316122"><h5>Mutable modification API
+<br></div></div><div id="4544774677428769837"><h5>Mutable modification API
 </h5>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 (SETF AT)
@@ -385,7 +385,7 @@ Destructive API: removes one element from the CONTAINER. Relevant to sequences.
 <br><b>Returns:</b>
 <ul><li>CONTAINER</li><li>Modification status.</li></ul><br><b>Notes:</b>
 This is the destructive counterpart to the TAKE-OUT function.
-<br></div></div><div id="2429848177106596609"><h5>Variants API
+<br></div></div><div id="4179615983066756764"><h5>Variants API
 </h5>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 BECOME-FUNCTIONAL
@@ -461,7 +461,7 @@ instance implementing functional, lazy API. Content of returned instance is iden
 <br><b>Side Effects:</b>
 May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both the CONTAINER and a returned instance. Side effects from the mutable CONTAINER may leak into the returned instance.
 <br><b>Notes:</b>
-<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul><br></div></div></div><div id="3557145111401028982"><h4>Macros
+<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul><br></div></div></div><div id="1658900759708926388"><h4>Macros
 </h4>Symbols in the package CL-DATA-STRUCTURES:
 <div class="macro-info"><div class="doc-name">
 MOD-BIND
@@ -472,7 +472,7 @@ mod-bind (first &amp;optional found value) values-form body
 <br><b>Arguments:</b>
 <ul><li>FIRST, Symbol, will be bound to the first value returned by values-form.</li><li>FOUND, Symbol, this macro will construct symbol-macrolet that will expand to the call (found status)</li><li>VALUE, Symbol, this macro will construct symbol-macrolet that will expand to the call (value status)</li><li>CHANGED, Symbol, this macro will construct symbol-macrolet that will expand to the call (changed status)</li></ul><br><b>Description:</b>
 This macro attempts to mimic multiple-value-bind syntax for modification operations performed on the containers. All of those operations will return a secondary object representing operation status that shall be bound in the lexical environment. Next, symbol-macrolets will be established, inlining found, value and changed function calls on the operation status (like with-accessors).
-<br></div></div><div id="3669780626279036064"><h4>Classes
+<br></div></div><div id="3947312080053749104"><h4>Classes
 </h4>Symbols in the package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 FUNDAMENTAL-CONTAINER
@@ -516,7 +516,7 @@ LAZY
 <br>
 <b>Description:</b>
 Functional object, with lazy implementation.
-<br></div></div><div id="4442384425280351216"><h4>Conditions
+<br></div></div><div id="674825684962933313"><h4>Conditions
 </h4><p>Cl-data-structures tries to signal only the well structured errors that are possible to interpret. In order to achieve this, the hierarchy of condition classes is introduced. Below there is documentation explaining it.</p>Symbols in the package CL-DATA-STRUCTURES:
 <div class="error-info"><div class="doc-name">
 TEXTUAL-ERROR

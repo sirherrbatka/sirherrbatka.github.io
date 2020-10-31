@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#3628533424809427599">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#3910157148690515165">Overview</a><ul><li><a href="l_1.html#3455230952716915584">Conventions</a></li><li><a href="l_1.html#1078482564254963307">Key concepts</a><ul><li><a href="l_1.html#1058413383474972857">Signaling errors</a></li><li><a href="l_1.html#457998759701910961">Modification Status</a></li><li><a href="l_1.html#2189348947690640549">Trait classes</a></li><li><a href="l_1.html#1903259452612688361">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#3181618838449500759">API Reference</a><ul><li><a href="l_2.html#598362327823401186">Common API</a><ul><li><a href="l_2.html#2008347494956924127">Generic Functions</a></li><li><a href="l_2.html#1658900759708926388">Macros</a></li><li><a href="l_2.html#3947312080053749104">Classes</a></li><li><a href="l_2.html#674825684962933313">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#664575659752596401">Dictionary structures</a><ul><li><a href="l_3.html#4502165871795213242">API</a></li><li><a href="l_3.html#3740607883198444714">HAMT</a><ul><li><a href="l_3.html#3589006359076266172">Constructing</a></li><li><a href="l_3.html#2999005582520038190">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_3.html#4478082561675546441">Sparse RRB Vector</a><ul><li><a href="l_3.html#2578899763391768306">Constructing</a></li></ul></li></ul></li><li><a href="l_4.html#3074249294444910715">Set structures</a><ul><li><a href="l_4.html#2090899491181750946">API</a></li><li><a href="l_4.html#1519458414136946816">QP-Trie set</a></li><li><a href="l_4.html#4248122472482935269">Skip-list set</a></li></ul></li><li><a href="l_5.html#2845144125356678132">Queue structures</a><ul><li><a href="l_5.html#2278324602947907792">API</a></li><li><a href="l_5.html#3356521289317317257">2-3-tree</a></li></ul></li><li><a href="l_6.html#2995423862382315203">Sequence structures</a><ul><li><a href="l_6.html#1065923900802694642">API</a></li><li><a href="l_6.html#2042377829145115153">RRB vector</a></li></ul></li><li><a href="l_7.html#3148238365653541796">Algorithms Reference</a><ul><li><a href="l_7.html#1769354496586927425">Aggregation Functions</a></li><li><a href="l_7.html#2808668683678612475">Layer Functions</a></li><li><a href="l_7.html#2402784684954070832">Other Functions</a></li></ul></li><li><a href="l_8.html#3959081551812121331">File System Reference</a></li><li><a href="l_9.html#2973809704321109611">Math Reference</a></li><li><a href="l_10.html#3026096314359506145">Clustering Reference</a></li><li><a href="l_11.html#27675359217434810">Threads Reference</a></li><li><a href="l_12.html#4504239721074351028">Streaming Algorithms Reference</a></li><li><a href="l_13.html#319119312880004768">Internal details</a><ul><li><a href="l_13.html#3118662307939772965">Lazy evaluation</a></li><li><a href="l_13.html#156752553204504888">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_13.html#4588213663853461861">Generic Functions</a></li><li><a href="l_13.html#160895578271477435">Classes</a></li></ul></li><li><a href="l_13.html#900167745552121855">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="4504239721074351028"><h2>Streaming Algorithms Reference
+</h2><p>This section contains reference of the data sketches.</p>Symbols in the package CL-DATA-STRUCTURES.STREAMING-ALGORITHMS:
+<div class="generic-info"><div class="doc-name">
+BLOOM-FILTER
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY HASH-FN WIDTH DEPTH KEY HASHES DATA-SKETCH)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Input for the creation of the bloom filter.</li><li>SPACE, What is the bloom vector size?</li><li>HASH-FN, Hashing function. SXHASH will do for strings.</li><li>COUNT, How many bits are used for each item?</li><li>KEY, Function used to extract value for hashing.</li><li>HASHES, Optional hashes vector. Needs to be supplied in order to ensure that the same hash values are generated between different filters.</li><li>DATA-SKETCH, Instead of the bits and the hash-fn, the user can pass a data-sketch argument.</li></ul><br><b>Description:</b>
+Creates bloom filter out of elements in the range. Bloom filter is a memory efficient data structure allowing to check if an item is absent from the range. If AT returns nil, the item is certainly absent. If AT returns T item either present or not.
+<br><b>Returns:</b>
+Instance of the fundamental-data-sketch class. Use cl-ds:at to check if element is present. False positives are possible, false negatives are not possible.
+<br><b>Exceptional situations:</b>
+<ul><li>Will signal a TYPE-ERROR if either SPACE or COUNT is not integer.</li><li>Will signal a CL-DS:ARGUMENT-VALUE-OUT-OF-BOUNDS if either SPACE or COUNT is not above 0.</li><li>Will signal a TYPE-ERROR if HASH-FN is not funcallable.</li><li>Will signal a TYPE-ERROR if HASHES is not (OR NULL (SIMPLE-ARRAY FIXNUM (* 2)).</li></ul><br></div><div class="generic-info"><div class="doc-name">
+APPROXIMATED-COUNTS
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY HASH-FN DEPTH WIDTH KEY HASHES DATA-SKETCH)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate.</li><li>HASH-FN, Hashing function. SXHASH will do for strings.</li><li>SPACE, Positive integer. Size of the counters array</li><li>COUNT, Number of hashing functions used.</li><li>DATA-SKETCH, Instead of the bits and the hash-fn, the user can pass a data-sketch argument.</li></ul><br><b>Description:</b>
+Calculates estimated counts using Min-Count sketch algorithm. This requires only a constant amount of memory.
+<br><b>Returns:</b>
+Instance of the fundamental-data-sketch class. Use CL-DS:AT to extract count estimate for element from it.
+<br><b>Exceptional situations:</b>
+<ul><li>Will signal a TYPE-ERROR when either COUNT or SPACE is not integer.</li><li>Will signal a TYPE-ERROR when HASH-FN is not funcallable.</li><li>Will signal a TYPE-ERROR when HASHES is not either NIL or (SIMPLE-ARRAY FIXNUM (*)).</li><li>Will signal a CL-DS:ARGUMENT-VALUE-OUT-OF-BOUNDS if either COUNT or SPACE is not above zero.</li></ul><br><b>Notes:</b>
+<ul><li>Quality of the estimate directly depends on DEPTH and WIDTH.</li><li>Sensitive to a hash function. Large avalanche factor is very helpful.</li></ul><br></div><div class="generic-info"><div class="doc-name">
+APPROXIMATED-SET-CARDINALITY
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(RANGE &amp;KEY HASH-FN KEY DATA-SKETCH)
+</div><b>Arguments:</b>
+<ul><li>RANGE, Object to aggregate.</li><li>HASH-FN, Hashing function. SXHASH will do for strings.</li><li>DATA-SKETCH, Instead of the bits and the hash-fn, the user can pass a data-sketch argument.</li><li>KEY, A function used to extract value from each element.</li></ul><br><b>Examples:</b>
+<pre><code>(LET ((DATA
+       (CL-DATA-STRUCTURES:XPR (:I 0)
+         (WHEN (&lt; I 500000)
+           (CL-DATA-STRUCTURES:SEND-RECUR (RANDOM 99999999999) :I (1+ I))))))
+  (PROVE.TEST:OK
+   (&lt; 490000
+      (CL-DATA-STRUCTURES:VALUE
+       (CL-DATA-STRUCTURES.STREAMING-ALGORITHMS:APPROXIMATED-SET-CARDINALITY
+        DATA :HASH-FN
+        #&#039;CL-DATA-STRUCTURES.STREAMING-ALGORITHMS.HYPERLOGLOG:HASH-INTEGER))
+      510000)))</pre></code><br><b>Description:</b>
+Calculates the estimated set cardinality using the HyperLogLog algorithm. This requires only a constant (and modest) amount of memory.
+<br><b>Returns:</b>
+Instance of the fundamental-data-sketch class. Use CL-DS:VALUE to extract estimate from it.
+<br><b>Exceptional situations:</b>
+<ul><li>Will signal a TYPE-ERROR if HASH-FN is not funcallable.</li></ul><br><b>Notes:</b>
+<ul><li>This algorithm gives a solid estimate for large sets, not so good for small sets.</li><li>Sensitive to a hash function. Large avalanche factor is very helpful. Needs all 64 bits so sxhash won't be fine.</li><li>Can be used to (for instance) estimate number of keys before creating a hash table. A good estimate of size minimizes rehashing and therefore reduces both memory allocation and time required to fill the hash table.</li></ul><br></div><div class="generic-info"><div class="doc-name">
+UNION
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FIRST-SKETCH &amp;REST MORE-SKETCHES)
+</div><b>Description:</b>
+Creates new data-sketch from the provided. Can be used to join sketches built on different data chunks.
+<br></div><div class="generic-info"><div class="doc-name">
+CLEAN-SKETCH
+</div><div class="doc-lambda-list"><b>Lambda List:</b>
+(FUNCTION &amp;REST ARGUMENTS &amp;KEY HASHES HASH-FN DEPTH WIDTH)
+</div><b>Description:</b>
+Creates a new, empty data-sketch that would be produced by the function. New data-sketch can be cloned and passed as :data-sketch. This allows to keep compatibility between results of call to the streaming function.
+<br></div><div class="class-info"><div class="doc-name">
+FUNDAMENTAL-DATA-SKETCH
+</div>
+<img src="CL-DATA-STRUCTURES.STREAMING-ALGORITHMS-FUNDAMENTAL-DATA-SKETCH.svg" alt="Inheritance" class="centered">
+<br>
+<b>Description:</b>
+The base class of all data sketches. Instances of this class can be passed to streaming algorihms as initial states, cloned and combined into unions.
+<br></div></div></div></div>
+</body>
+</html>
