@@ -4,10 +4,17 @@
     <title>For more humane computing</title>
     <link>https://sirherrbatka.github.io</link>
     <description>sirherrbatka blog</description>
-    <pubDate>sob, 11 sty 2020 15:44:22 CET</pubDate>
-    <lastBuildDate>sob, 11 sty 2020 15:44:22 CET</lastBuildDate>
+    <pubDate>śro, 25 lis 2020 17:33:57 CET</pubDate>
+    <lastBuildDate>śro, 25 lis 2020 17:33:57 CET</lastBuildDate>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>Org-page static site generator (https://github.com/kelvinh/org-page)</generator>
+    <item>
+      <title>The Common Lisp Condition System review</title>
+      <link>https://sirherrbatka.github.io/blog/2020/11/25/the-common-lisp-condition-system-review</link>
+      <description><![CDATA[Phoe wrote a book!]]></description>
+      <pubDate>2020-11-25</pubDate>
+      <guid>https://sirherrbatka.github.io/blog/2020/11/25/the-common-lisp-condition-system-review</guid>
+    </item>
     <item>
       <title>Introducing cl-data-frames</title>
       <link>https://sirherrbatka.github.io/blog/2019/09/25/introducing-cl-data-frames</link>

@@ -33,9 +33,9 @@
 <div class="post">
 <h1>Introducing cl-data-frames</h1>
 
-<div id="outline-container-org640edd6" class="outline-2">
-<h2 id="org640edd6">A little bit of background</h2>
-<div class="outline-text-2" id="text-org640edd6">
+<div id="outline-container-orgcb516b5" class="outline-2">
+<h2 id="orgcb516b5">A little bit of background</h2>
+<div class="outline-text-2" id="text-orgcb516b5">
 <p>
 The key feature of commonly used languages for data science and statistical analysis is the existence of data frames. Data frame is essentially just a way of presenting data in the form of a table, plus a set of operations allowing easy manipulation of the content. This probably does not sound all that thrilling at this point but once the domain is considered one quickly realizes that in practice almost every frequently performed task should be performed using a data frame. Don't get me wrong: It still can be done without one, but by sticking to just the fundamental data structures you are simply wasting your time. Let's, for instance, consider a typical code written in R with the help of the ubiquitous Dplyr package.
 </p>
@@ -70,9 +70,9 @@ This blog post describes this new library of the excellent and innovative name "
 </p>
 </div>
 </div>
-<div id="outline-container-orgfe6fef3" class="outline-2">
-<h2 id="orgfe6fef3">Design goals</h2>
-<div class="outline-text-2" id="text-orgfe6fef3">
+<div id="outline-container-orgc044708" class="outline-2">
+<h2 id="orgc044708">Design goals</h2>
+<div class="outline-text-2" id="text-orgc044708">
 <p>
 What "pleasant to use" means though? Such a vague statement is not a valid mission. What are the exact things I am looking for?
 </p>
@@ -85,17 +85,17 @@ What "pleasant to use" means though? Such a vague statement is not a valid missi
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf2b7b46" class="outline-2">
-<h2 id="orgf2b7b46">Decisions, decisions…</h2>
-<div class="outline-text-2" id="text-orgf2b7b46">
+<div id="outline-container-org88dfb49" class="outline-2">
+<h2 id="org88dfb49">Decisions, decisions…</h2>
+<div class="outline-text-2" id="text-org88dfb49">
 <p>
 Having in mind those goals, I could move forward and instantly the new questions have arisen. What layers should be distinguished in the library and what are the concepts expressed by each layer? How data representation is structured? What basic operations are supplied? Which data structures should be used?
 </p>
 </div>
 </div>
-<div id="outline-container-orgf2b42e9" class="outline-2">
-<h2 id="orgf2b42e9">General architecture</h2>
-<div class="outline-text-2" id="text-orgf2b42e9">
+<div id="outline-container-org737472c" class="outline-2">
+<h2 id="org737472c">General architecture</h2>
+<div class="outline-text-2" id="text-org737472c">
 <p>
 Cl-data-structures are composed of layers connected by sets of protocol functions, objects, classes, and variables. Those layers are, from the lowest level to the highest level:
 </p>
@@ -107,9 +107,9 @@ Cl-data-structures are composed of layers connected by sets of protocol function
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf1cfbf8" class="outline-2">
-<h2 id="orgf1cfbf8">Key concepts</h2>
-<div class="outline-text-2" id="text-orgf1cfbf8">
+<div id="outline-container-orgf5b27c4" class="outline-2">
+<h2 id="orgf5b27c4">Key concepts</h2>
+<div class="outline-text-2" id="text-orgf5b27c4">
 <p>
 The column layer provides basic data structure used to represent column as well as means to change the content of it, either directly or by the use of the iterator. Iterator also provides means to alter multiple columns at once. This is needed for building and modifying whole data frames form ground up. Columns are mutable and they are using copy on write mechanism to save time and (more importantly) memory when multiple column instances share parts or the whole of the content.
 </p>
@@ -127,17 +127,17 @@ The table itself is a mutable object composed of header and sequence of columns.
 </p>
 </div>
 </div>
-<div id="outline-container-org8a432c7" class="outline-2">
-<h2 id="org8a432c7">Data structures</h2>
-<div class="outline-text-2" id="text-org8a432c7">
+<div id="outline-container-orgcc56368" class="outline-2">
+<h2 id="orgcc56368">Data structures</h2>
+<div class="outline-text-2" id="text-orgcc56368">
 <p>
 The sparsity requirement combined with the need for both destructive and non-destructive operations convinced me to use column representation based around the sparse variation on the RRB vector data structure. Sparsity was achieved by adding a bit-mask into every RRB tree node to mark the occupied node (just like in the HAMT data structure). This increases memory requirements for each non-leaf node in the trie, but only by 32 bits extra for each node. I consider this to be good enough to not even bother with a dense variant of the column. Luckily I had those already in the cl-data-structures, but there was still plenty of code extra required for an efficient implementation of operations needed by data frames.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb74ca05" class="outline-2">
-<h2 id="orgb74ca05">High-level API</h2>
-<div class="outline-text-2" id="text-orgb74ca05">
+<div id="outline-container-orge241667" class="outline-2">
+<h2 id="orge241667">High-level API</h2>
+<div class="outline-text-2" id="text-orge241667">
 <p>
 For the most typical tasks, the user is expected to simply stick to the high-level API and do not dwell in the low-level details described above. Therefore I've added separate packages gathering relevant symbols from the layers below and reexporting along with added functionality. This API is composed of the following symbols:
 </p>
@@ -174,9 +174,9 @@ I am not completely happy with the shape of this API right now, but at least I a
 </p>
 </div>
 </div>
-<div id="outline-container-orgbe25cd4" class="outline-2">
-<h2 id="orgbe25cd4">Use cases</h2>
-<div class="outline-text-2" id="text-orgbe25cd4">
+<div id="outline-container-orgc8b5f74" class="outline-2">
+<h2 id="orgc8b5f74">Use cases</h2>
+<div class="outline-text-2" id="text-orgc8b5f74">
 <p>
 This may seem to all nice, but I bet you wonder how this allows solving practical problems you may encounter. Let me take you on a journey through my work and how I use this software to make my life easier.
 </p>
@@ -258,9 +258,9 @@ Notice how CL-DF:BRR can be used to create function extracting data from the row
 </div>
 </div>
 
-<div id="outline-container-org723ce20" class="outline-2">
-<h2 id="org723ce20">The future</h2>
-<div class="outline-text-2" id="text-org723ce20">
+<div id="outline-container-org80c0da5" class="outline-2">
+<h2 id="org80c0da5">The future</h2>
+<div class="outline-text-2" id="text-org80c0da5">
 <p>
 Right now I am testing the library to find anything that may prove to be an annoying aspect of the design. I'm also still fishing out bugs in both CL-DATA-STRUCTURES and CL-DATA-FRAMES which, unfortunately, means that neither is ready for general use. I will keep you updated.
 </p>
@@ -299,7 +299,7 @@ Right now I am testing the library to find anything that may prove to be an anno
       <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       <script src="/media/js/main.js"></script>
       <div class="footer">
-        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
         <p>
           Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:shka &lt;at&gt; tuxls"></a>
           &nbsp;&nbsp;-&nbsp;&nbsp;
