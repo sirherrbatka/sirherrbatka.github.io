@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Manardb - For more humane computing</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="description" content="A few remarks about the manardb." />
+    <meta name="keywords" content="lisp,memory" />
+    <link rel="stylesheet" href="/media/css/main.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet">
+  </head>
+
+  <body class="container">
+    <div>
+      <header class="masthead">
+        <h1 class="masthead-title"><a href="/">For more humane computing</a></h1>
+        <p>sirherrbatka blog</p>
+        <ul>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/tags/">Tags</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="http://github.com/sirherrbatka">GitHub</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+        <form method="get" id="searchform" action="//www.google.com/search">
+          <input type="text" class="field" name="q" id="s" placeholder="Search">
+          <input type="hidden" name="as_sitesearch" value="sirherrbatka.github.io">
+        </form>
+      </header>
+    </div>
+
+<div>
+<div class="post">
+<h1>Manardb</h1>
+<p>
+You are running out of heap space in your Common Lisp system? Does your garbage collector hate you? You need something that would keep your objects away from the RAM, but at the same time would impose a minimal performance penalty. You, my friend, need manardb!
+</p>
+
+<p>
+Manardb is a speedy, memory-mapped lisp object-store. Since it lives in your process no network communication overhead is involved. But "what it does?" you ask. It allows you to build hierarchical data models out of the manardb objects, and consequently, use those objects just like you would standard-instances. How this is possible? Manardb classes are implemented in terms of MOP you can use slot-value to access slots of the instances, and, perhaps more importantly, inspect those objects with a normal object inspector. You won't need to write heaps of unusual, idiomatic code.
+</p>
+
+<p>
+My use case required working with a rather large dataset from multiple hundreds of Counter-Strike matches. Dataset was constructed by parsing the content of the demo files. These files represent multiple game states in the form of incremental delta changes. Updates happen at the known rate: 128 times per second (so-called tick rate). This leads to a more or less uniform distribution of ticks assigned to each delta and, as a result, algorithms like bucket sort perform well on it. You also don't need a sophisticated index to find where a specific tick begins in your demo, simply keeping a vector of lookup points for every, let's say 1280 ticks, works perfectly well. And manardb does not get into my way to do anything I deem to be a good idea. I appreciate that.
+</p>
+
+<p>
+However, not everything is ideal. Manardb object creation is not thread-safe. Class redefinitions are, flat out, prohibited. Transactions involve simply copying all of the data. Not even reflink, just copy. Garbage collection requires enough memory to hold every pointer, to every object in the main memory, or (alternatively) does not perform memory compaction. 
+</p>
+
+<p>
+Having said that: if all you need is just speedy storage for a lot of data, manardb will fill the bill. Especially, if said data has features rendering general-purpose databases suboptimal.
+</p>
+
+</div>
+</div>
+    <div>
+      <div class="post-meta">
+        <span title="post date" class="post-info">2020-12-18</span>
+        <span title="last modification date" class="post-info">2020-12-19</span>
+        <span title="tags" class="post-info"><a href="/tags/programming/">programming</a></span>
+        <span title="author" class="post-info"></span>
+      </div>
+      <section>
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          //var disqus_developer = 1;
+          var disqus_identifier = "/blog/2020/12/18/manardb";
+          var disqus_url = "https://sirherrbatka.github.io/blog/2020/12/18/manardb";
+          var disqus_shortname = 'formorehumanecomputing';
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      </section>
+      <script src="//code.jquery.com/jquery-latest.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="/media/js/main.js"></script>
+      <div class="footer">
+        <p>Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 27.x (<a href="http://orgmode.org">Org mode</a> 9.x)</p>
+        <p>
+          Copyright &copy; 2012 - <span id="footerYear"></span> <a href="mailto:shka &lt;at&gt; tuxls"></a>
+          &nbsp;&nbsp;-&nbsp;&nbsp;
+          Powered by <a href="https://github.com/kelvinh/org-page" target="_blank">org-page</a>
+          <script type="text/javascript">document.getElementById("footerYear").innerHTML = (new Date()).getFullYear();</script>
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>
