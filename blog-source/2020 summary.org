@@ -1,0 +1,15 @@
+#+TITLE:       2020 summary
+#+DATE:        2021-01-23
+#+TAGS:        summary,personal
+#+KEYWORDS:    summary,personal
+#+DESCRIPTION: How 2020 went fo me.
+#+LANGUAGE:    en
+Since the dreaded year 2020 is behind us, I thought it is a good moment to summarize what I managed to accomplish during it. Believe it or not: It wasn't even that bad.
+
+I am saying that, even though I lost my job this year. Finding a new one was time-consuming, to say the least. In the end, it is the new job that found me, so that's nice, but not reassuring. I live in a prereferral, tiny city in the majestic world of IT. I expected that in year 0 of our lord and savior COVID-19 remote work will be more of an option. It seems that this is simply not the case. I am still stuck inside a shallow job pool, and I will continue to be in this unfortunate position unless I move out.
+
+Cl-data-structures is finally in the quicklisp. Honestly, the system is in a bad shape and there is a lot of bugs in it. Major refactoring also would be a good course of action as the library includes completely unrelated facilities. Despite this, cl-ds was useful for me. Perhaps I can get some help cleaning this code base once more users are interested in it. I also need it for vellum.
+
+What is vellum? Cl-data-frames renamed! I recently put more work into this library, and hopefully, it will be in a good shape for the quicklisp in the near future. Unquestionably already cleaner than cl-ds, but that is not saying much. I urge you to try vellum. It should be easy to learn at the very least.
+
+Statistical-learning is yet another project I authored. It started out as an experiment on the object-oriented random forest library, but now it also includes isolation forests, gradient boosting and self-organizing-maps (intended mostly for random forest space visualization, I didn't get to implement this aspect yet though). Code turned out really well: looks good, is extendable, and runs quickly. Total success by all of my metrics and confirmation of my assumptions. No promises are made, but I hope to add statistical-learning to quicklisp somewhere in the year 2021.
