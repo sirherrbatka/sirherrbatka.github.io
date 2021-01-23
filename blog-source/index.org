@@ -1,0 +1,8 @@
+#+TITLE: For more humane computing
+
+- [[file:the common lisp condition system review.org][The Common Lisp Condition System review]]
+- [[file:manardb.org][Manardb]]
+- [[file:cl-ds-aggregation-protocol.org][Design of cl-data-structures aggregation protocol]]
+- [[file:introducing cl-data-frames.org][Introducing cl-data-frames]]
+- [[file:classes-are-not-interactions.org][Classes are not interactions!]]
+- [[file:cl-ds-ranges-are-cool.org][cl-data-structure ranges are pretty cool]]

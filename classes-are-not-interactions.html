@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2021-01-23 sob 15:39 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classes are not interactions!</title>
+<meta name="generator" content="Org mode">
+<meta name="description" content="How multimethods allow to eleminate need for additional classes."
+>
+<meta name="keywords" content="lisp, object orientation, CLOS">
+<link rel="stylesheet" href="static/main.css" type="text/css"/>
+</head>
+<body>
+<div id="org-div-home-and-up-index-page"> <div> <a accesskey="H" href="https://sirherrbatka.github.io"> HOME </a> </div> </div><div id="content">
+<header>
+<h1 class="title">Classes are not interactions!</h1>
+</header><p>
+Some time ago on #lisp at freenode phoe asked interesting design question. So interesting in fact, that I decided that It deserves a post on a blog as it highlights why multimethods are such a good idea.
+</p>
+
+<p>
+Let's consider the following: we want to design a message passing system, and we want to use a clean table approach. That is, we will do this from scratch, avoiding mimicking existing solutions in hope that this can result in an overall better design.
+</p>
+
+<p>
+In our system messages are passed asynchronously, and they either succeed (in one way or another) or fail (again, in multiple ways). We would like to keep it extendable and structured, so it is general enough to be reusable and would be easy on our little, soft brains.
+</p>
+
+<p>
+This is clearly nothing new. Writing programs that are easy for a human to work with is a lot harder than simply writing programs that will just run on a machine. Generations of programmers tackled this issue and each had their own sets of solutions. I would not dare to say that I have the definite answer, but I think we can agree upon general guidelines:
+</p>
+
+<ol class="org-ol">
+<li>Given that functionality of the system remains the same, fewer elements is better than more elements.</li>
+<li>Simpler elements are in general better than complex elements.</li>
+<li>State of elements should be easy to inspect and manage. If immutability does not complicate the overall design, it is probably a good idea.</li>
+</ol>
+
+<p>
+It is worth noting that none of those rules dictates a distinctive technical choice, but it will help to judge system that we are coming up with it purely on how easy to understand it is.
+</p>
+
+<p>
+Let's get back to our message passing system. To start we will first consider something basic, like sending a message. But now, how we will handle the response? It is not merely the question of how we will obtain the result, but also, how we will tie it with the rest of the system. It is possible for instance to pass callback along with the message itself, but that only solves issues with asynchronous nature of the system. We still need to dispatch logic of the response.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message <span style="color: #E6E4CF;">(</span>obtain-message<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>response-handler <span style="color: #E6E4CF;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #F4F2DC;">(</span>response<span style="color: #F4F2DC;">)</span> <span style="color: #AAA896; font-style: italic;">; async, therefore callback</span>
+                           <span style="color: #F4F2DC;">(</span><span style="color: #FFFFED;">do-stuff</span> response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>send-message message response-handler<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">alternativly, we can do this slightly differently...</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message <span style="color: #E6E4CF;">(</span>obtain-message<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>response <span style="color: #E6E4CF;">(</span>send-message message<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span> <span style="color: #AAA896; font-style: italic;">; non blocking</span>
+       <span style="color: #CFCDB9;">(</span>response-handler <span style="color: #E6E4CF;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #F4F2DC;">()</span>
+                           <span style="color: #F4F2DC;">(</span><span style="color: #FFFFED;">do-stuff</span> response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">this approach may be slightly more natural.</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">Response is now more like a future, so it should have force function.</span>
+  <span style="color: #AAA896;">(</span>attach-on-response response response-handler<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+Implementing large CASE form in the do-stuff function is clearly not the greatest idea.
+</p>
+
+<p>
+Phoe stumbled upon the same issue. What he imagined is API that will return an object that will contain everything needed to fully handle changes in the system. It is not a bad idea. It should be easy to debug, easier even to understand. There are multiple ways to achieve this though.
+</p>
+
+<p>
+Initial idea from phoe was to have a separate response class for each request class. The response would be returned just after calling send, and then it would be possible to call a blocking generic function handle. Concrete implementation of handle function will perform any changes needed in the system.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defgeneric</span> <span style="color: #E6E4CF;">handle</span> <span style="color: #AAA896;">(</span>response extra-context<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defgeneric</span> <span style="color: #E6E4CF;">make-response</span> <span style="color: #AAA896;">(</span>message status<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">fundamental-message</span> <span style="color: #AAA896;">()</span>
+  <span style="color: #AAA896;">()</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">fundamental-response</span> <span style="color: #AAA896;">()</span>
+  <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>%data <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:data</span>
+          <span style="color: #FFFFE9; font-style: italic;">:reader</span> data<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">hello-message</span> <span style="color: #AAA896;">(</span>fundamental-message<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>%target <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:target</span>
+            <span style="color: #FFFFE9; font-style: italic;">:reader</span> target<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">success-hello</span> <span style="color: #AAA896;">(</span>fundamental-response<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">()</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">error-hello</span> <span style="color: #AAA896;">(</span>fundamental-response<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">()</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">make-response</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message hello-message<span style="color: #CFCDB9;">)</span> status<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #F4F2DC; background-color: #484639; font-weight: bold;">check-type</span> status list<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span>response-type <span style="color: #F4F2DC;">(</span>first status<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+         <span style="color: #E6E4CF;">(</span>response-data <span style="color: #F4F2DC;">(</span>rest status<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">case</span> response-type
+      <span style="color: #E6E4CF;">(</span><span style="color: #FFFFE9; font-style: italic;">:success</span> <span style="color: #F4F2DC;">(</span>make-instance 'success-hello <span style="color: #FFFFE9; font-style: italic;">:data</span> response-data<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span><span style="color: #FFFFE9; font-style: italic;">:error</span> <span style="color: #F4F2DC;">(</span>make-instance 'error-hello <span style="color: #FFFFE9; font-style: italic;">:data</span> response-data<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">handle</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>response success-hello<span style="color: #CFCDB9;">)</span> extra-context<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>format extra-context <span style="color: #CFCDB9; font-style: italic;">"~a~%"</span> <span style="color: #CFCDB9; font-style: italic;">"Sending hello message worked."</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">handle</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>response error-hello<span style="color: #CFCDB9;">)</span> extra-context<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>format extra-context <span style="color: #CFCDB9; font-style: italic;">"~a~%"</span> <span style="color: #CFCDB9; font-style: italic;">"Sending hello message failed."</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message <span style="color: #E6E4CF;">(</span>make-instance 'hello-message <span style="color: #FFFFE9; font-style: italic;">:target</span> 'world<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>response-handler <span style="color: #E6E4CF;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #F4F2DC;">(</span>response<span style="color: #F4F2DC;">)</span> <span style="color: #F4F2DC;">(</span>handle response t<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>send-message message response-handler<span style="color: #AAA896;">)</span> <span style="color: #AAA896; font-style: italic;">; non blocking</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">I miss response-as-future approach :(</span>
+  <span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+The issue here is that we would have to define not just each message class but also separate response classes. In the example above I defined just two, and then got bored. Also, we are back to the callbacks approach.
+</p>
+
+<p>
+But here is the main point: interactions should not be represented as classes. At least not always in Common Lisp. Instead, they can be functions. Multimethods to be exact. To demonstrate, let's consider make-response function first.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defgeneric</span> <span style="color: #E6E4CF;">make-response-with-type-and-data</span> <span style="color: #AAA896;">(</span>message response-type response-data<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">make-response</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message fundamental-message<span style="color: #CFCDB9;">)</span> status<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #F4F2DC; background-color: #484639; font-weight: bold;">check-type</span> status list<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span>response-type <span style="color: #F4F2DC;">(</span>first status<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+         <span style="color: #E6E4CF;">(</span>response-data <span style="color: #F4F2DC;">(</span>rest status<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>make-response-with-type-and-data message response-type response-data<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">make-response-with-type-and-data</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message hello-message<span style="color: #CFCDB9;">)</span>
+                                             <span style="color: #CFCDB9;">(</span>type <span style="color: #E6E4CF;">(</span>eql <span style="color: #FFFFE9; font-style: italic;">:error</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+                                             data<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>make-instance 'error-hello <span style="color: #FFFFE9; font-style: italic;">:data</span> data<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">make-response-with-type-and-data</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message hello-message<span style="color: #CFCDB9;">)</span>
+                                             <span style="color: #CFCDB9;">(</span>type <span style="color: #E6E4CF;">(</span>eql <span style="color: #FFFFE9; font-style: italic;">:success</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+                                             data<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>make-instance 'success-hello <span style="color: #FFFFE9; font-style: italic;">:data</span> data<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+It becomes quite clear that We don't have to create a separate response class for every possible request, though. We will create just one, containing both the message and a response. In the handle function we will wait for the response to arrive, and this time we will delegate any further processing to yet another function called handle-with-message-and-response. Burden of implementing this function is consequently moved to the higher level code. A complete demonstration of this approach can be seen below.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defgeneric</span> <span style="color: #E6E4CF;">handle</span> <span style="color: #AAA896;">(</span>response extra-context<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defgeneric</span> <span style="color: #E6E4CF;">fill-response</span> <span style="color: #AAA896;">(</span>response data<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defgeneric</span> <span style="color: #E6E4CF;">handle-with-message-and-response</span> <span style="color: #AAA896;">(</span>message response-type
+                                              response-data extra-context<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defgeneric</span> <span style="color: #E6E4CF;">attach-to-response</span> <span style="color: #AAA896;">(</span>response callback<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">fundamental-message</span> <span style="color: #AAA896;">()</span>
+  <span style="color: #AAA896;">()</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">response</span> <span style="color: #AAA896;">()</span>
+  <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>%message <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:message</span>
+             <span style="color: #FFFFE9; font-style: italic;">:reader</span> message<span style="color: #CFCDB9;">)</span>
+   <span style="color: #CFCDB9;">(</span>%response-type <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:response-type</span>
+                   <span style="color: #FFFFE9; font-style: italic;">:initform</span> nil
+                   <span style="color: #FFFFE9; font-style: italic;">:accessor</span> response-type<span style="color: #CFCDB9;">)</span>
+   <span style="color: #CFCDB9;">(</span>%response-data <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:response-data</span>
+                   <span style="color: #FFFFE9; font-style: italic;">:initform</span> nil
+                   <span style="color: #FFFFE9; font-style: italic;">:accessor</span> response-data<span style="color: #CFCDB9;">)</span>
+   <span style="color: #CFCDB9;">(</span>%lock <span style="color: #FFFFE9; font-style: italic;">:initform</span> <span style="color: #E6E4CF;">(</span>bt:make-lock<span style="color: #E6E4CF;">)</span>
+          <span style="color: #FFFFE9; font-style: italic;">:documentation</span> <span style="color: #AAA896; font-style: italic;">"For synchronization."</span>
+          <span style="color: #FFFFE9; font-style: italic;">:reader</span> lock<span style="color: #CFCDB9;">)</span>
+   <span style="color: #CFCDB9;">(</span>%condition-variable <span style="color: #FFFFE9; font-style: italic;">:initform</span> <span style="color: #E6E4CF;">(</span>bt:make-condition-variable<span style="color: #E6E4CF;">)</span>
+                        <span style="color: #FFFFE9; font-style: italic;">:documentation</span> <span style="color: #AAA896; font-style: italic;">"For synchronization."</span>
+                        <span style="color: #FFFFE9; font-style: italic;">:reader</span> condition-variable<span style="color: #CFCDB9;">)</span>
+   <span style="color: #CFCDB9;">(</span>%callbacks-list <span style="color: #FFFFE9; font-style: italic;">:initform</span> nil
+                    <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:callbacks-list</span>
+                    <span style="color: #FFFFE9; font-style: italic;">:accessor</span> callbacks-list<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">fill-response</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>response response<span style="color: #CFCDB9;">)</span> data<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #F4F2DC; background-color: #484639; font-weight: bold;">check-type</span> data list<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">let</span> <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span>response-type <span style="color: #F4F2DC;">(</span>first data<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+        <span style="color: #E6E4CF;">(</span>response-data <span style="color: #F4F2DC;">(</span>rest data<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #F4F2DC; background-color: #484639; font-weight: bold;">assert</span> <span style="color: #E6E4CF;">(</span>null <span style="color: #F4F2DC;">(</span>eql response-type nil<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">bt:with-lock-held</span> <span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span>lock response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC; background-color: #484639; font-weight: bold;">assert</span> <span style="color: #F4F2DC;">(</span>null <span style="color: #FDFBE4;">(</span>response-type response<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span>setf <span style="color: #F4F2DC;">(</span>response-type response<span style="color: #F4F2DC;">)</span> response-type
+            <span style="color: #F4F2DC;">(</span>response-data response<span style="color: #F4F2DC;">)</span> response-data<span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span>map nil <span style="color: #F4F2DC;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #FDFBE4;">(</span>x<span style="color: #FDFBE4;">)</span> <span style="color: #FDFBE4;">(</span>funcall x response<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span>
+           <span style="color: #F4F2DC;">(</span>callbacks-list response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span>bt:condition-notify <span style="color: #F4F2DC;">(</span>condition-variable response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    response<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">attach-to-response</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>response response<span style="color: #CFCDB9;">)</span> callback<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>alexandria:ensure-functionf callback<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">let</span> <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span>is-not-filled t<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">bt:with-lock-held</span> <span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span>lock response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span><span style="color: #FFFFED;">let</span> <span style="color: #F4F2DC;">(</span><span style="color: #FDFBE4;">(</span>response-type <span style="color: #FFFFE9;">(</span>response-type response<span style="color: #FFFFE9;">)</span><span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span>
+        <span style="color: #F4F2DC;">(</span>push callback <span style="color: #FDFBE4;">(</span>callbacks-list response<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span>
+        <span style="color: #F4F2DC;">(</span>setf is-not-filled <span style="color: #FDFBE4;">(</span>null response-type<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">unless</span> is-not-filled
+      <span style="color: #E6E4CF;">(</span>funcall callback response<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  response<span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">handle</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>response response<span style="color: #CFCDB9;">)</span> extra-context<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">bt:with-lock-held</span> <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span>lock response<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">when</span> <span style="color: #E6E4CF;">(</span>null <span style="color: #F4F2DC;">(</span>response-type response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span>bt:condition-wait <span style="color: #F4F2DC;">(</span>condition-variable response<span style="color: #F4F2DC;">)</span>
+                         <span style="color: #F4F2DC;">(</span>lock response<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>handle-with-message-and-response <span style="color: #E6E4CF;">(</span>message response<span style="color: #E6E4CF;">)</span>
+                                      <span style="color: #E6E4CF;">(</span>response-type response<span style="color: #E6E4CF;">)</span>
+                                      <span style="color: #E6E4CF;">(</span>response-data response<span style="color: #E6E4CF;">)</span>
+                                      extra-context<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #CFCDB9;">#|</span>
+<span style="color: #AAA896; font-style: italic;">The actual application logic is reduced to just pure essentials.</span>
+<span style="color: #AAA896; font-style: italic;">|#</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">hello-message</span> <span style="color: #AAA896;">(</span>fundamental-message<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>%target <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:target</span>
+            <span style="color: #FFFFE9; font-style: italic;">:reader</span> target<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">handle-with-message-and-response</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message hello-message<span style="color: #CFCDB9;">)</span>
+                                             <span style="color: #CFCDB9;">(</span>type <span style="color: #E6E4CF;">(</span>eql <span style="color: #FFFFE9; font-style: italic;">:error</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+                                             data
+                                             extra-context<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>format extra-context
+          <span style="color: #CFCDB9; font-style: italic;">"Saying hello to ~a failed :("</span>
+          <span style="color: #CFCDB9;">(</span>target message<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">handle-with-message-and-response</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message hello-message<span style="color: #CFCDB9;">)</span>
+                                             <span style="color: #CFCDB9;">(</span>type <span style="color: #E6E4CF;">(</span>eql <span style="color: #FFFFE9; font-style: italic;">:success</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+                                             data
+                                             extra-context<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>format extra-context
+          <span style="color: #CFCDB9; font-style: italic;">"Saying hello to ~a :)"</span>
+          <span style="color: #CFCDB9;">(</span>target message<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>message <span style="color: #E6E4CF;">(</span>make-instance 'hello-message <span style="color: #FFFFE9; font-style: italic;">:target</span> 'world<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>response <span style="color: #E6E4CF;">(</span>send-message message<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span> <span style="color: #AAA896; font-style: italic;">; non blocking</span>
+  <span style="color: #AAA896;">(</span>handle response t<span style="color: #AAA896;">)</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">or if we still want to use callbacks we can...</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">(attach-to-response response</span>
+  <span style="color: #CFCDB9;">;;                     </span><span style="color: #AAA896; font-style: italic;">(lambda (response)</span>
+  <span style="color: #CFCDB9;">;;                       </span><span style="color: #AAA896; font-style: italic;">(handle response t)))</span>
+  <span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+This burden is light though. There is no boiler plate code at all!
+</p>
+
+<p>
+We did not sacrifice anything. According to the rules we have outlined, our design is sound. However what is appealing to me on a more aesthetic level is how "alive" system seems to be. Instead of pulling wires, we let parts interact and magic to happen. It makes things more... fun.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2021-01-23 sob 15:39</p>
+</div>
+</body>
+</html>

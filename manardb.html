@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2021-01-23 sob 15:39 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manardb</title>
+<meta name="generator" content="Org mode">
+<meta name="description" content="A few remarks about the manardb."
+>
+<meta name="keywords" content="lisp,memory">
+<link rel="stylesheet" href="static/main.css" type="text/css"/>
+</head>
+<body>
+<div id="org-div-home-and-up-index-page"> <div> <a accesskey="H" href="https://sirherrbatka.github.io"> HOME </a> </div> </div><div id="content">
+<header>
+<h1 class="title">Manardb</h1>
+</header><p>
+You are running out of heap space in your Common Lisp system? Does your garbage collector hate you? You need something that would keep your objects away from the RAM, but at the same time would impose a minimal performance penalty. You, my friend, need manardb!
+</p>
+
+<p>
+Manardb is a speedy, memory-mapped lisp object-store. Since it lives in your process no network communication overhead is involved. But "what it does?" you ask. It allows you to build hierarchical data models out of the manardb objects, and consequently, use those objects just like you would standard-instances. How this is possible? Manardb classes are implemented in terms of MOP you can use slot-value to access slots of the instances, and, perhaps more importantly, inspect those objects with a normal object inspector. You won't need to write heaps of unusual, idiomatic code.
+</p>
+
+<p>
+My use case required working with a rather large dataset from multiple hundreds of Counter-Strike matches. Dataset was constructed by parsing the content of the demo files. These files represent multiple game states in the form of incremental delta changes. Updates happen at the known rate: 128 times per second (so-called tick rate). This leads to a more or less uniform distribution of ticks assigned to each delta and, as a result, algorithms like bucket sort perform well on it. You also don't need a sophisticated index to find where a specific tick begins in your demo, simply keeping a vector of lookup points for every, let's say 1280 ticks, works perfectly well. And manardb does not get into my way to do anything I deem to be a good idea. I appreciate that.
+</p>
+
+<p>
+However, not everything is ideal. Manardb object creation is not thread-safe. Class redefinitions are, flat out, prohibited. Transactions involve simply copying all of the data. Not even reflink, just copy. Garbage collection requires enough memory to hold every pointer, to every object in the main memory, or (alternatively) does not perform memory compaction.
+</p>
+
+<p>
+Having said that: if all you need is just speedy storage for a lot of data, manardb will fill the bill. Especially, if said data has features rendering general-purpose databases suboptimal.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2021-01-23 sob 15:39</p>
+</div>
+</body>
+</html>

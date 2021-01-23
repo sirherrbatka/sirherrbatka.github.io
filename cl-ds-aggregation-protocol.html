@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2021-01-23 sob 15:39 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design of cl-data-structures aggregation protocol</title>
+<meta name="generator" content="Org mode">
+<meta name="description" content="Mindset and reasoning behind cl-data-structures aggregation protocol."
+>
+<meta name="keywords" content="lisp, CLOS, object orientation">
+<link rel="stylesheet" href="static/main.css" type="text/css"/>
+</head>
+<body>
+<div id="org-div-home-and-up-index-page"> <div> <a accesskey="H" href="https://sirherrbatka.github.io"> HOME </a> </div> </div><div id="content">
+<header>
+<h1 class="title">Design of cl-data-structures aggregation protocol</h1>
+</header>
+<div id="outline-container-org200a795" class="outline-2">
+<h2 id="org200a795">Background</h2>
+<div class="outline-text-2" id="text-org200a795">
+<p>
+The very first post I have published on this blog was describing what are cl-data-structures ranges. In this post, I want to show how the introduction of ranges allowed to build universal aggregation functions on top of them. Hopefully, this short article can be beneficial as a demonstration of my approach to design and particular choices in the cl-data-structures.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org36dd533" class="outline-2">
+<h2 id="org36dd533">What is aggregation function?</h2>
+<div class="outline-text-2" id="text-org36dd533">
+<p>
+It is not so different from the SQL, really. Pretty much everything that is supposed to transform the whole range of the values into a single value can be considered to be an aggregation function. Yup, that's right, here comes your MAX, MIN, AVERAGE, and so other functions. The usefulness of such functions shouldn't need explanation, but some of the design considerations are less obvious.
+</p>
+
+<p>
+First of it is important to note that aggregation functions don't have to work in the very same way on every data. In fact, the major fraction of usefulness of such functions in SQL stems from the fact that aggregation can be controlled finely. SQL statement "select baz, MAX(foo) from bar GROUP BY baz" is a classic example demonstrating this angle, but it is worth noting that idea can go further than that.
+</p>
+
+<p>
+Let's consider for instance calculating Hodges-Lehmann estimator. To obtain the value of this estimator we will have to:
+</p>
+
+<ol class="org-ol">
+<li>Obtain a series containing every possible pair of observations in the data set.</li>
+<li>Calculate average for each of the pairs.</li>
+<li>Obtain median out of average.</li>
+</ol>
+
+<p>
+Hodges-Lehmann estimator is simple way to calculate the expected value of the parameter in the sample, even in the presence of outliers that would skew ordinary mean (mean for instance should not be used to describe expected salary in the country, but it is here and at this point I start to think that this malicious and intentional act). But what is the algorithmic complexity of the algorithm? Well, the first step clearly needs both quadratic time and space. Next one is linear in time. Next, we need to sort all values and find median: this would be log-linear by using optimal general purpose sorting algorithm or perhaps linear if we are feeling fancy enough for the bucket sort. If we want to just stick to the CL:SORT function we are ending up with worse then quadratic time. That is truly brutal for the large datasets.
+</p>
+
+<p>
+But there is a solution: just run all your calculations on a manageable sample. Obtained value can obviously diverge from the value calculated on a full sample. To counteract this, we can repeat the procedure multiple times and select (for instance) median of all sample values. This procedure is called bootstrapping, and it is crucial when trying to calculate statistical parameters by employing algorithms like the one before. Yet, we can't write code like "SELECT Hodges-Lehmann(foo) from bar BOOTSTRAP SAMPLES 1000 SIZE 10000" in the SQL. But wouldn't it be a neat feature?
+</p>
+
+<p>
+Also, let's not forget that some aggregation functions require more than just one step. Examples include everything that requires sorting, which naturally includes the MEDIAN and everything that includes the median as an intermediate step.
+</p>
+</div>
+</div>
+<div id="outline-container-orgbbfbedd" class="outline-2">
+<h2 id="orgbbfbedd">Mindset: Solve et coagula</h2>
+<div class="outline-text-2" id="text-orgbbfbedd">
+<p>
+Fundamentally any software architecture is just an exercise of skillfully dividing and combining parts of the problem in order to realize various goals. Therefore since we have at least a vague understanding of goals and the problem itself, let's consider how to divide the problem in order to achieve the desired result.
+</p>
+
+<ol class="org-ol">
+<li>We need a representation of the values that are about to be aggregated. This clearly should be just a range as it fits the description perfectly.</li>
+<li>We need the ability to invoke aggregation. A usual way to do so is to simply call a function with the proper argument. We will stick to it because I think that this is a type of the interface programmer would expect and want to use.</li>
+<li>W need means to control aggregation as described in the first paragraph. This is the least obvious part, and therefore it probably should be divided into more subproblems. Let's focus on this specific part for the moment.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgda86c38" class="outline-2">
+<h2 id="orgda86c38">Control flow</h2>
+<div class="outline-text-2" id="text-orgda86c38">
+<p>
+As Alan Kay would like to point out, the critical part of the object-oriented programming is communication, and since (as already pointed out) essence of all software architectures is combining and dividing it stands to reason that one should think how to control the aggregation by the means of the messages.
+</p>
+
+<p>
+So how to construct communication protocol that can somehow express the aggregation process? At the very top of the abstraction stack, we have the function called by the user. This function should just act as an entry point for the internal machinery and therefore it makes sense to delegate everything from this function call into a new generic function: apply-aggregation-function. This function will accept the original range passed to the aggregation function as well as the object representing the function.
+</p>
+
+<p>
+This perhaps requires some explanation to folks that are unaware of multiple dispatch object-oriented programming. Generic functions in Common Lisp act as declarations for methods. Methods in lisp are selected at the runtime, just like virtual methods in C++. The difference is how methods are selected. In C++ effective method is selected just based on the singular implicit this argument. In lisp, an effective method is selected on a combination of all arguments passed to the function. In the context of this article, it is important to remember that this allows both range class and aggregation function class to contribute to the apply-aggregation-function class.
+</p>
+
+<p>
+Everything that happens calling apply-aggregation-function can be decomposed into the following abstract operations:
+</p>
+
+<ol class="org-ol">
+<li>make-state</li>
+<li>aggregate</li>
+<li>state-result</li>
+</ol>
+
+<p>
+Make-state function shall construct a mutable state of an otherwise immutable function object. Its purpose is to hold any variables needed for the aggregation. It is worth noting that this way we will be able to construct independent aggregation states multiple times, so GROUP BY can be completely agnostic of the concrete function it is working with. An aggregate function will accept both the function representing object, the state constructed by make-state and a single element from the range. State-result is called to extract the final return value of the state for the user.
+</p>
+
+<p>
+It is important to keep in mind that this approach allows us to always construct a fresh empty state for the aggregation function.
+</p>
+
+<p>
+However, this is not sufficient for multipass aggregators. Here we have to additionally represent stages and therefore protocol becomes somewhat more complicated. We need to augment this already established set with the following functions:
+</p>
+
+<ol class="org-ol">
+<li>multi-aggregation-stages</li>
+<li>initialize-stage</li>
+</ol>
+
+<p>
+Function multi-aggregation-stages called on the arguments on the aggregation-function and list of arguments passed to it by the user will return a list of the mutable-stages. Each stage is a mutable object on its own right and will hold its own state as a slot in the instance. Therefore it makes no sense to call make-state with multi-stage-aggregation-function.
+</p>
+
+<p>
+Differences in handling those two function classes are strongly pronounced. We don't like that, and therefore we will combine both into one. We will introduce a new level of masking differences between those two approaches. It will be built around a new data type called aggregator and will consist of the following protocol:
+</p>
+
+<ol class="org-ol">
+<li>construct-aggregator</li>
+<li>apply-aggregation-function-with-aggregator</li>
+<li>expects-content-p</li>
+<li>pass-to-aggregation</li>
+<li>begin-aggregation</li>
+<li>end-aggregation</li>
+<li>extract-result</li>
+<li>aggregator-finished-p</li>
+</ol>
+
+<p>
+An aggregator is a mutable object that will hold both function and either stages or state while presenting a uniform interface. Construct-aggregator accepts function representing the object and therefore it is possible to construct the desired version of the aggregator based on the class of the aggregation function representing object. The once constructed aggregator will be passed to apply-aggregation-function-with-aggregator function where it essentially becomes a state machine. We can modify it by calls to begin-aggregation; end-aggregation; pass-to-aggregation, query by using functions expects-content-p and aggregator-finished-p. We will extract result out of the aggregator by calling (wait for it…) extract-result, the same function will be used to obtain intermediate result out of the aggregation stage.
+</p>
+
+<p>
+Things start to come together. Iterating over the data is missing but even so, we already see how aggregator will drive this process. We will simply keep passing all elements from the range into the aggregator with pass-to-aggregation until aggregator-finished-p will return T. We will also have to call begin-aggregation and end-aggregation around passing data to ensure that internal states of the aggregation algorithm can be initialized properly. The actual code is a very simple implementation of this idea.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">apply-aggregation-function</span> <span style="color: #AAA896;">(</span>range
+                                       <span style="color: #CFCDB9;">(</span>function aggregation-function<span style="color: #CFCDB9;">)</span>
+                                       <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;rest</span> all <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;key</span> key <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;allow-other-keys</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">let</span> <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span>aggregator <span style="color: #F4F2DC;">(</span>construct-aggregator range key function nil all<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>apply #'apply-aggregation-function-with-aggregator
+           aggregator range function all<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">apply-aggregation-function-with-aggregator</span>
+    <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator fundamental-aggregator<span style="color: #CFCDB9;">)</span>
+     range
+     <span style="color: #CFCDB9;">(</span>function aggregation-function<span style="color: #CFCDB9;">)</span>
+     <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;rest</span> all <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;key</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;allow-other-keys</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">declare</span> <span style="color: #CFCDB9;">(</span>ignore all<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>iterate
+<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">calling begin-aggregation when aggregator-finished-p is any error, so we will check it here...</span>
+    <span style="color: #CFCDB9;">(</span>until <span style="color: #E6E4CF;">(</span>aggregator-finished-p aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>begin-aggregation aggregator<span style="color: #CFCDB9;">)</span>
+<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">and here, to ensure that begin-aggregation did not change aggregator-finished-p result.</span>
+    <span style="color: #CFCDB9;">(</span>until <span style="color: #E6E4CF;">(</span>aggregator-finished-p aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">sometimes the last stage just need call to end-aggregation</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">when</span> <span style="color: #E6E4CF;">(</span>cl-ds.alg.meta:expects-content-p aggregator<span style="color: #E6E4CF;">)</span>
+       <span style="color: #E6E4CF;">(</span>cl-ds:across range
+                     <span style="color: #F4F2DC;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #FDFBE4;">(</span>x<span style="color: #FDFBE4;">)</span>
+                       <span style="color: #FDFBE4;">(</span>pass-to-aggregation aggregator
+                                            x<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>end-aggregation aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>extract-result aggregator<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+At this point system is composed out of three distinctive layers.
+</p>
+
+<ol class="org-ol">
+<li>Ranges and accross function.</li>
+<li>Aggregation functions and states.</li>
+<li>Aggregator.</li>
+</ol>
+
+<p>
+Once again I want to point out that whole design boils down truly to separating and combining. Function, state of the function and iteration were separated from each other and combined together with a more convenient way in the aggregator.
+</p>
+
+<p>
+We didn't yet arrive at the complete and final design but the pieces are really there.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org54124ac" class="outline-2">
+<h2 id="org54124ac">Control in the GROUP-BY level</h2>
+<div class="outline-text-2" id="text-org54124ac">
+<p>
+Construct-aggregator accepts range for a reason. Although normally aggregator shouldn't care about range once it is constructed we still need a separate to the aggregation function way to control part of the aggregation. The answer is a proxy range, like the CL-DS:FORWARD-GROUP-BY-PROXY. This range does not affect in any way, shape or form data underneath, and exists purely to construct different aggregator.
+</p>
+
+<p>
+Group by aggregator will simply check at each element in the range if the grouping value was already seen. If it was not, the new aggregator will be constructed just like it would be from the range beneath the proxy range and placed in the hash table. Next, we will simply pass the value to the sub-aggregator. Extracting result boils down to calling extract-result for each created aggregator and then returning it in the form of the range.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">group-by-aggregator</span> <span style="color: #AAA896;">(</span>cl-ds.alg.meta:fundamental-aggregator<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>%groups <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:groups</span>
+            <span style="color: #FFFFE9; font-style: italic;">:type</span> hash-table
+            <span style="color: #FFFFE9; font-style: italic;">:reader</span> read-groups<span style="color: #CFCDB9;">)</span>
+   <span style="color: #CFCDB9;">(</span>%outer-fn <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:outer-fn</span>
+              <span style="color: #FFFFE9; font-style: italic;">:reader</span> read-outer-fn<span style="color: #CFCDB9;">)</span>
+   <span style="color: #CFCDB9;">(</span>%group-by-key <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:group-by-key</span>
+                  <span style="color: #FFFFE9; font-style: italic;">:reader</span> read-key<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:pass-to-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span>
+                                               element<span style="color: #AAA896;">)</span>
+<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">this code uses metabang-bind that provides bind macro.</span>
+<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">This macro roles with-slots, with-accessors, destructuring-bind, multiple-value-bind</span>
+<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">flet and some into one macro. It is pretty dope.</span>
+  <span style="color: #AAA896;">(</span>bind <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:slots</span> %group-by-key %groups %outer-fn<span style="color: #F4F2DC;">)</span> aggregator<span style="color: #E6E4CF;">)</span>
+         <span style="color: #E6E4CF;">(</span>selected <span style="color: #F4F2DC;">(</span>~&gt;&gt; element <span style="color: #FDFBE4;">(</span>funcall %group-by-key<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+         <span style="color: #E6E4CF;">(</span>group <span style="color: #F4F2DC;">(</span>gethash selected %groups<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">when</span> <span style="color: #E6E4CF;">(</span>null group<span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span>setf group <span style="color: #F4F2DC;">(</span>funcall %outer-fn<span style="color: #F4F2DC;">)</span>
+            <span style="color: #F4F2DC;">(</span>gethash selected %groups<span style="color: #F4F2DC;">)</span> group<span style="color: #E6E4CF;">)</span>
+      <span style="color: #E6E4CF;">(</span>cl-ds.alg.meta:begin-aggregation group<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>cl-ds.alg.meta:pass-to-aggregation group element<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:extract-result</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>bind <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:slots</span> %key %groups %outer-fn<span style="color: #F4F2DC;">)</span> aggregator<span style="color: #E6E4CF;">)</span>
+         <span style="color: #E6E4CF;">(</span>groups <span style="color: #F4F2DC;">(</span>copy-hash-table %groups<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>maphash <span style="color: #E6E4CF;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #F4F2DC;">(</span>key aggregator<span style="color: #F4F2DC;">)</span>
+               <span style="color: #F4F2DC;">(</span>setf <span style="color: #FDFBE4;">(</span>gethash key groups<span style="color: #FDFBE4;">)</span> <span style="color: #FDFBE4;">(</span>cl-ds.alg.meta:extract-result aggregator<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
+             %groups<span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>make-hash-table-range groups<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:begin-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>iterate
+    <span style="color: #CFCDB9;">(</span>for <span style="color: #E6E4CF;">(</span>key value<span style="color: #E6E4CF;">)</span> in-hashtable <span style="color: #E6E4CF;">(</span>read-groups aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>begin-aggregation value<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:end-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">iterate is just as dope as metabang-bind</span>
+  <span style="color: #AAA896;">(</span>iterate
+    <span style="color: #CFCDB9;">(</span>for <span style="color: #E6E4CF;">(</span>key value<span style="color: #E6E4CF;">)</span> in-hashtable <span style="color: #E6E4CF;">(</span>read-groups aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>end-aggregation value<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+<p>
+And that's all. Stay tuned for more information on this.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2021-01-23 sob 15:39</p>
+</div>
+</body>
+</html>

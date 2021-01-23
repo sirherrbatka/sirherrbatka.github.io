@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2021-01-23 sob 15:39 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cl-data-structure ranges are pretty cool</title>
+<meta name="generator" content="Org mode">
+<meta name="description" content="How cl-data-structure provides universal stream-like interface, and why it is useful."
+>
+<meta name="keywords" content="Common Lisp, cl-data-structures">
+<link rel="stylesheet" href="static/main.css" type="text/css"/>
+</head>
+<body>
+<div id="org-div-home-and-up-index-page"> <div> <a accesskey="H" href="https://sirherrbatka.github.io"> HOME </a> </div> </div><div id="content">
+<header>
+<h1 class="title">cl-data-structure ranges are pretty cool</h1>
+</header><p>
+Before I decided to live in The Land Of Lisp I was living and slowly dying by the C++. Common Lisp is obviously much nicer, friendlier, better designed and more comfortable language but there is one aspect of C++ that appeared to be clearly lacking in the Common Lisp: iterators.
+</p>
+
+<p>
+C++ iterators at the time of introduction were quite an innovative thing. They provide a universal interface to all STD containers without runtime penalty and therefore allow the rich set of standard algorithms to work on all containers. It does not matter if you are using std::array or std::vector, std::lower_bound will work on both, without the explicit use of pointers. It is a huge improvement over the mess that C code can be.
+</p>
+
+<p>
+Obviously, the situation in Common Lisp is rather different. There is no such thing as a standard container. There is the sequence, and this can be either vector (simple or not) or list, but that's it. Hashtables, multidimensional arrays are completely separate beasts and cannot be easily tamed. This made sense in the late 80s status quo probably, just like C++ iterators seemed to be sufficient back in the late 90s. It is worth noting, however, that even in such a stagnant and conservative world as IT, things eventually progress.
+</p>
+
+<p>
+C++ iterators no longer seem to be revolutionary at all. In fact, they are not even that convenient when compared to the modern ranges, like those present in the D language. Streaming operations akin to those of Spark or Linq are all the rage now.
+</p>
+
+<p>
+Obviously, Common Lisp does not have anything like this in the standard. But should we suffer? Lisp is empowering, we can do amazing things with it. Therefore, I decided to start cl-data-structures project and see what I can get done.
+</p>
+
+<p>
+Just like the name suggests, cl-data-structures intends to be a collection of containers for Common Lisp. I will not discuss design decisions I took regarding containers itself. Instead, I will focus on demonstrating what are cl-data-structure ranges, how they are useful, and proving my point: that they are, in fact, rather cool.
+</p>
+
+<p>
+A range is simply a protocol concept. By that, I mean that it should be considered to be low level, minimal interface. A stepping stone to build more complicated things and means of communications between different subsystems. In this regard, ranges are not that far from C++ iterators. Iterators, however, tend to come in pairs to describe the begin and end of the bounds. A range, on the other hand, is inherently bound and therefore can be used on its own. Obviously, this means one argument less everywhere which is handy, but much more significant are implications for the abstraction power of range: because a range is supposed to know on its own where it ends (or if it ends at all) it can be used as a decorator for the variety of other objects (like file streams) much more easily while still being suitable as a container interface. Having a common abstraction is extremely useful because it means that functions can be applied in a universal manner. To demonstrate this feature let us consider the following example.
+</p>
+
+<p>
+CSV format is absolutely horrible but at the same time ubiquitous. It is sadly, still commonly used to exchange data between databases and even data scientists. All due to its simplicity first line represents table header, every following line is a data row. You can even open it in the text editor and hope to see something human readable. Needless to say, I have a plenty of CSV files on my hard drive with database backups. Obviously, I am lazy, so it is a total mess and I have no idea which CSV files represent concrete table schema. Luckily, as already mentioned, CSV is a simplistic format, so I will assume that the first row in the CSV file represents my schema. Grouping those files according to the first stage should reduce the amount of work needed to order my files completely, which is obviously nice. Luckily, this is not a complex task, because I already have my basic building blocks.
+</p>
+
+<p>
+First of, cl-ds.fs package offers the find function. Find function acts similar to the POSIX find, that is: it allows to find files. Called find will return the find-range object. Find-range is a way to obtain paths to desired files. Calling cl-ds:consume-front on find-range will return two values, path and information if the end was reached. The content of the range is constructed lazily, after each call to consume-front, so obtaining a fixed number of top results is efficient. Let's find my CSV files!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>search-in `<span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:all-directories</span> <span style="color: #FFFFE9; font-style: italic;">:path</span> <span style="color: #CFCDB9; font-style: italic;">"/home/shka/Datasets/"</span><span style="color: #F4F2DC;">)</span>
+                    <span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:all-files</span> <span style="color: #FFFFE9; font-style: italic;">:predicate</span>
+                                ,<span style="color: #FDFBE4;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #FFFFE9;">(</span>x<span style="color: #FFFFE9;">)</span>
+                                   <span style="color: #FFFFE9;">(</span>string= <span style="color: #CFCDB9; font-style: italic;">"csv"</span>
+                                            <span style="color: #FFFFED;">(</span>pathname-type x<span style="color: #FFFFED;">)</span><span style="color: #FFFFE9;">)</span><span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>file-range <span style="color: #E6E4CF;">(</span>cl-ds.fs:find search-in<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">multiple-value-bind</span> <span style="color: #CFCDB9;">(</span>path more<span style="color: #CFCDB9;">)</span> <span style="color: #CFCDB9;">(</span>cl-ds:consume-front file-range<span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>print path<span style="color: #CFCDB9;">)</span> <span style="color: #AAA896; font-style: italic;">; path is a pathname to csv file</span>
+    <span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+The above example demonstrates how to call cl-ds.fs:find function. We are passing search specification in the form of the list. Each cell in the spefication handles part of a hierchical file system path. It is possible to use regexps with :regex-file and :regex-directory. Along with the ability to pass arbitrary function as a predicate for path makes this perhaps just slightly more flexible then your standard posix find program. Cl-ds:consume-front clearly needs to not only provide user with the result, but also inform if end was reached. This is the purpose of the more argument.
+</p>
+
+<p>
+We obviously don't want to manually walk over the range in the loop, or, at least, not every time. Instead, It is preferred to use aggregation functions. Those include the cl-ds.alg:accumulate function (literally like reduce function but works on ranges and containers of cl-ds) as well as count-elements and various math related functions (average, median and others). In order to convert range into vector, we can use cl-ds.alg:to-vector function, just like demonstated below.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>search-in `<span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:all-directories</span> <span style="color: #FFFFE9; font-style: italic;">:path</span> <span style="color: #CFCDB9; font-style: italic;">"/home/shka/Datasets/"</span><span style="color: #F4F2DC;">)</span>
+                    <span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:all-files</span> <span style="color: #FFFFE9; font-style: italic;">:predicate</span>
+                                ,<span style="color: #FDFBE4;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #FFFFE9;">(</span>x<span style="color: #FFFFE9;">)</span>
+                                   <span style="color: #FFFFE9;">(</span>string= <span style="color: #CFCDB9; font-style: italic;">"csv"</span>
+                                            <span style="color: #FFFFED;">(</span>pathname-type x<span style="color: #FFFFED;">)</span><span style="color: #FFFFE9;">)</span><span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>file-range <span style="color: #E6E4CF;">(</span>cl-ds.fs:find search-in<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>vector-of-paths <span style="color: #E6E4CF;">(</span>cl-ds.alg:to-vector file-range<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">vector of paths is cl:vector of paths</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">found by the cl-ds.fs:find function</span>
+  vector-of-paths<span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+Aggregation functions are not merely naive loops. In fact they are expressed inside tight protocol, and therefore it is possible to extend and modify aggregation algorithm without modyfing aggreation function itself. Cl-ds.alg:group-by allows changing the behavior of aggregation functions, similarly to how SQL group by works. For instance, We can calculate the sum of numbers in the range depending on the parity in the following way.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>input #<span style="color: #E6E4CF;">(</span><span style="color: #CFCDB9; font-weight: bold;">0</span> <span style="color: #CFCDB9; font-weight: bold;">1</span> <span style="color: #CFCDB9; font-weight: bold;">2</span> <span style="color: #CFCDB9; font-weight: bold;">3</span> <span style="color: #CFCDB9; font-weight: bold;">4</span> <span style="color: #CFCDB9; font-weight: bold;">5</span> <span style="color: #CFCDB9; font-weight: bold;">6</span> <span style="color: #CFCDB9; font-weight: bold;">7</span> <span style="color: #CFCDB9; font-weight: bold;">8</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>range <span style="color: #E6E4CF;">(</span>cl-ds.alg:group-by input <span style="color: #FFFFE9; font-style: italic;">:key</span> #'evenp<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>aggregation <span style="color: #E6E4CF;">(</span>cl-ds.alg:accumulate #'+ range<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>even-sum <span style="color: #E6E4CF;">(</span>cl-ds:at aggregation t<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>odd-sum <span style="color: #E6E4CF;">(</span>cl-ds:at aggregation nil<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>print even-sum<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>print odd-sum<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+To obtain groups of CSV files We can simply combine functions already introduced. We will group files by the first line, and then aggregate those with cl-ds.alg:to-vector function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defun</span> <span style="color: #E6E4CF;">open-and-read-first-line</span> <span style="color: #AAA896;">(</span>path<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">with-open-file</span> <span style="color: #CFCDB9;">(</span>stream path<span style="color: #CFCDB9;">)</span>
+    <span style="color: #CFCDB9;">(</span>read-line stream<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+
+<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">let*</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>search-in `<span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:all-directories</span> <span style="color: #FFFFE9; font-style: italic;">:path</span> <span style="color: #CFCDB9; font-style: italic;">"/home/shka/Datasets/"</span><span style="color: #F4F2DC;">)</span>
+                    <span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:all-files</span> <span style="color: #FFFFE9; font-style: italic;">:predicate</span>
+                                ,<span style="color: #FDFBE4;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #FFFFE9;">(</span>x<span style="color: #FFFFE9;">)</span>
+                                   <span style="color: #FFFFE9;">(</span>string= <span style="color: #CFCDB9; font-style: italic;">"csv"</span>
+                                            <span style="color: #FFFFED;">(</span>pathname-type x<span style="color: #FFFFED;">)</span><span style="color: #FFFFE9;">)</span><span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>file-range <span style="color: #E6E4CF;">(</span>cl-ds.fs:find search-in<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>groups <span style="color: #E6E4CF;">(</span>cl-ds.alg:group-by file-range
+                                   <span style="color: #FFFFE9; font-style: italic;">:key</span> #'open-and-read-first-line
+                                   <span style="color: #FFFFE9; font-style: italic;">:test</span> 'equal<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+       <span style="color: #CFCDB9;">(</span>grouped-paths <span style="color: #E6E4CF;">(</span>cl-ds.alg:to-vector #'+ groups<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">btw, aggregating grouped range, also returns range.</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">It contains dotted pairs of (key . value).</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">In this case that would be (csv-header . vector-of-pathnames).</span>
+  <span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">This can be coverted into an alist in the following way.</span>
+  <span style="color: #AAA896;">(</span>cl-ds.alg:accumulate <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #E6E4CF;">(</span>prev next<span style="color: #E6E4CF;">)</span> <span style="color: #E6E4CF;">(</span>cons next prev<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
+                        grouped-paths
+                        <span style="color: #FFFFE9; font-style: italic;">:initial-value</span> nil<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+</pre>
+</div>
+
+<p>
+And that's it! By using a dictionary of reusable functions it is possible to write shorter, easier to understand programs. Obviously, that's nothing new. The trick is to actually have those functions working together, and this is possible thanks to ranges that provide a basic protocol to build on.
+</p>
+
+<p>
+So yeah, ranges are rather cool.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2021-01-23 sob 15:39</p>
+</div>
+</body>
+</html>
