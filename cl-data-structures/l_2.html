@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="style.css"> <link href="https://fonts.googleapis.com/css?family=Inconsolata|Lato" rel="stylesheet"></head><body>
-<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2302044199771664768">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#199838287358526506">Overview</a><ul><li><a href="l_1.html#1334054598124453286">Conventions</a></li><li><a href="l_1.html#3345260282130244903">Key concepts</a><ul><li><a href="l_1.html#1167006943515967463">Signaling errors</a></li><li><a href="l_1.html#1020842702118139778">Modification Status</a></li><li><a href="l_1.html#1533376183908765071">Trait classes</a></li><li><a href="l_1.html#2498415301010287709">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#253039147318670351">API Reference</a><ul><li><a href="l_2.html#4504423889029691808">Common API</a><ul><li><a href="l_2.html#2211029834932029248">Generic Functions</a></li><li><a href="l_2.html#1292543966797475988">Macros</a></li><li><a href="l_2.html#2197802230683919542">Classes</a></li><li><a href="l_2.html#2432534644358982004">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#3931666485041523274">Dictionary structures</a><ul><li><a href="l_3.html#2393632797174456140">API</a></li><li><a href="l_3.html#3620532292955694983">HAMT</a><ul><li><a href="l_3.html#1338230605118278950">Constructing</a></li><li><a href="l_3.html#418391189679219840">POSITION-MODIFICATION contracts</a></li></ul></li><li><a href="l_3.html#2949211009897348364">Sparse RRB Vector</a><ul><li><a href="l_3.html#3807754537950657764">Constructing</a></li></ul></li></ul></li><li><a href="l_4.html#2875044223957610475">Set structures</a><ul><li><a href="l_4.html#4253004540991457197">API</a></li><li><a href="l_4.html#306045194095426370">QP-Trie set</a></li><li><a href="l_4.html#2986122358757635751">Skip-list set</a></li></ul></li><li><a href="l_5.html#3430540343804103170">Queue structures</a><ul><li><a href="l_5.html#736676453747542885">API</a></li><li><a href="l_5.html#612639318947082217">2-3-tree</a></li></ul></li><li><a href="l_6.html#4140599406605210134">Sequence structures</a><ul><li><a href="l_6.html#2161705360457610321">API</a></li><li><a href="l_6.html#3972151251825519004">RRB vector</a></li></ul></li><li><a href="l_7.html#2156024224490829188">Algorithms Reference</a><ul><li><a href="l_7.html#1382022521975466582">Aggregation Functions</a></li><li><a href="l_7.html#3153738501303225819">Layer Functions</a></li><li><a href="l_7.html#2993032490800427822">Other Functions</a></li><li><a href="l_7.html#1277034300862545467">Variables</a></li></ul></li><li><a href="l_8.html#2499152009786510877">File System Reference</a></li><li><a href="l_9.html#4221446436371228303">Math Reference</a></li><li><a href="l_10.html#3898583616315760318">Threads Reference</a></li><li><a href="l_11.html#2800954523042733305">Streaming Algorithms Reference</a></li><li><a href="l_12.html#3910162088367688658">Internal details</a><ul><li><a href="l_12.html#2908958957756157358">Lazy evaluation</a></li><li><a href="l_12.html#2995797554166143300">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_12.html#2624854414422749076">Generic Functions</a></li><li><a href="l_12.html#519377585175973165">Classes</a></li></ul></li><li><a href="l_12.html#379397461167302597">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="253039147318670351"><h2>API Reference
-</h2><p>This section contains reference of all the basic functions, classes and macros provided by this library to the user.</p><div id="4504423889029691808"><h3>Common API
-</h3><div id="2211029834932029248"><h4>Generic Functions
-</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entieriety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="1913166767739353257"><h5>Query Functions
+<div class="wrap"><div class="vertical-menu"><ul><li><a href="main.html#2021904022008749636">CL-DATA-STRUCTURES</a><ul><li><a href="l_1.html#1090518599388745200">Overview</a><ul><li><a href="l_1.html#2408426973187410442">Conventions</a></li><li><a href="l_1.html#1788488488191750111">Key concepts</a><ul><li><a href="l_1.html#3791335489673301544">Signaling errors</a></li><li><a href="l_1.html#4237722752576498891">Modification Status</a></li><li><a href="l_1.html#99649578721122685">Trait classes</a></li><li><a href="l_1.html#1225083916039358649">Variants</a></li></ul></li></ul></li><li><a href="l_2.html#339613936700475591">API Reference</a><ul><li><a href="l_2.html#967979254803487918">Common API</a><ul><li><a href="l_2.html#3417883450516256713">Generic Functions</a></li><li><a href="l_2.html#2207312442538163414">Macros</a></li><li><a href="l_2.html#2480565662428222344">Classes</a></li><li><a href="l_2.html#3054237486880956554">Conditions</a></li></ul></li></ul></li><li><a href="l_3.html#1957863094862232075">Dictionary structures</a><ul><li><a href="l_3.html#4274058219169561538">API</a></li><li><a href="l_3.html#69366661503746540">HAMT</a><ul><li><a href="l_3.html#1298130739453884667">Constructing</a></li></ul></li><li><a href="l_3.html#1369705538653476237">Sparse RRB Vector</a><ul><li><a href="l_3.html#1285929279875047488">Constructing</a></li></ul></li></ul></li><li><a href="l_4.html#2027120996393268979">Set structures</a><ul><li><a href="l_4.html#1462562675324527285">API</a></li><li><a href="l_4.html#2619633136352386633">QP-Trie set</a></li><li><a href="l_4.html#1904927841342370795">Skip-list set</a></li></ul></li><li><a href="l_5.html#805781574960598872">Queue structures</a><ul><li><a href="l_5.html#4369512243688403417">API</a></li><li><a href="l_5.html#1614456869240637708">2-3-tree</a></li></ul></li><li><a href="l_6.html#3548210592433313523">Sequence structures</a><ul><li><a href="l_6.html#1565830479629887253">API</a></li><li><a href="l_6.html#2750717233731988035">RRB vector</a></li></ul></li><li><a href="l_7.html#3919534092164677545">Algorithms Reference</a><ul><li><a href="l_7.html#1244819244431304455">Aggregation Functions</a></li><li><a href="l_7.html#61471012282738812">Layer Functions</a></li><li><a href="l_7.html#775703022545941718">Other Functions</a></li><li><a href="l_7.html#2954724107917220527">Variables</a></li></ul></li><li><a href="l_8.html#3148924839628519163">File System Reference</a></li><li><a href="l_9.html#3376607858561172815">Math Reference</a></li><li><a href="l_10.html#1373374178587348217">Threads Reference</a></li><li><a href="l_11.html#862202197771643514">Streaming Algorithms Reference</a></li><li><a href="l_12.html#224675896931562638">Internal details</a><ul><li><a href="l_12.html#2620387859954409371">Lazy evaluation</a></li><li><a href="l_12.html#3111399091412560044">POSITION-MODIFICATION metaprotocol</a><ul><li><a href="l_12.html#1448059136864350571">Generic Functions</a></li><li><a href="l_12.html#68957276173770212">Classes</a></li></ul></li><li><a href="l_12.html#76141356421928929">Aggregation algorithms metaprotocol</a></li></ul></li></ul></li></ul></div><div class="content"><div id="339613936700475591"><h2>API Reference
+</h2><p>This section contains reference of all the basic functions, classes and macros provided by this library to the user.</p><div id="967979254803487918"><h3>Common API
+</h3><div id="3417883450516256713"><h4>Generic Functions
+</h4><p>The following set contains generic functions that can be used to query or manipulate containers. Not all containers can be manipulated with entirety of those functions. However, applicable functions are defined in the category of container, and thus, this manual lists functions applicable for instances of containers in each category.</p><div id="829406123197438386"><h5>Query Functions
 </h5><p>Following generic functions check state of the container and are not allowed to change it.</p>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 AT
@@ -16,7 +16,6 @@ AT
 <pre><code>(LET ((TABLE
        (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-MUTABLE-HAMT-DICTIONARY #&#039;SXHASH
                                                                    #&#039;EQ)))
-  (PROVE.TEST:DIAG &quot;Testing example for AT function.&quot;)
   (MULTIPLE-VALUE-BIND (VALUE FOUND)
       (CL-DATA-STRUCTURES:AT TABLE &#039;A)
     (PROVE.TEST:IS VALUE NIL)
@@ -40,7 +39,6 @@ NEAR
        (SET
         (CL-DATA-STRUCTURES:MAKE-FROM-TRAVERSABLE DATA
                                                   &#039;CL-DATA-STRUCTURES.METRIC-SPACE.EGNAT:MUTABLE-EGNAT-METRIC-SET
-                                                  #&#039;=
                                                   (ALEXANDRIA:COMPOSE #&#039;ABS
                                                                       #&#039;-)
                                                   &#039;FIXNUM))
@@ -74,7 +72,6 @@ MUTABLEP
 <ul><li>mutablep mutable-container => t</li><li>mutablep functional-container => nil</li></ul><br><b>Arguments:</b>
 <ul><li>CONTAINER, Any subclass of fundamental-container</li></ul><br><b>Examples:</b>
 <pre><code>(PROGN
- (PROVE.TEST:DIAG &quot;Running example for mutablep.&quot;)
  (LET ((MUTABLE
         (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-MUTABLE-HAMT-DICTIONARY #&#039;SXHASH
                                                                     #&#039;EQ)))
@@ -94,14 +91,12 @@ TRANSACTIONALP
 transactionalp container =&gt; boolean
 <br><b>Arguments:</b>
 <ul><li>container, An subclass of the fundamental-container.</li></ul><br><b>Examples:</b>
-<pre><code>(PROGN
- (PROVE.TEST:DIAG &quot;Running example for the transactionalp.&quot;)
- (LET ((CONTAINER
-        (CL-DATA-STRUCTURES:BECOME-TRANSACTIONAL
-         (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-MUTABLE-HAMT-DICTIONARY #&#039;SXHASH
-                                                                     #&#039;EQ))))
-   (PROVE.TEST:OK (CL-DATA-STRUCTURES:MUTABLEP CONTAINER))
-   (PROVE.TEST:OK (CL-DATA-STRUCTURES:TRANSACTIONALP CONTAINER))))</pre></code><br><b>Returns:</b>
+<pre><code>(LET ((CONTAINER
+       (CL-DATA-STRUCTURES:BECOME-TRANSACTIONAL
+        (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-MUTABLE-HAMT-DICTIONARY #&#039;SXHASH
+                                                                    #&#039;EQ))))
+  (PROVE.TEST:OK (CL-DATA-STRUCTURES:MUTABLEP CONTAINER))
+  (PROVE.TEST:OK (CL-DATA-STRUCTURES:TRANSACTIONALP CONTAINER)))</pre></code><br><b>Returns:</b>
 T if the CONTAINER is transactional and NIL if it is not.
 <br></div><div class="generic-info"><div class="doc-name">
 FUNCTIONALP
@@ -111,7 +106,6 @@ FUNCTIONALP
 <ul><li>(functionalp mutable-container) -> nil</li><li>(functionalp functional-container) -> t</li></ul><br><b>Arguments:</b>
 <ul><li>container, A subclass of the fundamental-container</li></ul><br><b>Examples:</b>
 <pre><code>(PROGN
- (PROVE.TEST:DIAG &quot;Running example for the functionalp function.&quot;)
  (LET ((MUTABLE
         (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-MUTABLE-HAMT-DICTIONARY #&#039;SXHASH
                                                                     #&#039;EQ)))
@@ -125,7 +119,7 @@ FUNCTIONALP
 T if CONTAINER exposes functional API and NIL if not.
 <br></div></div><p>Immutable and mutable containers are modified by separate sets of functions.</p><table><tr><td><b>Immutable
 </b></td><td><b>Mutable
-</b></td></tr><tr><td>INSERT</td><td>(SETF AT)</td></tr><tr><td>ADD</td><td>ADD!</td></tr><tr><td>UPDATE</td><td>UPDATE!</td></tr><tr><td>UPDATE-IF</td><td>UPDATE-IF!</td></tr><tr><td>ERASE</td><td>ERASE!</td></tr><tr><td>ERASE-IF</td><td>ERASE-IF!</td></tr><tr><td>PUT</td><td>PUT!</td></tr><tr><td>TAKE-OUT</td><td>TAKE-OUT!</td></tr></table><div id="3264935384445092273"><h5>Functional modification API
+</b></td></tr><tr><td>INSERT</td><td>(SETF AT)</td></tr><tr><td>ADD</td><td>ADD!</td></tr><tr><td>UPDATE</td><td>UPDATE!</td></tr><tr><td>UPDATE-IF</td><td>UPDATE-IF!</td></tr><tr><td>ERASE</td><td>ERASE!</td></tr><tr><td>ERASE-IF</td><td>ERASE-IF!</td></tr><tr><td>PUT</td><td>PUT!</td></tr><tr><td>TAKE-OUT</td><td>TAKE-OUT!</td></tr></table><div id="2743758547081037873"><h5>Functional modification API
 </h5>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 INSERT
@@ -150,7 +144,17 @@ This is the functional counterpart to the (SETF AT) function.
 ADD
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (CONTAINER LOCATION NEW-VALUE)
-</div><b>Description:</b>
+</div><b>Examples:</b>
+<pre><code>(LET* ((_
+        (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-FUNCTIONAL-HAMT-DICTIONARY #&#039;SXHASH
+                                                                       #&#039;EQ))
+       (_ (CL-DATA-STRUCTURES:ADD _ 0 &#039;A))
+       (_ (CL-DATA-STRUCTURES:ADD _ 0 &#039;B))
+       (_ (CL-DATA-STRUCTURES:ADD _ 1 &#039;C))
+       (_ (CL-DATA-STRUCTURES:INSERT _ 1 &#039;D))
+       (_ (CL-DATA-STRUCTURES.ALGORITHMS:TO-VECTOR _))
+       (_ (SORT _ #&#039;&lt; :KEY #&#039;CAR)))
+  (PROVE.TEST:IS _ &#039;#((0 . A) (1 . D)) :TEST #&#039;EQUALP))</pre></code><br><b>Description:</b>
 Add NEW-VALUE into the CONTAINER at the LOCATION. Will not replace a value at LOCATION if it was already occupied.
 <br></div><div class="generic-info"><div class="doc-name">
 UPDATE
@@ -188,7 +192,6 @@ erase container location =&gt; new-instance status
         (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-FUNCTIONAL-HAMT-DICTIONARY #&#039;SXHASH
                                                                        #&#039;EQ))
        (NEXT-TABLE (CL-DATA-STRUCTURES:INSERT TABLE &#039;A 5)))
-  (PROVE.TEST:DIAG &quot;Running example for ERASE&quot;)
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;A) 5)
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT TABLE &#039;A) 5 :TEST
                  (ALEXANDRIA:COMPOSE #&#039;NULL #&#039;EQL))
@@ -209,36 +212,30 @@ ERASE-IF
 </div><b>Syntax:</b>
 erase-if container location condition =&gt; new-instance status
 <br><b>Arguments:</b>
-<ul><li>CONTAINER, Container that shall be modified.</li><li>LOCATION, Designates place in returned instance that will be changed.</li><li>CONDITION, Function of two arguments, should return boolean.</li></ul><br><b>Examples:</b>
+<ul><li>CONTAINER, Container that shall be modified.</li><li>LOCATION, Designates place in returned instance that will be changed.</li><li>CONDITION, Function of one arguments, should return boolean.</li></ul><br><b>Examples:</b>
 <pre><code>(LET* ((TABLE
         (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-FUNCTIONAL-HAMT-DICTIONARY #&#039;SXHASH
                                                                        #&#039;EQ))
        (NEXT-TABLE
         (CL-DATA-STRUCTURES:INSERT (CL-DATA-STRUCTURES:INSERT TABLE &#039;A 5) &#039;B
                                    6)))
-  (PROVE.TEST:DIAG &quot;Running example for ERASE-IF&quot;)
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;A) 5)
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT TABLE &#039;A) 5 :TEST
                  (ALEXANDRIA:COMPOSE #&#039;NULL #&#039;EQL))
-  (CL-DATA-STRUCTURES:MOD-BIND (ERASED-TABLE FOUND VALUE)
-      (CL-DATA-STRUCTURES:ERASE-IF NEXT-TABLE &#039;A
-                                   (LAMBDA (LOCATION VALUE)
-                                     (DECLARE (IGNORE LOCATION))
-                                     (EVENP VALUE)))
-    (PROVE.TEST:OK (NULL FOUND))
-    (PROVE.TEST:IS VALUE NIL)
+  (CL-DATA-STRUCTURES:MOD-BIND (ERASED-TABLE FOUND VALUE CHANGED)
+      (CL-DATA-STRUCTURES:ERASE-IF NEXT-TABLE &#039;A (LAMBDA (VALUE) (EVENP VALUE)))
+    (PROVE.TEST:OK FOUND)
+    (PROVE.TEST:IS VALUE 5)
+    (PROVE.TEST:IS CHANGED NIL)
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT ERASED-TABLE &#039;A) 5)
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;A) 5))
   (CL-DATA-STRUCTURES:MOD-BIND (ERASED-TABLE FOUND VALUE)
-      (CL-DATA-STRUCTURES:ERASE-IF NEXT-TABLE &#039;B
-                                   (LAMBDA (LOCATION VALUE)
-                                     (DECLARE (IGNORE LOCATION))
-                                     (EVENP VALUE)))
+      (CL-DATA-STRUCTURES:ERASE-IF NEXT-TABLE &#039;B (LAMBDA (VALUE) (EVENP VALUE)))
     (PROVE.TEST:OK FOUND)
     (PROVE.TEST:IS VALUE 6)
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT ERASED-TABLE &#039;B) NIL)
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT NEXT-TABLE &#039;B) 6)))</pre></code><br><b>Description:</b>
-Functional API: non-destructively removes an element at LOCATION from the CONTAINER, but only when the CONDITION function returns true. The CONDITION will be called with location that matches according to comparsion function used to construct container, and with a value.
+Functional API: non-destructively removes an element at LOCATION from the CONTAINER, but only when the CONDITION function returns true. The CONDITION will be called with with a value.
 <br><b>Returns:</b>
 <ul><li>Instance of the same type as CONTAINER, without value at LOCATION</li><li>Modification status object.</li></ul><br><b>Notes:</b>
 This is the functional counterpart to the ERASE-IF! function.
@@ -263,7 +260,7 @@ Functional API. Removes one element from the CONTAINER. Relevant to sequences.
 <br><b>Returns:</b>
 <ul><li>New version of the container, without one element.</li><li>Modification status.</li></ul><br><b>Notes:</b>
 This is the functional counterpart to the TAKE-OUT! function.
-<br></div></div><div id="740268733216808870"><h5>Mutable modification API
+<br></div></div><div id="681614172470752577"><h5>Mutable modification API
 </h5>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 (SETF AT)
@@ -294,7 +291,7 @@ UPDATE!
 </div><div class="doc-lambda-list"><b>Lambda List:</b>
 (CONTAINER LOCATION NEW-VALUE)
 </div><b>Syntax:</b>
-(update! container location new-value) -&gt; same-container status
+(update! container location new-value) =&gt; same-container status
 <br><b>Arguments:</b>
 <ul><li>container, Container that shall be modified.</li><li>location, Location in the container that we want to transform.</li></ul><br><b>Description:</b>
 Mutable API: If the LOCATION is taken in the CONTAINER, destructivly update it with the NEW-VALUE
@@ -334,33 +331,27 @@ ERASE-IF!
 </div><b>Syntax:</b>
 erase-if! container location condition =&gt; same-instance status
 <br><b>Arguments:</b>
-<ul><li>CONTAINER, Container that shall be modified.</li><li>LOCATION, Designates place in returned instance that will be changed.</li><li>CONDITION, Function of two arguments, should return boolean.</li></ul><br><b>Examples:</b>
+<ul><li>CONTAINER, Container that shall be modified.</li><li>LOCATION, Designates place in returned instance that will be changed.</li><li>CONDITION, Function of one argument, should return boolean.</li></ul><br><b>Examples:</b>
 <pre><code>(LET* ((TABLE
         (CL-DATA-STRUCTURES.DICTS.HAMT:MAKE-MUTABLE-HAMT-DICTIONARY #&#039;SXHASH
                                                                     #&#039;EQ)))
   (SETF (CL-DATA-STRUCTURES:AT TABLE &#039;A) 5
         (CL-DATA-STRUCTURES:AT TABLE &#039;B) 6)
-  (PROVE.TEST:DIAG &quot;Running example for ERASE-IF!&quot;)
   (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT TABLE &#039;A) 5)
-  (CL-DATA-STRUCTURES:MOD-BIND (ERASED-TABLE FOUND VALUE)
-      (CL-DATA-STRUCTURES:ERASE-IF! TABLE &#039;A
-                                    (LAMBDA (LOCATION VALUE)
-                                      (DECLARE (IGNORE LOCATION))
-                                      (EVENP VALUE)))
-    (PROVE.TEST:OK (NULL FOUND))
-    (PROVE.TEST:IS VALUE NIL)
+  (CL-DATA-STRUCTURES:MOD-BIND (ERASED-TABLE FOUND VALUE CHANGED)
+      (CL-DATA-STRUCTURES:ERASE-IF! TABLE &#039;A (LAMBDA (VALUE) (EVENP VALUE)))
+    (PROVE.TEST:OK FOUND)
+    (PROVE.TEST:IS VALUE 5)
+    (PROVE.TEST:IS CHANGED NIL)
     (PROVE.TEST:IS ERASED-TABLE TABLE)
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT ERASED-TABLE &#039;A) 5))
   (CL-DATA-STRUCTURES:MOD-BIND (ERASED-TABLE FOUND VALUE)
-      (CL-DATA-STRUCTURES:ERASE-IF! TABLE &#039;B
-                                    (LAMBDA (LOCATION VALUE)
-                                      (DECLARE (IGNORE LOCATION))
-                                      (EVENP VALUE)))
+      (CL-DATA-STRUCTURES:ERASE-IF! TABLE &#039;B (LAMBDA (VALUE) (EVENP VALUE)))
     (PROVE.TEST:OK FOUND)
     (PROVE.TEST:IS VALUE 6)
     (PROVE.TEST:IS ERASED-TABLE TABLE)
     (PROVE.TEST:IS (CL-DATA-STRUCTURES:AT ERASED-TABLE &#039;B) NIL)))</pre></code><br><b>Description:</b>
-Functional API: destructively remove element at LOCATION from the CONTAINER, only when CONDITION function returns true. CONDITION will be called with location that matches according to comparsion function, and with value.
+Functional API: destructively remove element at LOCATION from the CONTAINER, only when CONDITION function returns true. CONDITION will be called with with value.
 <br><b>Returns:</b>
 <ul><li>CONTAINER</li><li>Modification status object.</li></ul><br><b>Notes:</b>
 This is the destructive counterpart to the ERASE-IF function.
@@ -385,7 +376,7 @@ Destructive API: removes one element from the CONTAINER. Relevant to sequences.
 <br><b>Returns:</b>
 <ul><li>CONTAINER</li><li>Modification status.</li></ul><br><b>Notes:</b>
 This is the destructive counterpart to the TAKE-OUT function.
-<br></div></div><div id="2279390976974868775"><h5>Variants API
+<br></div></div><div id="755343015738573504"><h5>Variants API
 </h5>Symbols in the package CL-DATA-STRUCTURES:
 <div class="generic-info"><div class="doc-name">
 BECOME-FUNCTIONAL
@@ -461,7 +452,7 @@ instance implementing functional, lazy API. Content of returned instance is iden
 <br><b>Side Effects:</b>
 May vary, depending on type of the CONTAINER. Also, some (or all) parts of internal representation can be shared between both the CONTAINER and a returned instance. Side effects from the mutable CONTAINER may leak into the returned instance.
 <br><b>Notes:</b>
-<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul><br></div></div></div><div id="1292543966797475988"><h4>Macros
+<ul><li>Side effects from destructive operations on CONTAINER may leak into returned instance.</li><li>All containers that implement become-transactional, also implement become-lazy</li></ul><br></div></div></div><div id="2207312442538163414"><h4>Macros
 </h4>Symbols in the package CL-DATA-STRUCTURES:
 <div class="macro-info"><div class="doc-name">
 XPR
@@ -491,7 +482,7 @@ mod-bind (first &amp;optional found value) values-form body
 <br><b>Arguments:</b>
 <ul><li>FIRST, Symbol, will be bound to the first value returned by values-form.</li><li>FOUND, Symbol, this macro will construct symbol-macrolet that will expand to the call (found status)</li><li>VALUE, Symbol, this macro will construct symbol-macrolet that will expand to the call (value status)</li><li>CHANGED, Symbol, this macro will construct symbol-macrolet that will expand to the call (changed status)</li></ul><br><b>Description:</b>
 This macro attempts to mimic multiple-value-bind syntax for modification operations performed on the containers. All of those operations will return a secondary object representing operation status that shall be bound in the lexical environment. Next, symbol-macrolets will be established, inlining found, value and changed function calls on the operation status (like with-accessors).
-<br></div></div><div id="2197802230683919542"><h4>Classes
+<br></div></div><div id="2480565662428222344"><h4>Classes
 </h4>Symbols in the package CL-DATA-STRUCTURES:
 <div class="class-info"><div class="doc-name">
 FUNDAMENTAL-CONTAINER
@@ -535,7 +526,7 @@ LAZY
 <br>
 <b>Description:</b>
 Functional object, with lazy implementation.
-<br></div></div><div id="2432534644358982004"><h4>Conditions
+<br></div></div><div id="3054237486880956554"><h4>Conditions
 </h4><p>Cl-data-structures tries to signal only the well structured errors that are possible to interpret. In order to achieve this, the hierarchy of condition classes is introduced. Below there is documentation explaining it.</p>Symbols in the package CL-DATA-STRUCTURES:
 <div class="error-info"><div class="doc-name">
 TEXTUAL-ERROR
