@@ -1,5 +1,6 @@
 #+TITLE: For more humane computing
 
+- [[file:Encoding hierarchical codes for classification tasks.org][Encoding hierarchical codes for classification tasks]]
 - [[file:2020 summary.org][2020 summary]]
 - [[file:the common lisp condition system review.org][The Common Lisp Condition System review]]
 - [[file:manardb.org][Manardb]]

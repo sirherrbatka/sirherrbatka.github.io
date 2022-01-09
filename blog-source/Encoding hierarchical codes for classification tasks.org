@@ -1,0 +1,19 @@
+#+TITLE: Encoding hierarchical codes for classification tasks
+#:+DATE: 09-01-2022
+#:+KEYWORDS: machine learning, encoder
+#:+TAGS: machine learning, encoder
+#:+LANGUAGE: en
+
+ICD10 codes are hierarchical, ubiquitous, and precise. However, partly because they are so precise, there are also numerous. Sheer count of different codes encountered in data sets presents a challenge when building machine learning models: one can either use complete codes or truncate those to obtain groups. Using a complete code (in the one-hot schema) sacrifices generalization potential. Is it critical to distinguish between the left and right leg? Likely not. But in the particular case of the ICD10, code truncation may lead to not immediately apparent issues.
+
+Consider A52- prefix. It is for late syphilis. What does it mean? A diverse set of disease progress pathways. It is not about trivial differences anymore. The relative code importance (more on that later) is usually poorly correlated with the hierarchical position. Furthermore, it is often the case for one of the sibling codes to occur much more frequently than the others. Code truncation may lead your machine learning model to effectively assume that the prefix is always the result of a highly dominant code truncation.
+
+In the medical domain, I expect mild clinical cases outnumbering complicated ones. Keep in mind that the cost of underestimating medical conditions is grave, so this is a recipe for disaster in treatment. The imbalance of codes within a prefix group is not limited to the medical domain. I urge you to investigate the practical applications of your machine learning models. You may find very similar problems remote to the clinical datasets.
+
+So, anyway, how do I approach ICD10 encoding? Let me start with a small disclaimer: I have the luxury of having a reliable metric of the code significance readmission rate of the patients with a given code. Using this value, I could order a list of complete codes within a prefix from the least to the most threatening. Secondly, I calculate the frequency for each code within the prefix group. Thirdly I calculate the cumulant frequency of code within a group, ordered by the readmission rate; ascending. I assign a numeric index to each group to obtain features. If I would place 1 as a feature if a group is present within a record, and 0 if not, I would have ended up with a classical one-hot encoder. I will instead place the maximum cumulant frequency among assigned diagnoses as a group feature value.
+
+And voila, this is how I've invented a simple (but effective) diagnosis encoder. It is easy to implement and still allows to obtain feature importance from the random forest. A solid improvement overall, bridging the best of both worlds.
+
+This schema ensures that each feature group will present the direst diagnosis. Furthermore, it also forms a similarity heuristic. If two diagnoses within a prefix share a similar readmission rate and the number of cases, they are often ontologically close to each other. This trait benefits the generalization potential of the model.
+
+I called the readmission rate a "luxury" because It is rare to have a severity metric. When lacking severity metrics, you could try to order according to the frequency or become inventive and figure out something new. Perhaps try to obtain feature importance for the complete codes first? I've not tried it myself, but it could be a promising avenue for you to explore.
