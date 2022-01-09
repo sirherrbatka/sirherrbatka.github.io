@@ -1,3 +1,4 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./static/main.css" />
 #+TITLE:       Classes are not interactions!
 #+DATE:        2018-10-14 nie
 #+KEYWORDS:    lisp, object orientation, CLOS
@@ -5,6 +6,7 @@
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: How multimethods allow to eleminate need for additional classes.
 #+LANGUAGE:    en
+#+OPTIONS: html-postamble:nil
 
 Some time ago on #lisp at freenode phoe asked interesting design question. So interesting in fact, that I decided that It deserves a post on a blog as it highlights why multimethods are such a good idea.
 

@@ -1,11 +1,11 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./static/main.css" />
 #+KEYWORDS:    lisp, books
 #+TITLE:       The Common Lisp Condition System review
 #+TAGS:        lisp, books
 #+DATE:        2020-11-25
 #+LANGUAGE:    en
-#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+DESCRIPTION: Phoe wrote a book!
-
+#+OPTIONS: html-postamble:nil
 Phoe wrote and published a book. Given how deeply I've stuck in the Common Lisp rabbit hole I had to read and review it.
 
 The first things first: is it worth reading? My answer is the clean and sound yes. The content of the book is a complete tour of all stack manipulation facilities of the language. Eventually, the book goes into implementing the whole condition system from the base elements. You truly can't get more Lisp than this.

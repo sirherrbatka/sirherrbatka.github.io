@@ -1,24 +1,256 @@
-<!DOCTYPE html>
-<html lang="en">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-01-23 sob 15:39 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 2022-01-09 nie 13:42 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introducing cl-data-frames</title>
-<meta name="generator" content="Org mode">
+<meta name="generator" content="Org mode" />
 <meta name="description" content="Data frame library for the Common Lisp"
->
-<meta name="keywords" content="lisp">
-<link rel="stylesheet" href="static/main.css" type="text/css"/>
+ />
+<meta name="keywords" content="lisp" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="./static/main.css" />
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
 </head>
 <body>
-<div id="org-div-home-and-up-index-page"> <div> <a accesskey="H" href="https://sirherrbatka.github.io"> HOME </a> </div> </div><div id="content">
-<header>
+<div id="preamble" class="status">
+      <header class="masthead">
+        <h1 class="masthead-title">For more humane computing</h1>
+        <ul>
+          <li><a href="index.html">Blog</a></li>
+          <li><a href="http://github.com/sirherrbatka">GitHub</a></li>
+        </ul>
+      </header>
+</div>
+<div id="content">
 <h1 class="title">Introducing cl-data-frames</h1>
-</header>
-<div id="outline-container-org38df9a0" class="outline-2">
-<h2 id="org38df9a0">A little bit of background</h2>
-<div class="outline-text-2" id="text-org38df9a0">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd3770cc">A little bit of background</a></li>
+<li><a href="#orgb5d3dfe">Design goals</a></li>
+<li><a href="#orgc2305d2">Decisions, decisions…</a></li>
+<li><a href="#org3121c9b">General architecture</a></li>
+<li><a href="#orgf42092f">Key concepts</a></li>
+<li><a href="#orgb7c3ac7">Data structures</a></li>
+<li><a href="#org5d44558">High-level API</a></li>
+<li><a href="#orgb80ea80">Use cases</a></li>
+<li><a href="#org9bc6479">The future</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd3770cc" class="outline-2">
+<h2 id="orgd3770cc">A little bit of background</h2>
+<div class="outline-text-2" id="text-orgd3770cc">
 <p>
 The key feature of commonly used languages for data science and statistical analysis is the existence of data frames. Data frame is essentially just a way of presenting data in the form of a table, plus a set of operations allowing easy manipulation of the content. This probably does not sound all that thrilling at this point but once the domain is considered one quickly realizes that in practice almost every frequently performed task should be performed using a data frame. Don't get me wrong: It still can be done without one, but by sticking to just the fundamental data structures you are simply wasting your time. Let's, for instance, consider a typical code written in R with the help of the ubiquitous Dplyr package.
 </p>
@@ -37,7 +269,7 @@ You may be wondering: how does this even work? There is no lambda form to be fou
 </p>
 
 <p>
-Transform iterates row-wise over the whole frame, each time evaluating the passed expression in an environment containing additional bindings to the values in this row, under each column. After evaluation values can be accessed, manipulated and transferred to a new data frame. That is, new. Transform does not perform destructive manipulation of the existing data frame. Instead, it will mutate the outer environment to alter the binding of the body_data_frame so it will point to a newly constructed data frame (in addition to this dplyr provides a completely non-destructive function (sic!) mutate that does not mutate anything). This is a quite elegant (and maybe a little bit magical) solution!
+Transform iterates row-wise over the whole frame, each time evaluating the passed expression in an environment containing additional bindings to the values in this row, under each column. After evaluation values can be accessed, manipulated and transferred to a new data frame. That is, new. Transform does not perform destructive manipulation of the existing data frame. Instead, it will mutate the outer environment to alter the binding of the body<sub>data</sub><sub>frame</sub> so it will point to a newly constructed data frame (in addition to this dplyr provides a completely non-destructive function (sic!) mutate that does not mutate anything). This is a quite elegant (and maybe a little bit magical) solution!
 </p>
 
 <p>
@@ -53,9 +285,9 @@ This blog post describes this new library of the excellent and innovative name "
 </p>
 </div>
 </div>
-<div id="outline-container-org434f01d" class="outline-2">
-<h2 id="org434f01d">Design goals</h2>
-<div class="outline-text-2" id="text-org434f01d">
+<div id="outline-container-orgb5d3dfe" class="outline-2">
+<h2 id="orgb5d3dfe">Design goals</h2>
+<div class="outline-text-2" id="text-orgb5d3dfe">
 <p>
 What "pleasant to use" means though? Such a vague statement is not a valid mission. What are the exact things I am looking for?
 </p>
@@ -68,17 +300,17 @@ What "pleasant to use" means though? Such a vague statement is not a valid missi
 </ol>
 </div>
 </div>
-<div id="outline-container-org6cf8f2f" class="outline-2">
-<h2 id="org6cf8f2f">Decisions, decisions…</h2>
-<div class="outline-text-2" id="text-org6cf8f2f">
+<div id="outline-container-orgc2305d2" class="outline-2">
+<h2 id="orgc2305d2">Decisions, decisions…</h2>
+<div class="outline-text-2" id="text-orgc2305d2">
 <p>
 Having in mind those goals, I could move forward and instantly the new questions have arisen. What layers should be distinguished in the library and what are the concepts expressed by each layer? How data representation is structured? What basic operations are supplied? Which data structures should be used?
 </p>
 </div>
 </div>
-<div id="outline-container-orga81389d" class="outline-2">
-<h2 id="orga81389d">General architecture</h2>
-<div class="outline-text-2" id="text-orga81389d">
+<div id="outline-container-org3121c9b" class="outline-2">
+<h2 id="org3121c9b">General architecture</h2>
+<div class="outline-text-2" id="text-org3121c9b">
 <p>
 Cl-data-structures are composed of layers connected by sets of protocol functions, objects, classes, and variables. Those layers are, from the lowest level to the highest level:
 </p>
@@ -90,9 +322,9 @@ Cl-data-structures are composed of layers connected by sets of protocol function
 </ol>
 </div>
 </div>
-<div id="outline-container-org9c6fc0c" class="outline-2">
-<h2 id="org9c6fc0c">Key concepts</h2>
-<div class="outline-text-2" id="text-org9c6fc0c">
+<div id="outline-container-orgf42092f" class="outline-2">
+<h2 id="orgf42092f">Key concepts</h2>
+<div class="outline-text-2" id="text-orgf42092f">
 <p>
 The column layer provides basic data structure used to represent column as well as means to change the content of it, either directly or by the use of the iterator. Iterator also provides means to alter multiple columns at once. This is needed for building and modifying whole data frames form ground up. Columns are mutable and they are using copy on write mechanism to save time and (more importantly) memory when multiple column instances share parts or the whole of the content.
 </p>
@@ -110,17 +342,17 @@ The table itself is a mutable object composed of header and sequence of columns.
 </p>
 </div>
 </div>
-<div id="outline-container-orge1bb5ea" class="outline-2">
-<h2 id="orge1bb5ea">Data structures</h2>
-<div class="outline-text-2" id="text-orge1bb5ea">
+<div id="outline-container-orgb7c3ac7" class="outline-2">
+<h2 id="orgb7c3ac7">Data structures</h2>
+<div class="outline-text-2" id="text-orgb7c3ac7">
 <p>
 The sparsity requirement combined with the need for both destructive and non-destructive operations convinced me to use column representation based around the sparse variation on the RRB vector data structure. Sparsity was achieved by adding a bit-mask into every RRB tree node to mark the occupied node (just like in the HAMT data structure). This increases memory requirements for each non-leaf node in the trie, but only by 32 bits extra for each node. I consider this to be good enough to not even bother with a dense variant of the column. Luckily I had those already in the cl-data-structures, but there was still plenty of code extra required for an efficient implementation of operations needed by data frames.
 </p>
 </div>
 </div>
-<div id="outline-container-org614d81c" class="outline-2">
-<h2 id="org614d81c">High-level API</h2>
-<div class="outline-text-2" id="text-org614d81c">
+<div id="outline-container-org5d44558" class="outline-2">
+<h2 id="org5d44558">High-level API</h2>
+<div class="outline-text-2" id="text-org5d44558">
 <p>
 For the most typical tasks, the user is expected to simply stick to the high-level API and do not dwell in the low-level details described above. Therefore I've added separate packages gathering relevant symbols from the layers below and reexporting along with added functionality. This API is composed of the following symbols:
 </p>
@@ -157,9 +389,9 @@ I am not completely happy with the shape of this API right now, but at least I a
 </p>
 </div>
 </div>
-<div id="outline-container-org1676642" class="outline-2">
-<h2 id="org1676642">Use cases</h2>
-<div class="outline-text-2" id="text-org1676642">
+<div id="outline-container-orgb80ea80" class="outline-2">
+<h2 id="orgb80ea80">Use cases</h2>
+<div class="outline-text-2" id="text-orgb80ea80">
 <p>
 This may seem to all nice, but I bet you wonder how this allows solving practical problems you may encounter. Let me take you on a journey through my work and how I use this software to make my life easier.
 </p>
@@ -169,7 +401,7 @@ ICD10 is the international coding standard for medical diagnosis. Each code desc
 </p>
 
 <ol class="org-ol">
-<li>patient_id</li>
+<li>patient<sub>id</sub></li>
 <li>date</li>
 <li>diagnosis</li>
 <li>DRG</li>
@@ -241,17 +473,14 @@ Notice how CL-DF:BRR can be used to create function extracting data from the row
 </div>
 </div>
 
-<div id="outline-container-org56336b0" class="outline-2">
-<h2 id="org56336b0">The future</h2>
-<div class="outline-text-2" id="text-org56336b0">
+<div id="outline-container-org9bc6479" class="outline-2">
+<h2 id="org9bc6479">The future</h2>
+<div class="outline-text-2" id="text-org9bc6479">
 <p>
 Right now I am testing the library to find anything that may prove to be an annoying aspect of the design. I'm also still fishing out bugs in both CL-DATA-STRUCTURES and CL-DATA-FRAMES which, unfortunately, means that neither is ready for general use. I will keep you updated.
 </p>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="date">Created: 2021-01-23 sob 15:39</p>
 </div>
 </body>
 </html>

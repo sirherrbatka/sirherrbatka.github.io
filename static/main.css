@@ -53,6 +53,7 @@ h1, h2, h3 {
     font-weight: bold;
     line-height: 1.1;
     color: #111;
+    text-align: center;
     text-rendering: optimizeLegibility;
 }
 h1:before, h2:before, h3:before {
@@ -165,11 +166,14 @@ table th.right, table td.right {
 }
 /******************************************************/
 /* body */
-.container {
+#content {
     margin: 0 auto;
     max-width: 900px;
 }
 /* head */
+.masthead-title {
+    text-align: left;
+}
 .masthead {
     border-bottom: 8px double #969187;
     color: #333;
@@ -220,15 +224,7 @@ table th.right, table td.right {
     background-color: #f9f9f9;
     width: 160px;
 }
-.masthead img.avatar {
-    position: relative;
-    float: right;
-    margin-top: -100px;
-    margin-bottom: -100%;
-    margin-right: 10%;
-    width: 200px;
-    background-color: #fff;
-}
+
 /* post */
 .post {
     position: relative;
@@ -279,6 +275,7 @@ table th.right, table td.right {
 
 /* table of content */
 #table-of-contents {
+    background-color: white;
     position: fixed;
     right: 0em;
     top: 0em;

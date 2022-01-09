@@ -1,7 +1,9 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./static/main.css" />
 #+TITLE:       2020 summary
 #+DATE:        2021-01-23
 #+TAGS:        summary,personal
 #+KEYWORDS:    summary,personal
+#+OPTIONS: html-postamble:nil
 #+DESCRIPTION: How 2020 went fo me.
 #+LANGUAGE:    en
 Since the dreaded year 2020 is behind us, I thought it is a good moment to summarize what I managed to accomplish during it. Believe it or not: It wasn't even that bad.

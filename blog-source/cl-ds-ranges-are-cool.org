@@ -1,11 +1,12 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./static/main.css" />
 #+TITLE:       cl-data-structure ranges are pretty cool
 #+DATE:        2018-10-11 czw
 #+KEYWORDS:    Common Lisp, cl-data-structures
 #+TAGS:        lisp, cl-ds
 #+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+LANGUAGE:    en
+#+OPTIONS: html-postamble:nil
 #+DESCRIPTION: How cl-data-structure provides universal stream-like interface, and why it is useful.
-
 Before I decided to live in The Land Of Lisp I was living and slowly dying by the C++. Common Lisp is obviously much nicer, friendlier, better designed and more comfortable language but there is one aspect of C++ that appeared to be clearly lacking in the Common Lisp: iterators.
 
 C++ iterators at the time of introduction were quite an innovative thing. They provide a universal interface to all STD containers without runtime penalty and therefore allow the rich set of standard algorithms to work on all containers. It does not matter if you are using std::array or std::vector, std::lower_bound will work on both, without the explicit use of pointers. It is a huge improvement over the mess that C code can be.

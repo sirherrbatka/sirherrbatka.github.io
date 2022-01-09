@@ -1,10 +1,11 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./static/main.css" />
 #+TITLE:       Introducing cl-data-frames
 #+DATE:        2019-09-25
 #+KEYWORDS:    lisp
 #+TAGS:        lisp
-#+OPTIONS:     H:3 num:nil toc:nil \n:nil ::t |:t ^:nil -:nil f:t *:t <:t
 #+LANGUAGE:    en
 #+DESCRIPTION: Data frame library for the Common Lisp
+#+OPTIONS: html-postamble:nil
 
 * A little bit of background
   :PROPERTIES:

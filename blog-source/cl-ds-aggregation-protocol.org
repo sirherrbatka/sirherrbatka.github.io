@@ -1,10 +1,11 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./static/main.css" />
 #+TITLE:       Design of cl-data-structures aggregation protocol
 #+KEYWORDS:    lisp, CLOS, object orientation
 #+TAGS:        lisp, CLOS, object orientation
 #+LANGUAGE:    en
 #+DATE:        2019-02-02
+#+OPTIONS: html-postamble:nil
 #+DESCRIPTION: Mindset and reasoning behind cl-data-structures aggregation protocol.
-
 * Background
   :PROPERTIES:
   :ID:       3e663f2e-0d20-45ec-af24-a3feb898a2e1

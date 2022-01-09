@@ -1,33 +1,260 @@
-<!DOCTYPE html>
-<html lang="en">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-01-23 sob 15:39 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 2022-01-09 nie 13:42 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Design of cl-data-structures aggregation protocol</title>
-<meta name="generator" content="Org mode">
+<meta name="generator" content="Org mode" />
 <meta name="description" content="Mindset and reasoning behind cl-data-structures aggregation protocol."
->
-<meta name="keywords" content="lisp, CLOS, object orientation">
-<link rel="stylesheet" href="static/main.css" type="text/css"/>
+ />
+<meta name="keywords" content="lisp, CLOS, object orientation" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="./static/main.css" />
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
 </head>
 <body>
-<div id="org-div-home-and-up-index-page"> <div> <a accesskey="H" href="https://sirherrbatka.github.io"> HOME </a> </div> </div><div id="content">
-<header>
+<div id="preamble" class="status">
+      <header class="masthead">
+        <h1 class="masthead-title">For more humane computing</h1>
+        <ul>
+          <li><a href="index.html">Blog</a></li>
+          <li><a href="http://github.com/sirherrbatka">GitHub</a></li>
+        </ul>
+      </header>
+</div>
+<div id="content">
 <h1 class="title">Design of cl-data-structures aggregation protocol</h1>
-</header>
-<div id="outline-container-org200a795" class="outline-2">
-<h2 id="org200a795">Background</h2>
-<div class="outline-text-2" id="text-org200a795">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org98fa4d8">Background</a></li>
+<li><a href="#orgc1d0f28">What is aggregation function?</a></li>
+<li><a href="#org8604719">Mindset: Solve et coagula</a></li>
+<li><a href="#orgddf7d69">Control flow</a></li>
+<li><a href="#orgabe2910">Control in the GROUP-BY level</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org98fa4d8" class="outline-2">
+<h2 id="org98fa4d8">Background</h2>
+<div class="outline-text-2" id="text-org98fa4d8">
 <p>
 The very first post I have published on this blog was describing what are cl-data-structures ranges. In this post, I want to show how the introduction of ranges allowed to build universal aggregation functions on top of them. Hopefully, this short article can be beneficial as a demonstration of my approach to design and particular choices in the cl-data-structures.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org36dd533" class="outline-2">
-<h2 id="org36dd533">What is aggregation function?</h2>
-<div class="outline-text-2" id="text-org36dd533">
+<div id="outline-container-orgc1d0f28" class="outline-2">
+<h2 id="orgc1d0f28">What is aggregation function?</h2>
+<div class="outline-text-2" id="text-orgc1d0f28">
 <p>
 It is not so different from the SQL, really. Pretty much everything that is supposed to transform the whole range of the values into a single value can be considered to be an aggregation function. Yup, that's right, here comes your MAX, MIN, AVERAGE, and so other functions. The usefulness of such functions shouldn't need explanation, but some of the design considerations are less obvious.
 </p>
@@ -59,9 +286,9 @@ Also, let's not forget that some aggregation functions require more than just on
 </p>
 </div>
 </div>
-<div id="outline-container-orgbbfbedd" class="outline-2">
-<h2 id="orgbbfbedd">Mindset: Solve et coagula</h2>
-<div class="outline-text-2" id="text-orgbbfbedd">
+<div id="outline-container-org8604719" class="outline-2">
+<h2 id="org8604719">Mindset: Solve et coagula</h2>
+<div class="outline-text-2" id="text-org8604719">
 <p>
 Fundamentally any software architecture is just an exercise of skillfully dividing and combining parts of the problem in order to realize various goals. Therefore since we have at least a vague understanding of goals and the problem itself, let's consider how to divide the problem in order to achieve the desired result.
 </p>
@@ -74,9 +301,9 @@ Fundamentally any software architecture is just an exercise of skillfully dividi
 </div>
 </div>
 
-<div id="outline-container-orgda86c38" class="outline-2">
-<h2 id="orgda86c38">Control flow</h2>
-<div class="outline-text-2" id="text-orgda86c38">
+<div id="outline-container-orgddf7d69" class="outline-2">
+<h2 id="orgddf7d69">Control flow</h2>
+<div class="outline-text-2" id="text-orgddf7d69">
 <p>
 As Alan Kay would like to point out, the critical part of the object-oriented programming is communication, and since (as already pointed out) essence of all software architectures is combining and dividing it stands to reason that one should think how to control the aggregation by the means of the messages.
 </p>
@@ -144,33 +371,33 @@ Things start to come together. Iterating over the data is missing but even so, w
 </p>
 
 <div class="org-src-container">
-<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">apply-aggregation-function</span> <span style="color: #AAA896;">(</span>range
-                                       <span style="color: #CFCDB9;">(</span>function aggregation-function<span style="color: #CFCDB9;">)</span>
-                                       <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;rest</span> all <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;key</span> key <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;allow-other-keys</span><span style="color: #AAA896;">)</span>
-  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">let</span> <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span>aggregator <span style="color: #F4F2DC;">(</span>construct-aggregator range key function nil all<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>apply #'apply-aggregation-function-with-aggregator
-           aggregator range function all<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+<pre class="src src-common-lisp"><span style="color: #CFCDB9;">(</span><span style="color: #6D6B5C;">defmethod</span> <span style="color: #484639;">apply-aggregation-function</span> <span style="color: #AAA896;">(</span>range
+                                       <span style="color: #6D6B5C;">(</span>function aggregation-function<span style="color: #6D6B5C;">)</span>
+                                       <span style="color: #AAA896; font-style: italic;">&amp;rest</span> all <span style="color: #AAA896; font-style: italic;">&amp;key</span> key <span style="color: #AAA896; font-style: italic;">&amp;allow-other-keys</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">let</span> <span style="color: #6D6B5C;">(</span><span style="color: #484639;">(</span>aggregator <span style="color: #312F23;">(</span>construct-aggregator range key function nil all<span style="color: #312F23;">)</span><span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>apply #'apply-aggregation-function-with-aggregator
+           aggregator range function all<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span><span style="color: #CFCDB9;">)</span>
 
-<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">apply-aggregation-function-with-aggregator</span>
-    <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator fundamental-aggregator<span style="color: #CFCDB9;">)</span>
+<span style="color: #CFCDB9;">(</span><span style="color: #6D6B5C;">defmethod</span> <span style="color: #484639;">apply-aggregation-function-with-aggregator</span>
+    <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">(</span>aggregator fundamental-aggregator<span style="color: #6D6B5C;">)</span>
      range
-     <span style="color: #CFCDB9;">(</span>function aggregation-function<span style="color: #CFCDB9;">)</span>
-     <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;rest</span> all <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;key</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">&amp;allow-other-keys</span><span style="color: #AAA896;">)</span>
-  <span style="color: #AAA896;">(</span><span style="color: #FFFFED;">declare</span> <span style="color: #CFCDB9;">(</span>ignore all<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+     <span style="color: #6D6B5C;">(</span>function aggregation-function<span style="color: #6D6B5C;">)</span>
+     <span style="color: #AAA896; font-style: italic;">&amp;rest</span> all <span style="color: #AAA896; font-style: italic;">&amp;key</span> <span style="color: #AAA896; font-style: italic;">&amp;allow-other-keys</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">declare</span> <span style="color: #6D6B5C;">(</span>ignore all<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span>
   <span style="color: #AAA896;">(</span>iterate
-<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">calling begin-aggregation when aggregator-finished-p is any error, so we will check it here...</span>
-    <span style="color: #CFCDB9;">(</span>until <span style="color: #E6E4CF;">(</span>aggregator-finished-p aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>begin-aggregation aggregator<span style="color: #CFCDB9;">)</span>
-<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">and here, to ensure that begin-aggregation did not change aggregator-finished-p result.</span>
-    <span style="color: #CFCDB9;">(</span>until <span style="color: #E6E4CF;">(</span>aggregator-finished-p aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">sometimes the last stage just need call to end-aggregation</span>
-    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">when</span> <span style="color: #E6E4CF;">(</span>cl-ds.alg.meta:expects-content-p aggregator<span style="color: #E6E4CF;">)</span>
-       <span style="color: #E6E4CF;">(</span>cl-ds:across range
-                     <span style="color: #F4F2DC;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #FDFBE4;">(</span>x<span style="color: #FDFBE4;">)</span>
-                       <span style="color: #FDFBE4;">(</span>pass-to-aggregation aggregator
-                                            x<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>end-aggregation aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
-  <span style="color: #AAA896;">(</span>extract-result aggregator<span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+<span style="color: #6D6B5C;">;; </span><span style="color: #AAA896; font-style: italic;">calling begin-aggregation when aggregator-finished-p is any error, so we will check it here...</span>
+    <span style="color: #6D6B5C;">(</span>until <span style="color: #484639;">(</span>aggregator-finished-p aggregator<span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>begin-aggregation aggregator<span style="color: #6D6B5C;">)</span>
+<span style="color: #6D6B5C;">;; </span><span style="color: #AAA896; font-style: italic;">and here, to ensure that begin-aggregation did not change aggregator-finished-p result.</span>
+    <span style="color: #6D6B5C;">(</span>until <span style="color: #484639;">(</span>aggregator-finished-p aggregator<span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+<span style="color: #6D6B5C;">;; </span><span style="color: #AAA896; font-style: italic;">sometimes the last stage just need call to end-aggregation</span>
+    <span style="color: #6D6B5C;">(</span><span style="color: #6D6B5C;">when</span> <span style="color: #484639;">(</span>cl-ds.alg.meta:expects-content-p aggregator<span style="color: #484639;">)</span>
+       <span style="color: #484639;">(</span>cl-ds:across range
+                     <span style="color: #312F23;">(</span><span style="color: #6D6B5C;">lambda</span> <span style="color: #232115;">(</span>x<span style="color: #232115;">)</span>
+                       <span style="color: #232115;">(</span>pass-to-aggregation aggregator
+                                            x<span style="color: #232115;">)</span><span style="color: #312F23;">)</span><span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>end-aggregation aggregator<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>extract-result aggregator<span style="color: #AAA896;">)</span><span style="color: #CFCDB9;">)</span>
 </pre>
 </div>
 
@@ -194,9 +421,9 @@ We didn't yet arrive at the complete and final design but the pieces are really 
 </div>
 </div>
 
-<div id="outline-container-org54124ac" class="outline-2">
-<h2 id="org54124ac">Control in the GROUP-BY level</h2>
-<div class="outline-text-2" id="text-org54124ac">
+<div id="outline-container-orgabe2910" class="outline-2">
+<h2 id="orgabe2910">Control in the GROUP-BY level</h2>
+<div class="outline-text-2" id="text-orgabe2910">
 <p>
 Construct-aggregator accepts range for a reason. Although normally aggregator shouldn't care about range once it is constructed we still need a separate to the aggregation function way to control part of the aggregation. The answer is a proxy range, like the CL-DS:FORWARD-GROUP-BY-PROXY. This range does not affect in any way, shape or form data underneath, and exists purely to construct different aggregator.
 </p>
@@ -206,49 +433,49 @@ Group by aggregator will simply check at each element in the range if the groupi
 </p>
 
 <div class="org-src-container">
-<pre class="src src-common-lisp"><span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defclass</span> <span style="color: #CFCDB9; font-weight: bold; font-style: italic;">group-by-aggregator</span> <span style="color: #AAA896;">(</span>cl-ds.alg.meta:fundamental-aggregator<span style="color: #AAA896;">)</span>
-  <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>%groups <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:groups</span>
-            <span style="color: #FFFFE9; font-style: italic;">:type</span> hash-table
-            <span style="color: #FFFFE9; font-style: italic;">:reader</span> read-groups<span style="color: #CFCDB9;">)</span>
-   <span style="color: #CFCDB9;">(</span>%outer-fn <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:outer-fn</span>
-              <span style="color: #FFFFE9; font-style: italic;">:reader</span> read-outer-fn<span style="color: #CFCDB9;">)</span>
-   <span style="color: #CFCDB9;">(</span>%group-by-key <span style="color: #FFFFE9; font-style: italic;">:initarg</span> <span style="color: #FFFFE9; font-style: italic;">:group-by-key</span>
-                  <span style="color: #FFFFE9; font-style: italic;">:reader</span> read-key<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+<pre class="src src-common-lisp"><span style="color: #CFCDB9;">(</span><span style="color: #6D6B5C;">defclass</span> <span style="color: #AAA896; font-style: italic;">group-by-aggregator</span> <span style="color: #AAA896;">(</span>cl-ds.alg.meta:fundamental-aggregator<span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">(</span>%groups <span style="color: #1A180D; font-style: italic;">:initarg</span> <span style="color: #1A180D; font-style: italic;">:groups</span>
+            <span style="color: #1A180D; font-style: italic;">:type</span> hash-table
+            <span style="color: #1A180D; font-style: italic;">:reader</span> read-groups<span style="color: #6D6B5C;">)</span>
+   <span style="color: #6D6B5C;">(</span>%outer-fn <span style="color: #1A180D; font-style: italic;">:initarg</span> <span style="color: #1A180D; font-style: italic;">:outer-fn</span>
+              <span style="color: #1A180D; font-style: italic;">:reader</span> read-outer-fn<span style="color: #6D6B5C;">)</span>
+   <span style="color: #6D6B5C;">(</span>%group-by-key <span style="color: #1A180D; font-style: italic;">:initarg</span> <span style="color: #1A180D; font-style: italic;">:group-by-key</span>
+                  <span style="color: #1A180D; font-style: italic;">:reader</span> read-key<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span><span style="color: #CFCDB9;">)</span>
 
-<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:pass-to-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span>
+<span style="color: #CFCDB9;">(</span><span style="color: #6D6B5C;">defmethod</span> <span style="color: #484639;">cl-ds.alg.meta:pass-to-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">(</span>aggregator group-by-aggregator<span style="color: #6D6B5C;">)</span>
                                                element<span style="color: #AAA896;">)</span>
-<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">this code uses metabang-bind that provides bind macro.</span>
-<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">This macro roles with-slots, with-accessors, destructuring-bind, multiple-value-bind</span>
-<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">flet and some into one macro. It is pretty dope.</span>
-  <span style="color: #AAA896;">(</span>bind <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:slots</span> %group-by-key %groups %outer-fn<span style="color: #F4F2DC;">)</span> aggregator<span style="color: #E6E4CF;">)</span>
-         <span style="color: #E6E4CF;">(</span>selected <span style="color: #F4F2DC;">(</span>~&gt;&gt; element <span style="color: #FDFBE4;">(</span>funcall %group-by-key<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
-         <span style="color: #E6E4CF;">(</span>group <span style="color: #F4F2DC;">(</span>gethash selected %groups<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span><span style="color: #FFFFED;">when</span> <span style="color: #E6E4CF;">(</span>null group<span style="color: #E6E4CF;">)</span>
-      <span style="color: #E6E4CF;">(</span>setf group <span style="color: #F4F2DC;">(</span>funcall %outer-fn<span style="color: #F4F2DC;">)</span>
-            <span style="color: #F4F2DC;">(</span>gethash selected %groups<span style="color: #F4F2DC;">)</span> group<span style="color: #E6E4CF;">)</span>
-      <span style="color: #E6E4CF;">(</span>cl-ds.alg.meta:begin-aggregation group<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>cl-ds.alg.meta:pass-to-aggregation group element<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+<span style="color: #6D6B5C;">;; </span><span style="color: #AAA896; font-style: italic;">this code uses metabang-bind that provides bind macro.</span>
+<span style="color: #6D6B5C;">;; </span><span style="color: #AAA896; font-style: italic;">This macro roles with-slots, with-accessors, destructuring-bind, multiple-value-bind</span>
+<span style="color: #6D6B5C;">;; </span><span style="color: #AAA896; font-style: italic;">flet and some into one macro. It is pretty dope.</span>
+  <span style="color: #AAA896;">(</span>bind <span style="color: #6D6B5C;">(</span><span style="color: #484639;">(</span><span style="color: #312F23;">(</span><span style="color: #1A180D; font-style: italic;">:slots</span> %group-by-key %groups %outer-fn<span style="color: #312F23;">)</span> aggregator<span style="color: #484639;">)</span>
+         <span style="color: #484639;">(</span>selected <span style="color: #312F23;">(</span>~&gt;&gt; element <span style="color: #232115;">(</span>funcall %group-by-key<span style="color: #232115;">)</span><span style="color: #312F23;">)</span><span style="color: #484639;">)</span>
+         <span style="color: #484639;">(</span>group <span style="color: #312F23;">(</span>gethash selected %groups<span style="color: #312F23;">)</span><span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span><span style="color: #6D6B5C;">when</span> <span style="color: #484639;">(</span>null group<span style="color: #484639;">)</span>
+      <span style="color: #484639;">(</span>setf group <span style="color: #312F23;">(</span>funcall %outer-fn<span style="color: #312F23;">)</span>
+            <span style="color: #312F23;">(</span>gethash selected %groups<span style="color: #312F23;">)</span> group<span style="color: #484639;">)</span>
+      <span style="color: #484639;">(</span>cl-ds.alg.meta:begin-aggregation group<span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>cl-ds.alg.meta:pass-to-aggregation group element<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span><span style="color: #CFCDB9;">)</span>
 
 
-<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:extract-result</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
-  <span style="color: #AAA896;">(</span>bind <span style="color: #CFCDB9;">(</span><span style="color: #E6E4CF;">(</span><span style="color: #F4F2DC;">(</span><span style="color: #FFFFE9; font-style: italic;">:slots</span> %key %groups %outer-fn<span style="color: #F4F2DC;">)</span> aggregator<span style="color: #E6E4CF;">)</span>
-         <span style="color: #E6E4CF;">(</span>groups <span style="color: #F4F2DC;">(</span>copy-hash-table %groups<span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>maphash <span style="color: #E6E4CF;">(</span><span style="color: #FFFFED;">lambda</span> <span style="color: #F4F2DC;">(</span>key aggregator<span style="color: #F4F2DC;">)</span>
-               <span style="color: #F4F2DC;">(</span>setf <span style="color: #FDFBE4;">(</span>gethash key groups<span style="color: #FDFBE4;">)</span> <span style="color: #FDFBE4;">(</span>cl-ds.alg.meta:extract-result aggregator<span style="color: #FDFBE4;">)</span><span style="color: #F4F2DC;">)</span><span style="color: #E6E4CF;">)</span>
-             %groups<span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>make-hash-table-range groups<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+<span style="color: #CFCDB9;">(</span><span style="color: #6D6B5C;">defmethod</span> <span style="color: #484639;">cl-ds.alg.meta:extract-result</span> <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">(</span>aggregator group-by-aggregator<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span>
+  <span style="color: #AAA896;">(</span>bind <span style="color: #6D6B5C;">(</span><span style="color: #484639;">(</span><span style="color: #312F23;">(</span><span style="color: #1A180D; font-style: italic;">:slots</span> %key %groups %outer-fn<span style="color: #312F23;">)</span> aggregator<span style="color: #484639;">)</span>
+         <span style="color: #484639;">(</span>groups <span style="color: #312F23;">(</span>copy-hash-table %groups<span style="color: #312F23;">)</span><span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>maphash <span style="color: #484639;">(</span><span style="color: #6D6B5C;">lambda</span> <span style="color: #312F23;">(</span>key aggregator<span style="color: #312F23;">)</span>
+               <span style="color: #312F23;">(</span>setf <span style="color: #232115;">(</span>gethash key groups<span style="color: #232115;">)</span> <span style="color: #232115;">(</span>cl-ds.alg.meta:extract-result aggregator<span style="color: #232115;">)</span><span style="color: #312F23;">)</span><span style="color: #484639;">)</span>
+             %groups<span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>make-hash-table-range groups<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span><span style="color: #CFCDB9;">)</span>
 
-<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:begin-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
+<span style="color: #CFCDB9;">(</span><span style="color: #6D6B5C;">defmethod</span> <span style="color: #484639;">cl-ds.alg.meta:begin-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">(</span>aggregator group-by-aggregator<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span>
   <span style="color: #AAA896;">(</span>iterate
-    <span style="color: #CFCDB9;">(</span>for <span style="color: #E6E4CF;">(</span>key value<span style="color: #E6E4CF;">)</span> in-hashtable <span style="color: #E6E4CF;">(</span>read-groups aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>begin-aggregation value<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>for <span style="color: #484639;">(</span>key value<span style="color: #484639;">)</span> in-hashtable <span style="color: #484639;">(</span>read-groups aggregator<span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>begin-aggregation value<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span><span style="color: #CFCDB9;">)</span>
 
 
-<span style="color: #6D6B5C;">(</span><span style="color: #FFFFED;">defmethod</span> <span style="color: #E6E4CF;">cl-ds.alg.meta:end-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #CFCDB9;">(</span>aggregator group-by-aggregator<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span>
-<span style="color: #CFCDB9;">;; </span><span style="color: #AAA896; font-style: italic;">iterate is just as dope as metabang-bind</span>
+<span style="color: #CFCDB9;">(</span><span style="color: #6D6B5C;">defmethod</span> <span style="color: #484639;">cl-ds.alg.meta:end-aggregation</span> <span style="color: #AAA896;">(</span><span style="color: #6D6B5C;">(</span>aggregator group-by-aggregator<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span>
+<span style="color: #6D6B5C;">;; </span><span style="color: #AAA896; font-style: italic;">iterate is just as dope as metabang-bind</span>
   <span style="color: #AAA896;">(</span>iterate
-    <span style="color: #CFCDB9;">(</span>for <span style="color: #E6E4CF;">(</span>key value<span style="color: #E6E4CF;">)</span> in-hashtable <span style="color: #E6E4CF;">(</span>read-groups aggregator<span style="color: #E6E4CF;">)</span><span style="color: #CFCDB9;">)</span>
-    <span style="color: #CFCDB9;">(</span>end-aggregation value<span style="color: #CFCDB9;">)</span><span style="color: #AAA896;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>for <span style="color: #484639;">(</span>key value<span style="color: #484639;">)</span> in-hashtable <span style="color: #484639;">(</span>read-groups aggregator<span style="color: #484639;">)</span><span style="color: #6D6B5C;">)</span>
+    <span style="color: #6D6B5C;">(</span>end-aggregation value<span style="color: #6D6B5C;">)</span><span style="color: #AAA896;">)</span><span style="color: #CFCDB9;">)</span>
 </pre>
 </div>
 <p>
@@ -256,9 +483,6 @@ And that's all. Stay tuned for more information on this.
 </p>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="date">Created: 2021-01-23 sob 15:39</p>
 </div>
 </body>
 </html>

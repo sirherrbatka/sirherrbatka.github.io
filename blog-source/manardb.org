@@ -1,9 +1,11 @@
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./static/main.css" />
 #+TITLE:       Manardb
 #+DATE:        2020-12-18
 #+TAGS:        programming
 #+KEYWORDS:    lisp,memory
 #+DESCRIPTION: A few remarks about the manardb.
 #+LANGUAGE:    en
+#+OPTIONS: html-postamble:nil
 
 You are running out of heap space in your Common Lisp system? Does your garbage collector hate you? You need something that would keep your objects away from the RAM, but at the same time would impose a minimal performance penalty. You, my friend, need manardb!
 
